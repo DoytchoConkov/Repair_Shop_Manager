@@ -25,7 +25,7 @@
                 </option>
             </select>
         </div>
-        <div th:each="role: ${T(мainPackage.models.entities.RoleName).values()}">
+        <div th:each="role: ${T(mainPackage.models.entities.RoleName).values()}">
             <div class="form-group">
                 <label class="text-white font-weight-bold" >
                     <input th:field="${userRolesBindingModel.roles}" name="roles"  type="checkbox"
