@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:include="~{fragments/head}"></th:block>
+
+<body>
+
+<th:block th:include="~{fragments/nav-bar}"></th:block>
+
+<main>
+    <div class="container">
+        <h2 class="text-center text-white m-3">Order</h2>
+        <div class='row mb-8 d-flex justify-content-around'>
+            <form th:each="p : ${order}" th:object="${p}"
+                  class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+                <p th:text="*{brand}"></p>
+                <p th:text="*{model}"></p>
+                <p th:text="*{serialNumber}"></p>
+                <p th:text="*{clientName}"></p>
+                <p th:text="*{damage}"></p>
+                <p th:text="*{notes}"></p>
+            </form>
+        </div>
+    </div>
+</main>
+
+<th:block th:include="~{fragments/footer}"></th:block>
+
+</body>
+</html>

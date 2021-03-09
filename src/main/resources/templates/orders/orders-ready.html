@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+
+<th:block th:include="~{fragments/head}"></th:block>
+
+
+<body>
+
+<th:block th:include="~{fragments/nav-bar}"></th:block>
+
+<div class="container">
+    <h2 class="text-center text-white m-3">Repaired Orders</h2>
+    <div class='row mb-4 d-flex justify-content-around'>
+        <div class="brand-section col-md-5 mr-auto d-flex flex-column">
+            <table>
+                <tr>
+                    <th>Brand</th>
+                    <th>Model</th>
+                    <th>Serial Number</th>
+                    <th>Damage</th>
+                    <th>Price</th>
+                    <th>Client name</th>
+                    <th>Pay</th>
+                </tr>
+                <tr th:each="pr : ${orderReadyViewModels}">
+                    <td th:text="${pr.brand}">Brand</td>
+                    <td th:text="${pr.model}">Model</td>
+                    <td th:text="${pr.serialNumber}">Serial Number</td>
+                    <td th:text="${pr.damage}">Damage</td>
+                    <td th:text="${pr.price}">Price</td>
+                    <td th:text="${pr.clientName}">Client</td>
+                    <th><a class="nav-link" th:href="@{/back-office/order-export/{id}(id=${pr.id})}">Pay Now</a></th>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<th:block th:include="~{fragments/footer}"></th:block>
+
+</body>
+</html>

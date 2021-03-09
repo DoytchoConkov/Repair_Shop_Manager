@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:include="~{fragments/head}"></th:block>
+
+<body>
+<header>
+    <th:block th:include="~{fragments/nav-bar}"></th:block>
+</header>
+<div class="container">
+    <h2 class="text-center text-white">Receive Order</h2>
+    <form th:object="${OrderReceiveBindingModel}" method="post" th:action="@{/front-office/receive}"
+          class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+        <div class="row">
+            <div class="form-group col-md-6 mb-3">
+                <label class="text-white font-weight-bold" for="brand">Brand</label>
+                <input th:field="*{brand}" th:errorclass="bg-danger" id="brand" type="text" class="form-control"
+                       list="brandsList"
+                       placeholder="Brand">
+                <datalist id="brandsList" >
+                    <option th:each="brand : ${brands}" th:value="${brand.brandName}" th:text="${brand.brandName}">
+                </datalist>
+                <small th:each="e : ${#fields.errors('brand')}" th:text="${e}" id="brandError"
+                       class="text-light form-text bg-danger rounded">Username length must be more than 3
+                    characters</small>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+                <label class="text-white font-weight-bold" for="model">Model</label>
+                <input th:field="*{model}" th:errorclass="bg-danger" id="model" type="text" class="form-control"
+                       list="modelsList"
+                       placeholder="Model">
+                <datalist id="modelsList" >
+                    <optgroup th:each="brand : ${brands}" th:label="${brand.brandName}">
+                        <div th:each="model: ${brand.models}">
+                            <option th:value="${model.modelName}" th:text="${model.modelName}">Model</option>
+                        </div>
+                    </optgroup>
+                </datalist>
+                <small th:each="e : ${#fields.errors('model')}" th:text="${e}" id="modelError"
+                       class="text-light form-text bg-danger rounded">Username length must be more than 3
+                    characters</small>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+                <label class="text-white font-weight-bold" for="serialNumber">Serial Number</label>
+                <input th:field="*{serialNumber}" th:errorclass="bg-danger" id="serialNumber" type="text"
+                       class="form-control"
+                       placeholder="Serial number">
+                <small th:each="e : ${#fields.errors('serialNumber')}" th:text="${e}" id="serialNumberError"
+                       class="text-light form-text bg-danger rounded">Username length must be more than 3
+                    characters</small>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+                <label class="text-white font-weight-bold" for="damage">Damage</label>
+                <input th:field="*{damage}" th:errorclass="bg-danger" id="damage" type="text" class="form-control"
+                       list="damageList"
+                       placeholder="Damage">
+                <datalist id="damageList">
+                    <option th:each="damage : ${damages}" th:value="${damage.damageName}" th:text="${damage.damageName}">
+                </datalist>
+                <small th:each="e : ${#fields.errors('damage')}" th:text="${e}" id="damageError"
+                       class="text-light form-text bg-danger rounded">Username length must be more than 3
+                    characters</small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="text-white font-weight-bold" for="orderNote">Order Note</label>
+            <textarea th:field="*{orderNote}" th:errorclass="bg-danger" id="orderNote" type="textarea"
+                      class="form-control" rows="3"
+                      placeholder="Note"></textarea>
+        </div>
+        <div class="form-group ">
+            <label class="text-white font-weight-bold" for="clientName">Full Name</label>
+            <input th:field="*{clientName}" th:errorclass="bg-danger" id="clientName" type="text" class="form-control"
+                   placeholder="Client Full Name">
+            <small th:each="e : ${#fields.errors('clientName')}" th:text="${e}" id="clientNameError"
+                   class="text-light form-text bg-danger rounded">Username length must be more than 3
+                characters</small>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6 mb-3">
+                <label class="text-white font-weight-bold" for="clientEmail">Email</label>
+                <input th:field="*{clientEmail}" th:errorclass="bg-danger" id="clientEmail" type="email"
+                       class="form-control"
+                       placeholder="Client Email">
+                <small th:each="e : ${#fields.errors('clientEmail')}" th:text="${e}" id="clientEmailError"
+                       class="text-light form-text bg-danger rounded">Username length must be more than 3
+                    characters</small>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+                <label class="text-white font-weight-bold" for="clientPhoneNumber">Phone Number</label>
+                <input th:field="*{clientPhoneNumber}" th:errorclass="bg-danger" id="clientPhoneNumber" type="text"
+                       class="form-control"
+                       placeholder="Client Phone Number">
+                <small th:each="e : ${#fields.errors('clientPhoneNumber')}" th:text="${e}" id="clientPhoneNumberError"
+                       class="text-light form-text bg-danger rounded">Username length must be more than 3
+                    characters</small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="text-white font-weight-bold" for="clientNote">Client Note</label>
+            <textarea th:field="*{clientNote}" th:errorclass="bg-danger" id="clientNote" type="textarea"
+                      class="form-control" rows="3"
+                      placeholder="Note"></textarea>
+        </div>
+        <div class="row">
+            <div class="col col-md-4">
+                <div class="button-holder d-flex">
+                    <input type="submit" class="btn btn-info btn-lg" value="Submit Order"/>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<th:block th:include="~{fragments/footer}"></th:block>
+
+</body>
+</html>

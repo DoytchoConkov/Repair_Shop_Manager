@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body>
+<th:block th:fragment>
+    <div>
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
+            <th:block sec:authorize="isAuthenticated()">
+                <a class="navbar-brand" href="/index"><img alt="RSM picture" src="/img/logo.png" class="logo"></a>
+            </th:block>
+            <th:block sec:authorize="isAnonymous()">
+                <a class="navbar-brand" href="/"><img alt="RSM picture" src="/img/logo.png" class="logo"></a>
+            </th:block>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <th:block sec:authorize="isAnonymous()"><h5 style="color:White;">Welcome to RepairShopManager</h5>
+            </th:block>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto col-12 justify-content-between">
+                    <li class="nav-item">
+                        <th:block sec:authorize="isAuthenticated()">
+                            <a class="nav-link" href="/front-office/receive">Receive Order</a>
+                        </th:block>
+                    </li>
+                    <li class="nav-item">
+                        <th:block sec:authorize="isAuthenticated()">
+                            <a class="nav-link" href="/front-office/export">Fixed Orders</a>
+                        </th:block>
+                    </li>
+                    <li class="nav-item">
+                        <th:block sec:authorize="isAuthenticated()">
+                            <a class="nav-link" href="/front-office/client-info">Client Orders</a>
+                        </th:block>
+                    </li>
+                    <li class="nav-item">
+                        <th:block sec:authorize="isAuthenticated()">
+                            <a class="nav-link" href="/back-office/all">Choose Order</a>
+                        </th:block>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <th:block sec:authorize="isAuthenticated()">
+                            <a class="nav-link dropdown-toggle" href="/" id="navbarDropdownInfo" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Info</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownInfo">
+                                <a class="dropdown-item" href="/senior/income-info">Income per Period</a>
+                            </div>
+                        </th:block>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <th:block sec:authorize="isAuthenticated()">
+                            <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Senior Tool Box</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/senior/add-spare-parts">Add Spare Part</a>
+                                <a class="dropdown-item" href="/senior/view-spare-parts">View/Edit Spare Parts</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/senior/edit-orders">Edit Order</a>
+                            </div>
+                        </th:block>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <th:block sec:authorize="isAuthenticated()">
+                            <a class="nav-link dropdown-toggle" href="/" id="navbarDropdownAdmin" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin Tool Box</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownAdmin">
+                                <a class="dropdown-item" href="/admin/set-user-role">Set Users Roles</a>
+                            </div>
+                        </th:block>
+                    </li>
+                    <th:block sec:authorize="isAuthenticated()">
+
+                        <li class="nav-item">
+                            <div class="form-inline my-2 my-lg-0 border px-3">
+                                                    <span class="logged-user"
+                                                          th:text="|Welcome, ${#authentication.getPrincipal().getUsername()}|"></span>
+                                <span class="logged-user">!</span>
+                            </div>
+                        </li>
+                        <li>
+                            <form th:action="@{/logout}" method="POST">
+                                <button type="submit" class="btn-dark">
+                                    Logout
+                                </button>
+                            </form>
+                        </li>
+                    </th:block>
+                    <th:block sec:authorize="isAnonymous()">
+                        <li class=" nav-item">
+                            <a class="nav-link" th:href="@{/users/login}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/users/register}">Register</a>
+                        </li>
+                    </th:block>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</th:block>
+</body>

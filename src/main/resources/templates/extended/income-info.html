@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+</head>
+
+<body>
+
+<div>
+    <th:block th:include="~{fragments/nav-bar}"></th:block>
+</div>
+
+
+<div class="container">
+    <h2 class="text-center text-white m-3">Income Info</h2>
+    <div class='row mb-4 d-flex justify-content-around'>
+        <div class="brand-section col-md-5 mr-auto d-flex flex-column">
+            <table>
+                <tr>
+                    <th>No</th>
+                    <th>Brand</th>
+                    <th>Model</th>
+                    <th>Serial Number</th>
+                    <th>Damage</th>
+                    <th>Price</th>
+                </tr>
+                <tr>
+                    <th>No</th>
+                    <th>Brand</th>
+                    <th>Model</th>
+                    <th>Serial Number</th>
+                    <th>Damage</th>
+                    <th>Price</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div>
+		<footer><th:block th:include="~{fragments/footer}"></th:block></footer>
+</div>
+
+</body>
+</html>
