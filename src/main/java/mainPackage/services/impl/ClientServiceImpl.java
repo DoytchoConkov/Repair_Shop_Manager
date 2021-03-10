@@ -33,8 +33,8 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public List<ClientViewModel> findAll() {
-        return clientRepository.findAll().stream().map(cl->modelMapper.map(cl, ClientViewModel.class))
-                .collect(Collectors.toList());
+    public List<ClientViewModel> getAllClientNames() {
+        return clientRepository.findAll().stream().map(cl->modelMapper.map(cl,ClientViewModel.class)).collect(Collectors.toList());
     }
+
 }

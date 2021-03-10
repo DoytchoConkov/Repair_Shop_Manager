@@ -74,7 +74,7 @@ public class SeniorController {
     @GetMapping("/view-spare-parts")
     @PreAuthorize("isAuthenticated()")
     public String viewSpareParts(Model model) {
-        model.addAttribute("spareParts", sparePartsService.getAllSpareParts());
+        model.addAttribute("spareParts", sparePartsService.getAll());
         return "/extended/view-spare-parts";
     }
 

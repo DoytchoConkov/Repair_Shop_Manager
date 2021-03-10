@@ -8,6 +8,7 @@ import mainPackage.models.views.BrandViewModel;
 import mainPackage.models.views.DamageViewModel;
 import mainPackage.models.views.OrderReadyViewModel;
 import mainPackage.services.BrandService;
+import mainPackage.services.ClientService;
 import mainPackage.services.DamageService;
 import mainPackage.services.OrderService;
 import org.modelmapper.ModelMapper;
@@ -29,12 +30,14 @@ public class FrontOfficeController {
     private final OrderService orderService;
     private final DamageService damageService;
     private final BrandService brandService;
+    private final ClientService clientService;
 
-    public FrontOfficeController(ModelMapper modelMapper, OrderService orderService, DamageService damageService, BrandService brandService) {
+    public FrontOfficeController(ModelMapper modelMapper, OrderService orderService, DamageService damageService, BrandService brandService, ClientService clientService) {
         this.modelMapper = modelMapper;
         this.orderService = orderService;
         this.damageService = damageService;
         this.brandService = brandService;
+        this.clientService = clientService;
     }
 
     @GetMapping("/export")
@@ -80,7 +83,11 @@ public class FrontOfficeController {
 
     @GetMapping("/client-info")
     @PreAuthorize("isAuthenticated()")
-    public String clientInfo() {
+    public String clientInfo(Model model) {
+        model.addAttribute("clients", clientService.getAllClientNames());
+//        if(!model.containsAttribute("clientName")){
+//            model.addAttribute("clientName", new ClientBindingModel());
+//        }
         return "/info/client-info";
     }
 

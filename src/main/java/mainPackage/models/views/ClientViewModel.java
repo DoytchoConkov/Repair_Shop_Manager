@@ -1,10 +1,19 @@
 package mainPackage.models.views;
 
 public class ClientViewModel {
+    private Long id;
     private String clientName;
     private String clientPhoneNumber;
 
     public ClientViewModel() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getClientName() {

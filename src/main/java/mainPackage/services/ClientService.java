@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface ClientService {
     Client findByNameAndPhoneNumber(ClientServiceModel clientServiceModel);
-    List<ClientViewModel> findAll();
+
+    List<ClientViewModel> getAllClientNames();
 }

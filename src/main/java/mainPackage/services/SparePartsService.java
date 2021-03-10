@@ -9,7 +9,8 @@ public interface SparePartsService {
     List<SparePartViewModel> getAll();
 
     void save(SparePartServiceModel sparePart);
-    List<SparePartViewModel> getAllSpareParts();
 
     SparePartViewModel getById(Long id);
+
+    List<SparePartViewModel> getByBrandAndModel(String brandName,String modelName);
 }

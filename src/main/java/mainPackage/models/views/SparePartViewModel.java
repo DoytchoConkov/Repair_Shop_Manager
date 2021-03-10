@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class SparePartViewModel {
     private Long id;
-    private String brandName;
+    private String brand;
     private String model;
     private String sparePartName;
     private BigDecimal price;
@@ -22,11 +22,11 @@ public class SparePartViewModel {
     }
 
     public String getBrand() {
-        return brandName;
+        return brand;
     }
 
     public void setBrand(String brand) {
-        this.brandName = brand;
+        this.brand = brand;
     }
 
     public String getModel() {
@@ -53,9 +53,7 @@ public class SparePartViewModel {
         this.price = price;
     }
 
-    public int getPieces() {
-        return pieces;
-    }
+    public int getPieces() { return pieces; }
 
     public void setPieces(int pieces) {
         this.pieces = pieces;
