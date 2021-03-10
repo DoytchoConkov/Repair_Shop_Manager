@@ -40,6 +40,6 @@ public class BackOfficeController {
     @PreAuthorize("isAuthenticated()")
     public String OrdersToRepair(@PathVariable Long id, Model model) {
         model.addAttribute("order", orderService.getById(id));
-        return "/orders/orders-details";
+        return "/orders/order-details";
     }
 }

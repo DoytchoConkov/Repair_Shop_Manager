@@ -11,12 +11,14 @@
     <h2 class="text-center text-white">Client orders info.</h2>
     <form class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
         <div class="form-group">
-            <label class="text-white font-weight-bold" >Select client.</label><br>
-<!--            <input id="clientName" type="text" class="form-control" list="clientList"-->
-<!--                   placeholder="Put Brand here">-->
-            <select id="clientList">
-                <option th:each="cl : ${clients}" class="block"
-                         th:text="|${cl.clientName} ${cl.clientPhoneNumber}|" th:value="${cl.id}">
+            <label class="text-white font-weight-bold" for="clientName">Select client</label>
+            <select name="clientName" id="clientName"
+                    class="custom-select">
+                <option value="" selected>Select client</option>
+                <option th:each="cl : ${clients}" th:object="${cl}" th:value="*{id}"
+                        th:text="|*{clientName} *{clientPhoneNumber}|">
+                    Select username
+                </option>
             </select>
         </div>
     </form>

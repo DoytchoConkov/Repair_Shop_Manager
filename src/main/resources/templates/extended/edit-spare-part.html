@@ -14,12 +14,11 @@
     <div class='row mb-8 d-flex justify-content-around'>
         <form th:each="sp : ${sparePart}" th:object="${sp}"
               class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
-            <p th:text="*{brand}"></p>
-            <p th:text="*{model}"></p>
-            <p th:text="*{sparePartName}"></p>
-            <p th:text="*{pieces}"></p>
-            <p th:text="*{price}"></p>
-            <th><a class="nav-link" th:href="@{/senior/spare_part/{id}(id=*{id})}">Edit</a></th>
+            <p class="text-white float-left" th:text="|Brand: *{brand}|"></p>
+            <p class="text-white float-left" th:text="|Model: *{model}|"></p>
+            <p class="text-white float-left" th:text="|Spare part name: *{sparePartName}|"></p>
+            <p class="text-white float-left" th:text="|Pieces: *{pieces}"></p>
+            <p class="text-white float-left" th:text="|Price: *{price}"></p>
         </form>
     </div>
 </div>

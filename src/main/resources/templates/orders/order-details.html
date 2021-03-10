@@ -11,14 +11,14 @@
     <div class="container">
         <h2 class="text-center text-white m-3">Order</h2>
         <div class='row mb-8 d-flex justify-content-around'>
-            <form th:each="p : ${order}" th:object="${p}"
+            <form  th:object="${order}"
                   class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
-                <p th:text="*{brand}"></p>
-                <p th:text="*{model}"></p>
-                <p th:text="*{serialNumber}"></p>
-                <p th:text="*{clientName}"></p>
-                <p th:text="*{damage}"></p>
-                <p th:text="*{notes}"></p>
+                <p class="text-white float-left" th:text="|Brand: *{brand}|"></p>
+                <p class="text-white float-left" th:text="|Model: *{model}|"></p>
+                <p class="text-white float-left" th:text="|Serial number: *{serialNumber}|"></p>
+                <p class="text-white float-left" th:text="|Damage: *{damage}|"></p>
+                <p class="text-white float-left" th:text="*{notes} ?: ''"></p>
+                <p class="text-white float-left" th:text="|Client name: *{clientName}|"></p>
             </form>
         </div>
     </div>
