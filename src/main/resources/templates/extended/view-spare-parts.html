@@ -30,8 +30,16 @@
                     <td th:text="*{sparePartName}">Serial Number</td>
                     <td th:text="*{pieces}">Damage</td>
                     <td th:text="*{price}">Damage</td>
-                    <th><a class="nav-link" th:href="@{/senior/spare_parts/edit/{id}(id=*{id})}">Edit</a></th>
-                    <th><a class="nav-link" th:href="@{/senior/spare_parts/delete/{id}(id=*{id})}">Delete</a></th>
+                    <div class="card-body">
+                        <th><a class="nav-link" th:href="@{/senior/spare_parts/edit/{id}(id=*{id})}">Edit</a></th>
+                        <form th:action="@{/senior/spare_part/delete/{id}(id=*{id})}"
+                              th:method="delete">
+                            <input
+                                    class="btn-sm"
+                                    type="submit"
+                                    value="Delete">
+                        </form>
+                    </div>
                 </tr>
                 </tbody>
             </table>

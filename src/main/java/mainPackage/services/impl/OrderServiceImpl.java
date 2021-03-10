@@ -78,4 +78,9 @@ public class OrderServiceImpl implements OrderService {
         OrderNotReadyViewModel.setBrand(order.getModel().getBrand().getBrandName());
         return OrderNotReadyViewModel;
     }
+
+    @Override
+    public void deleteOrder(Long id) {
+        orderRepository.deleteById(id);
+    }
 }

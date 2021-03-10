@@ -13,4 +13,6 @@ public interface OrderService {
     List<OrderReadyViewModel> getReady();
 
     OrderNotReadyViewModel getById(Long id);
+
+    void deleteOrder(Long id);
 }

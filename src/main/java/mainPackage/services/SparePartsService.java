@@ -13,4 +13,6 @@ public interface SparePartsService {
     SparePartViewModel getById(Long id);
 
     List<SparePartViewModel> getByBrandAndModel(String brandName,String modelName);
+
+    void deleteSparePart(Long id);
 }

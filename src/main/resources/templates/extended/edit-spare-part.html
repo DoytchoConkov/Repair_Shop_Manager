@@ -19,6 +19,7 @@
             <p th:text="*{sparePartName}"></p>
             <p th:text="*{pieces}"></p>
             <p th:text="*{price}"></p>
+            <th><a class="nav-link" th:href="@{/senior/spare_part/{id}(id=*{id})}">Edit</a></th>
         </form>
     </div>
 </div>

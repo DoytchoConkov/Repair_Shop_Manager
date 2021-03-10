@@ -97,4 +97,23 @@ public class SeniorController {
     public String incomeInfo() {
         return "/extended/income-info";
     }
+
+    @DeleteMapping("/spare_part/delete/{id}")
+    public String deleteSparePart(@PathVariable Long id,
+                         Model model) {
+
+        sparePartsService.deleteSparePart(id);
+
+        return "redirect:/senior/view-spare-parts";
+    }
+
+    @DeleteMapping("/order/delete/{id}")
+    public String deleteOrder(@PathVariable Long id,
+                                  Model model) {
+
+        orderService.deleteOrder(id);
+
+        return "redirect:/senior/view-spare-parts";
+    }
+
 }

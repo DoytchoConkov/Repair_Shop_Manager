@@ -64,4 +64,9 @@ public class SparePartsServiceImpl implements SparePartsService {
     public List<SparePartViewModel> getByBrandAndModel(String brandName, String modelName) {
         return null;
     }
+
+    @Override
+    public void deleteSparePart(Long id) {
+        sparePartsRepository.deleteById(id);
+    }
 }
