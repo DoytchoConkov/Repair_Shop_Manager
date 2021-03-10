@@ -26,11 +26,6 @@ public class UserControler {
         this.modelMapper = modelMapper;
     }
 
-//    @ModelAttribute("registrationBindingModel")
-//    public UserRegistrationBindingModel createBindingModel() {
-//        return new UserRegistrationBindingModel();
-//    }
-
     @GetMapping("/register")
     @PreAuthorize("isAnonymous()")
     public String register(Model model) {
@@ -68,7 +63,7 @@ public class UserControler {
     }
 
     @GetMapping("/login")
-//   @PreAuthorize("isAnonymous()")
+    @PreAuthorize("isAnonymous()")
     public String login() {
         return "/user/auth-login";
     }
@@ -76,12 +71,11 @@ public class UserControler {
 
     @PostMapping("/login-error")
     public ModelAndView failedLogin(@ModelAttribute(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
-                                            String username) {
+                                            String username, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("bad_credentials", true);
-        modelAndView.addObject("username", username);
-        modelAndView.setViewName("/user/auth-login");
-        // TODO:
+        redirectAttributes.addFlashAttribute("bad_credentials", true);
+        redirectAttributes.addFlashAttribute("username", username);
+        modelAndView.setViewName("redirect:/users/login");
         return modelAndView;
     }
 
