@@ -4,6 +4,8 @@ import mainPackage.models.bindings.UserRolesBindingModel;
 import mainPackage.services.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,6 +44,12 @@ public class AdminControler {
             redirectAttributes.addFlashAttribute("incorect", true);
             return "redirect:/admin/set-user-role";
         }
+        String username = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+         if(userRolesBindingModel.getUsername().equals(username)&&userService.isMoreOneAdmin()&&!userRolesBindingModel.getRoles().contains("ADMIN")){
+             redirectAttributes.addFlashAttribute("userRolesBindingModel", userRolesBindingModel);
+             redirectAttributes.addFlashAttribute("minOneAdmin", true);
+             return "redirect:/admin/set-user-role";
+         }
         userService.setRoles(userRolesBindingModel);
         return "/index";
     }

@@ -1,9 +1,6 @@
 package mainPackage.web;
 
-import mainPackage.models.bindings.SparePartBindingModel;
-import mainPackage.models.services.SparePartServiceModel;
-import mainPackage.models.views.BrandViewModel;
-import mainPackage.models.views.SparePartViewModel;
+import mainPackage.models.entities.SparePart;
 import mainPackage.services.BrandService;
 import mainPackage.services.OrderService;
 import mainPackage.services.SparePartsService;
@@ -11,12 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @RequestMapping("/senior")
@@ -33,37 +25,6 @@ public class SeniorController {
         this.sparePartsService = sparePartsService;
         this.orderService = orderService;
     }
-
-    @GetMapping("/add-spare-parts")
-    @PreAuthorize("isAuthenticated()")
-    public String addSparePart(Model model) {
-        List<BrandViewModel> brands = brandService.getAll();
-        model.addAttribute("brands", brands);
-        List<SparePartViewModel> spareParts = sparePartsService.getAll();
-        model.addAttribute("spareParts", spareParts);
-        if (!model.containsAttribute("sparePartsReceiveBindingModel")) {
-            model.addAttribute("sparePartsReceiveBindingModel", new SparePartBindingModel());
-        }
-        return "/extended/add-spare-part";
-    }
-
-    @PostMapping("/add-spare-parts")
-    @PreAuthorize("isAuthenticated()")
-    public String addSparePartConfirm(@Valid @ModelAttribute("sparePartsReceiveBindingModel")
-                                              SparePartBindingModel sparePartsReceiveBindingModel,
-                                      BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("sparePartsReceiveBindingModel", sparePartsReceiveBindingModel);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.sparePartsReceiveBindingModel",
-                    bindingResult);
-            return "redirect:/add-spare-parts";
-        }
-        sparePartsService.save(modelMapper.map(sparePartsReceiveBindingModel, SparePartServiceModel.class));
-
-
-        return "redirect:/index";
-    }
-
 
     @GetMapping("/edit-spare-parts")
     @PreAuthorize("isAuthenticated()")
@@ -100,16 +61,21 @@ public class SeniorController {
 
     @DeleteMapping("/spare_part/delete/{id}")
     public String deleteSparePart(@PathVariable Long id,
-                         Model model) {
+                                  Model model) {
+        SparePart sparePart = sparePartsService.findById(id);
+        if (orderService.isContainSparePart(sparePart.getId())) {
+            sparePart.setPieces(0);
+            sparePartsService.update(sparePart);
+        } else {
+            sparePartsService.deleteSparePart(id);
+        }
 
-        sparePartsService.deleteSparePart(id);
-
-        return "redirect:/senior/view-spare-parts";
+        return "redirect:/";
     }
 
     @DeleteMapping("/order/delete/{id}")
     public String deleteOrder(@PathVariable Long id,
-                                  Model model) {
+                              Model model) {
 
         orderService.deleteOrder(id);
 

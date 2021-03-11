@@ -17,4 +17,6 @@ public interface UserService extends UserDetailsService {
     List<UserViewModel> getUsers();
 
     void setRoles(UserRolesBindingModel userRolesBindingModel);
+
+    boolean isMoreOneAdmin();
 }

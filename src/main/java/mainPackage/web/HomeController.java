@@ -17,7 +17,6 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    @PreAuthorize("isAnonymous()")
     public String index() {
         return "/index";
     }
@@ -25,6 +24,8 @@ public class HomeController {
     @GetMapping("/index")
     @PreAuthorize("isAuthenticated()")
     public String home(ModelAndView modelAndView) {
+        //TODO fix user roles !!!
+
         boolean areFrontOffice = true;
         boolean areBackOffice = true;
 

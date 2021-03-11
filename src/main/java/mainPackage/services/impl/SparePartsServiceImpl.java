@@ -69,4 +69,14 @@ public class SparePartsServiceImpl implements SparePartsService {
     public void deleteSparePart(Long id) {
         sparePartsRepository.deleteById(id);
     }
+
+    @Override
+    public SparePart findById(Long id) {
+        return sparePartsRepository.findById(id).orElseThrow();
+    }
+
+    @Override
+    public void update(SparePart sparePart) {
+        sparePartsRepository.save(sparePart);
+    }
 }

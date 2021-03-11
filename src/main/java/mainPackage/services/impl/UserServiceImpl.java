@@ -96,6 +96,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean isMoreOneAdmin() {
+        int admins = userRepository.findAdminUsers();
+        return admins==1;
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         return (UserDetails) this.userRepository
                 .findByUsername(s)

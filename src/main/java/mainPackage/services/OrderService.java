@@ -1,5 +1,6 @@
 package mainPackage.services;
 
+import mainPackage.models.entities.SparePart;
 import mainPackage.models.views.OrderNotReadyViewModel;
 import mainPackage.models.services.OrderReceiveServiceModel;
 import mainPackage.models.views.OrderReadyViewModel;
@@ -15,4 +16,6 @@ public interface OrderService {
     OrderNotReadyViewModel getById(Long id);
 
     void deleteOrder(Long id);
+
+    boolean isContainSparePart(Long id);
 }
