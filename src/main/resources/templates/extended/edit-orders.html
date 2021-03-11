@@ -30,7 +30,7 @@
                     <td th:text="${pr.damage}">Damage</td>
                     <td th:text="${pr.price}">Price</td>
                     <td th:text="${pr.clientName}">Client</td>
-                    <th><a class="nav-link" th:href="@{/senior/order/edit/{id}(id=${pr.id})}">Edit</a></th>
+                    <th><a class="nav-link" th:href="@{/senior/order/make-not-fixed/{id}(id=${pr.id})}">Make Not Fixed</a></th>
                     <form th:action="@{/senior/order/delete/id(id=${pr.id})}"
                           th:method="delete">
                         <input

@@ -1,6 +1,8 @@
 package mainPackage.web;
 
+import mainPackage.models.bindings.SparePartBindingModel;
 import mainPackage.models.entities.SparePart;
+import mainPackage.models.views.BrandViewModel;
 import mainPackage.services.BrandService;
 import mainPackage.services.OrderService;
 import mainPackage.services.SparePartsService;
@@ -9,6 +11,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/senior")
@@ -28,22 +32,14 @@ public class SeniorController {
 
     @GetMapping("/edit-spare-parts")
     @PreAuthorize("isAuthenticated()")
-    public String editSparePart() {
-        return "edit-spare-part";
-    }
-
-    @GetMapping("/view-spare-parts")
-    @PreAuthorize("isAuthenticated()")
     public String viewSpareParts(Model model) {
-        model.addAttribute("spareParts", sparePartsService.getAll());
-        return "/extended/view-spare-parts";
-    }
-
-    @GetMapping("/spare_parts/edit/{id}")
-    @PreAuthorize("isAuthenticated()")
-    public String editSparePart(@PathVariable Long id, Model model) {
-        model.addAttribute("sparePart", sparePartsService.getById(id));
-        return "/extended/edit-spare-part";
+        if (!model.containsAttribute("sparePartsReceiveBindingModel")) {
+            model.addAttribute("sparePartsReceiveBindingModel", new SparePartBindingModel());
+        }
+        List<BrandViewModel> brands = brandService.getAll();
+        model.addAttribute("brands", brands);
+//        model.addAttribute("spareParts", sparePartsService.getAll());
+        return "/extended/edit-spare-parts";
     }
 
     @GetMapping("/edit-orders")
@@ -79,7 +75,7 @@ public class SeniorController {
 
         orderService.deleteOrder(id);
 
-        return "redirect:/senior/view-spare-parts";
+        return "redirect:/senior/edit-spare-parts";
     }
 
 }

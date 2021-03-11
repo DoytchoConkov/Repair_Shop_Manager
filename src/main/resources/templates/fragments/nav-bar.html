@@ -30,17 +30,7 @@
                     </li>
                     <li class="nav-item">
                         <th:block sec:authorize="isAuthenticated()">
-                            <a class="nav-link" href="/front-office/client-info">Client Orders</a>
-                        </th:block>
-                    </li>
-                    <li class="nav-item">
-                        <th:block sec:authorize="isAuthenticated()">
-                            <a class="nav-link" href="/front-office/order-info">Info By S.N.</a>
-                        </th:block>
-                    </li>
-                    <li class="nav-item">
-                        <th:block sec:authorize="isAuthenticated()">
-                            <a class="nav-link" href="/back-office/all">Fix Order</a>
+                            <a class="nav-link" href="/back-office/not-fixed">Fix Order</a>
                         </th:block>
                     </li>
                     <li class="nav-item">
@@ -53,7 +43,9 @@
                             <a class="nav-link dropdown-toggle" href="/" id="navbarDropdownInfo" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Info</a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownInfo">
-                                <a class="dropdown-item" href="/senior/income-info">Income per Period</a>
+                                <a class="dropdown-item" href="/front-office/client-info">Client Orders</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/front-office/order-info">Info By S.N.</a>
                             </div>
                         </th:block>
                     </li>
@@ -62,7 +54,9 @@
                             <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Senior Tool Box</a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/senior/view-spare-parts">Edit/Delete Spare Parts</a>
+                                <a class="dropdown-item" href="/senior/income-info">Income per Period</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/senior/edit-spare-parts">Edit/Delete Spare Parts</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="/senior/edit-orders">Edit/Delete Order</a>
                             </div>

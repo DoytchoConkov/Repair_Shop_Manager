@@ -34,7 +34,7 @@ public class BackOfficeController {
         this.sparePartsService = sparePartsService;
     }
 
-    @GetMapping("/all")
+    @GetMapping("/not-fixed")
     @PreAuthorize("isAuthenticated()")
     public String OrdersToRepairAll(Model model) {
         List<OrderNotReadyViewModel> orderNotReadyViewModels = orderService.getNotReady();
@@ -50,7 +50,7 @@ public class BackOfficeController {
     @PreAuthorize("isAuthenticated()")
     public String OrdersToRepair(@PathVariable Long id, Model model) {
         model.addAttribute("order", orderService.getById(id));
-        return "/orders/order-details";
+        return "/orders/order-fixing";
     }
 
     @GetMapping("/add-spare-part")

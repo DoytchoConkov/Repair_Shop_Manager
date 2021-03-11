@@ -91,7 +91,7 @@ public class FrontOfficeController {
         return "/info/client-info";
     }
 
-    @GetMapping("/orders-info")
+    @GetMapping("/order-info")
     @PreAuthorize("isAuthenticated()")
     public String OrderCheck() {
         return "/info/orders-info";

@@ -11,28 +11,26 @@
 
 <div class="container">
     <h2 class="text-center text-white m-3">Repair Orders</h2>
-    <div class='row mb-8 d-flex justify-content-around'>
-        <div class="brand-section col-md-7 mr-auto d-flex flex-column">
-            <table>
-                <thead></thead>
-                <tr>
-                    <td>Brand</td>
-                    <td>Model</td>
-                    <td>Serial Number</td>
-                    <td>Damage</td>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="pr : ${orderNotReadyViewModels}">
-                    <td th:text="${pr.brand}">Brand</td>
-                    <td th:text="${pr.model}">Model</td>
-                    <td th:text="${pr.serialNumber}">Serial Number</td>
-                    <td th:text="${pr.damage}">Damage</td>
-                    <th><a class="nav-link" th:href="@{/back-office/order-fix/{id}(id=${pr.id})}">Repair Now</a></th>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+    <div class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center text-white">
+        <table class="striped">
+            <thead></thead>
+            <tr>
+                <td>Brand</td>
+                <td>Model</td>
+                <td>Serial Number</td>
+                <td>Damage</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="pr : ${orderNotReadyViewModels}">
+                <td th:text="${pr.brand}">Brand</td>
+                <td th:text="${pr.model}">Model</td>
+                <td th:text="${pr.serialNumber}">Serial Number</td>
+                <td th:text="${pr.damage}">Damage</td>
+                <th><a class="nav-link" th:href="@{/back-office/order-fix/{id}(id=${pr.id})}">Repair Now</a></th>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 

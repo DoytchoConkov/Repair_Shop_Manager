@@ -16,6 +16,7 @@ public class Order extends BaseEntity {
     private LocalDateTime receiveDate;
     private LocalDateTime leaveDate;
     private List<SparePart> spareParts = new ArrayList<>();
+    private BigDecimal totalSparePartsPrice;
     private BigDecimal totalRepairPrice;
     private User user;
     private Client client;
@@ -75,6 +76,15 @@ public class Order extends BaseEntity {
 
     public void setSpareParts(List<SparePart> spareParts) {
         this.spareParts = spareParts;
+    }
+
+    @Column(name = "total_spare_parts_price")
+    public BigDecimal getTotalSparePartsPrice() {
+        return totalSparePartsPrice;
+    }
+
+    public void setTotalSparePartsPrice(BigDecimal totalSparePartsPrice) {
+        this.totalSparePartsPrice = totalSparePartsPrice;
     }
 
     @Column(name = "total_repair_price")
