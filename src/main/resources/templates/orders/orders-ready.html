@@ -11,29 +11,26 @@
 
 <div class="container">
     <h2 class="text-center text-white m-3">Repaired Orders</h2>
-    <div class='row mb-4 d-flex justify-content-around'>
-        <div class="brand-section col-md-5 mr-auto d-flex flex-column">
-            <table>
-                <tr>
-                    <th>Brand</th>
-                    <th>Model</th>
-                    <th>Serial Number</th>
-                    <th>Damage</th>
-                    <th>Price</th>
-                    <th>Client name</th>
-                    <th>Pay</th>
-                </tr>
-                <tr th:each="pr : ${orderReadyViewModels}">
-                    <td th:text="${pr.brand}">Brand</td>
-                    <td th:text="${pr.model}">Model</td>
-                    <td th:text="${pr.serialNumber}">Serial Number</td>
-                    <td th:text="${pr.damage}">Damage</td>
-                    <td th:text="${pr.price}">Price</td>
-                    <td th:text="${pr.clientName}">Client</td>
-                    <th><a class="nav-link" th:href="@{/back-office/order-export/{id}(id=${pr.id})}">Pay Now</a></th>
-                </tr>
-            </table>
-        </div>
+    <div class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center text-white">
+        <table class="striped" th:if="${orderReadyViewModels.size()}>0">
+            <thead>
+            <tr>
+                <td>Brand</td>
+                <td>Model</td>
+                <td>Serial Number</td>
+                <td>Damage</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="pr : ${orderReadyViewModels}">
+                <td th:text="${pr.brand}">Brand</td>
+                <td th:text="${pr.model}">Model</td>
+                <td th:text="${pr.serialNumber}">Serial Number</td>
+                <td th:text="${pr.damage}">Damage</td>
+                <th><a class="nav-link" th:href="@{/front-office/pay-order/{id}(id=${pr.id})}">Pay Now</a></th>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 

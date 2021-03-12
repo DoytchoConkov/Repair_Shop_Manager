@@ -11,36 +11,49 @@
     <th:block th:include="~{fragments/nav-bar}"></th:block>
 </div>
 
-
 <div class="container">
-    <h2 class="text-center text-white m-3">Income Info</h2>
-    <div class='row mb-4 d-flex justify-content-around'>
-        <div class="brand-section col-md-5 mr-auto d-flex flex-column">
-            <table>
-                <tr>
-                    <th>No</th>
-                    <th>Brand</th>
-                    <th>Model</th>
-                    <th>Serial Number</th>
-                    <th>Damage</th>
-                    <th>Price</th>
-                </tr>
-                <tr>
-                    <th>No</th>
-                    <th>Brand</th>
-                    <th>Model</th>
-                    <th>Serial Number</th>
-                    <th>Damage</th>
-                    <th>Price</th>
-                </tr>
-            </table>
+    <h2 class="text-center text-white">Income per Period</h2>
+    <form method="post" th:action="@{/admin/set-user-role}"
+          class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center text-white">
+        <div class="form-group">
+            <div class="row">
+                <label class="text-white" for="startDate">Start Date</label>
+                <input type="date" name="startDate" id="startDate">
+
+                <label class="text-white" for="endDate">End Date</label>
+                <input type="date" name="endDate" id="endDate">
+            </div>
         </div>
-    </div>
+        <table class="striped">
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>Brand</th>
+                <th>Model</th>
+                <th>Serial Number</th>
+                <th>Damage</th>
+                <th>Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>No</th>
+                <th>Brand</th>
+                <th>Model</th>
+                <th>Serial Number</th>
+                <th>Damage</th>
+                <th>Price</th>
+            </tr>
+            </tbody>
+        </table>
+    </form>
 </div>
 
-<div>
-		<footer><th:block th:include="~{fragments/footer}"></th:block></footer>
-</div>
+
+<footer>
+    <th:block th:include="~{fragments/footer}"></th:block>
+</footer>
+
 
 </body>
 </html>

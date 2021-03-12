@@ -7,11 +7,18 @@
 
 <th:block th:include="~{fragments/nav-bar}"></th:block>
 
-<main>
-
-</main>
-
-<th:block th:include="~{fragments/footer}"></th:block>
+<div class="container">
+    <h2 class="text-center text-white">Find Orders by Serial Number</h2>
+    <form class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+        <div class="form-group">
+            <label class="text-white font-weight-bold" for="serialNumber">Enter Serial Number</label>
+            <textarea name="serialNumber" id="serialNumber"
+                    class="custom-select">
+            </textarea>
+        </div>
+    </form>
+</div>
+<th:block th:include=" ~{fragments/footer}"></th:block>
 
 </body>
 </html>

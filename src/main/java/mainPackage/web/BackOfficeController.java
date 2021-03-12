@@ -1,11 +1,14 @@
 package mainPackage.web;
 
+import mainPackage.models.bindings.OrderFixBindingModel;
 import mainPackage.models.bindings.SparePartBindingModel;
+import mainPackage.models.bindings.UserRegisterBindingModel;
 import mainPackage.models.services.SparePartServiceModel;
 import mainPackage.models.views.BrandViewModel;
 import mainPackage.models.views.OrderNotReadyViewModel;
 import mainPackage.models.views.SparePartViewModel;
 import mainPackage.services.BrandService;
+import mainPackage.services.ModelService;
 import mainPackage.services.OrderService;
 import mainPackage.services.SparePartsService;
 import org.modelmapper.ModelMapper;
@@ -46,11 +49,29 @@ public class BackOfficeController {
         return "/orders/orders-not-ready";
     }
 
-    @GetMapping("/order-fix/{id}")
+    @GetMapping("/fix/{id}")
     @PreAuthorize("isAuthenticated()")
-    public String OrdersToRepair(@PathVariable Long id, Model model) {
-        model.addAttribute("order", orderService.getById(id));
+    public String fixOrder(@PathVariable Long id, Model model) {
+        OrderNotReadyViewModel orderToFixViewModel = orderService.getById(id);
+        List<SparePartViewModel> sparePartViewModels = sparePartsService.getByBrandAndModel(orderToFixViewModel.getBrand(), orderToFixViewModel.getModel());
+        if (!model.containsAttribute("orderFixedBindingModel")) {
+            model.addAttribute("orderFixedBindingModel", new OrderFixBindingModel());
+        }
+        model.addAttribute("order", orderToFixViewModel);
+        model.addAttribute("spareParts", sparePartViewModels);
         return "/orders/order-fixing";
+    }
+
+    @PostMapping("/fix/{id}")
+    @PreAuthorize("isAuthenticated()")
+    public String fixOrderConfirm(@PathVariable Long id, @Valid @ModelAttribute OrderFixBindingModel orderFixBindingModel,
+                                  BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors() || orderFixBindingModel.getSpPrice().compareTo(orderFixBindingModel.getTotalPrice()) < 0) {
+            redirectAttributes.addFlashAttribute("orderFixBindingModel", orderFixBindingModel);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.orderFixBindingModel", bindingResult);
+            return "redirect:/back-office/fix/" + id;
+        }
+        return "redirect:/back-office/not-fixed";
     }
 
     @GetMapping("/add-spare-part")
