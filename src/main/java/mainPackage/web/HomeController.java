@@ -21,7 +21,7 @@ public class HomeController {
         return "/index";
     }
 
-    @GetMapping("/index")
+    @GetMapping("/home")
     @PreAuthorize("isAuthenticated()")
     public String home(ModelAndView modelAndView) {
         //TODO fix user roles !!!
@@ -31,6 +31,6 @@ public class HomeController {
 
         modelAndView.addObject("areFrontOffice", areFrontOffice);
         modelAndView.addObject("areBackOffice", areBackOffice);
-        return "/index";
+        return "/home";
     }
 }

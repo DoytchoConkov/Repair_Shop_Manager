@@ -51,6 +51,6 @@ public class AdminControler {
              return "redirect:/admin/set-user-role";
          }
         userService.setRoles(userRolesBindingModel);
-        return "/index";
+        return "/home";
     }
 }

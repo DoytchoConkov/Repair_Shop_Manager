@@ -1,12 +1,16 @@
 body {
-     background-image: url('/img/background2.jpg');
      background-position: center center;
      background-repeat: no-repeat;
      background-attachment: fixed;
      background-size: cover;
      background-color: #464646;
  }
-
+ .index{
+      background-image: url('/img/background1.jpg');
+ }
+.home{
+     background-image: url('/img/background2.jpg');
+}
 .navbar .logo {
      max-height: 50px;
      padding-right: 100px;

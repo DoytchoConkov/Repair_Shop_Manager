@@ -53,22 +53,20 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderNotReadyViewModel> getNotReady() {
-        List<OrderNotReadyViewModel> orderNotReadyViewModels = orderRepository.findNotReadyOrders().stream().map(p -> {
+        return orderRepository.findNotReadyOrders().stream().map(p -> {
             OrderNotReadyViewModel orderNotReadyViewModel = modelMapper.map(p, OrderNotReadyViewModel.class);
             orderNotReadyViewModel.setBrand(p.getModel().getBrand().getBrandName());
             return orderNotReadyViewModel;
         }).collect(Collectors.toList());
-        return orderNotReadyViewModels;
     }
 
     @Override
     public List<OrderReadyViewModel> getReady() {
-        List<OrderReadyViewModel> orderReadyViewModels = orderRepository.findReadyOrders().stream().map(p -> {
+        return orderRepository.findReadyOrders().stream().map(p -> {
             OrderReadyViewModel OrderReadyViewModel = modelMapper.map(p, OrderReadyViewModel.class);
             OrderReadyViewModel.setBrand(p.getModel().getBrand().getBrandName());
             return OrderReadyViewModel;
         }).collect(Collectors.toList());
-        return orderReadyViewModels;
     }
 
     @Override
@@ -87,7 +85,17 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public boolean isContainSparePart(Long id) {
         Long count = orderRepository.findBySparePart(id);
-        return count>0;
+        return count > 0;
+    }
+
+    @Override
+    public List<OrderReadyViewModel> getNotPayedOrders() {
+        return orderRepository.findAllByLeaveDateIsNull().stream().map(or -> {
+            OrderReadyViewModel orderReadyViewModel = modelMapper.map(or, OrderReadyViewModel.class);
+            orderReadyViewModel.setBrand(or.getModel().getBrand().getBrandName());
+            return orderReadyViewModel;
+        }).collect(Collectors.toList());
+
     }
 
 }

@@ -18,4 +18,6 @@ public interface OrderService {
     void deleteOrder(Long id);
 
     boolean isContainSparePart(Long id);
+
+    List<OrderReadyViewModel> getNotPayedOrders();
 }

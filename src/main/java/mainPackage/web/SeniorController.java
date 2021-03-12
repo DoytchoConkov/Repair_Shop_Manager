@@ -38,14 +38,13 @@ public class SeniorController {
         }
         List<BrandViewModel> brands = brandService.getAll();
         model.addAttribute("brands", brands);
-//        model.addAttribute("spareParts", sparePartsService.getAll());
         return "/extended/edit-spare-parts";
     }
 
     @GetMapping("/edit-orders")
     @PreAuthorize("isAuthenticated()")
     public String editOrder(Model model) {
-        model.addAttribute("orderReadyViewModels", orderService.getReady());
+        model.addAttribute("orderReadyViewModels", orderService.getNotPayedOrders());
         return "/extended/edit-orders";
     }
 
@@ -66,15 +65,12 @@ public class SeniorController {
             sparePartsService.deleteSparePart(id);
         }
 
-        return "redirect:/";
+        return "redirect:/home";
     }
 
     @DeleteMapping("/order/delete/{id}")
-    public String deleteOrder(@PathVariable Long id,
-                              Model model) {
-
+    public String deleteOrder(@PathVariable Long id, Model model) {
         orderService.deleteOrder(id);
-
         return "redirect:/senior/edit-spare-parts";
     }
 

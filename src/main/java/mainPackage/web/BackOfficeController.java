@@ -101,6 +101,6 @@ public class BackOfficeController {
         sparePartsService.save(modelMapper.map(sparePartsReceiveBindingModel, SparePartServiceModel.class));
 
 
-        return "redirect:/index";
+        return "redirect:/home";
     }
 }

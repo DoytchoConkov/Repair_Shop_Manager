@@ -11,26 +11,27 @@
 
 <div class="container">
     <h2 class="text-center text-white m-3">Edit Orders</h2>
-    <div class='row mb-4 d-flex justify-content-around'>
-        <div class="brand-section col-md-5 mr-auto d-flex flex-column">
-            <table>
-                <tr>
-                    <th>Brand</th>
-                    <th>Model</th>
-                    <th>Serial Number</th>
-                    <th>Damage</th>
-                    <th>Price</th>
-                    <th>Client name</th>
-                    <th>Pay</th>
-                </tr>
-                <tr th:each="pr : ${orderReadyViewModels}">
-                    <td th:text="${pr.brand}">Brand</td>
-                    <td th:text="${pr.model}">Model</td>
-                    <td th:text="${pr.serialNumber}">Serial Number</td>
-                    <td th:text="${pr.damage}">Damage</td>
-                    <td th:text="${pr.price}">Price</td>
-                    <td th:text="${pr.clientName}">Client</td>
-                    <th><a class="nav-link" th:href="@{/senior/order/make-not-fixed/{id}(id=${pr.id})}">Make Not Fixed</a></th>
+    <div class='row mb-4 d-flex justify-content-around text-white'>
+        <table>
+            <tr>
+                <th>Brand</th>
+                <th>Model</th>
+                <th>Serial Number</th>
+                <th>Damage</th>
+                <th>Price</th>
+                <th>Client name</th>
+                <th>Action</th>
+            </tr>
+            <tr th:each="pr : ${orderReadyViewModels}">
+                <td th:text="${pr.brand}">Brand</td>
+                <td th:text="${pr.model}">Model</td>
+                <td th:text="${pr.serialNumber}">Serial Number</td>
+                <td th:text="${pr.damage}">Damage</td>
+                <td th:text="${pr.price}">Price</td>
+                <td th:text="${pr.clientName}">Client</td>
+                <td><a class="nav-link" th:href="@{/senior/order/make-not-fixed/{id}(id=${pr.id})}">Make Not Fixed</a>
+                </td>
+                <td>
                     <form th:action="@{/senior/order/delete/id(id=${pr.id})}"
                           th:method="delete">
                         <input
@@ -38,9 +39,9 @@
                                 type="submit"
                                 value="Delete">
                     </form>
-                </tr>
-            </table>
-        </div>
+                </td>
+            </tr>
+        </table>
     </div>
 </div>
 

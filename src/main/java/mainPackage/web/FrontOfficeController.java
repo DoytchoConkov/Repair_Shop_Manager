@@ -78,7 +78,7 @@ public class FrontOfficeController {
         orderReceiveServiceModel.setClient(modelMapper.map(orderReceiveBindingModel, ClientServiceModel.class));
         orderService.add(orderReceiveServiceModel);
 
-        return "redirect:/index";
+        return "redirect:/home";
     }
 
     @GetMapping("/client-info")

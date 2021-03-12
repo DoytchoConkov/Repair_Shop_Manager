@@ -20,4 +20,6 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query("select count(*) from Order as o JOIN o.spareParts as sp WHERE sp.id=:id")
     Long findBySparePart(@Param("id") Long id);
+
+    List<Order> findAllByLeaveDateIsNull();
 }
