@@ -40,15 +40,27 @@ public class FrontOfficeController {
         this.clientService = clientService;
     }
 
-    @GetMapping("/export")
+    @GetMapping("/fixed-orders")
     @PreAuthorize("isAuthenticated()")
-    public String exportOrder(Model model) {
+    public String payOrder(Model model) {
         List<OrderReadyViewModel> orderReadyViewModels = orderService.getReady();
         model.addAttribute("orderReadyViewModels", orderReadyViewModels);
-        if (!model.containsAttribute("orderExport")) {
-            model.addAttribute("orderExport", new SparePartBindingModel());
-        }
         return "/orders/orders-ready";
+    }
+
+    @GetMapping("/pay-order/{id}")
+    @PreAuthorize("isAuthenticated()")
+    public String payOrderRedirect(@PathVariable Long id, Model model) {
+        OrderReadyViewModel orderReadyViewModel = orderService.getReadyById(id);
+        model.addAttribute("orderReadyViewModel", orderReadyViewModel);
+        return "/orders/order-details";
+    }
+
+    @PostMapping("/pay-order/{id}")
+    @PreAuthorize("isAuthenticated()")
+    public String payOrderNow(@PathVariable Long id) {
+        orderService.pay(id);
+        return "redirect:/home";
     }
 
     @GetMapping("/receive")
@@ -67,7 +79,7 @@ public class FrontOfficeController {
     @PostMapping("/receive")
     @PreAuthorize("isAuthenticated()")
     public String OrderReceiveConfirm(@Valid @ModelAttribute("orderReceiveBindingModel") OrderReceiveBindingModel orderReceiveBindingModel,
-                                        BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+                                      BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("orderReceiveBindingModel", orderReceiveBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.orderReceiveBindingModel", bindingResult);

@@ -12,13 +12,14 @@
 <div class="container">
     <h2 class="text-center text-white m-3">Edit Orders</h2>
     <div class='row mb-4 d-flex justify-content-around text-white'>
-        <table>
+        <table class="striped">
             <tr>
                 <th>Brand</th>
                 <th>Model</th>
                 <th>Serial Number</th>
                 <th>Damage</th>
-                <th>Price</th>
+                <th>Total Spare Parts Price</th>
+                <th>Total Price</th>
                 <th>Client name</th>
                 <th>Action</th>
             </tr>
@@ -27,12 +28,13 @@
                 <td th:text="${pr.model}">Model</td>
                 <td th:text="${pr.serialNumber}">Serial Number</td>
                 <td th:text="${pr.damage}">Damage</td>
-                <td th:text="${pr.price}">Price</td>
+                <td th:text="${pr.totalSparePartsPrice}">Total Spare Parts Price</td>
+                <td th:text="${pr.totalRepairPrice}">Total Price</td>
                 <td th:text="${pr.clientName}">Client</td>
                 <td><a class="nav-link" th:href="@{/senior/order/make-not-fixed/{id}(id=${pr.id})}">Make Not Fixed</a>
                 </td>
                 <td>
-                    <form th:action="@{/senior/order/delete/id(id=${pr.id})}"
+                    <form th:action="@{/senior/order/delete/{id}(id=${pr.id})}"
                           th:method="delete">
                         <input
                                 class="card-link"

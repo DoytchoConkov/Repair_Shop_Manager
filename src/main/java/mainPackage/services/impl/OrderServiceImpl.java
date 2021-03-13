@@ -14,7 +14,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -104,8 +106,28 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void fix(OrderFixServiceModel orderServiceModel) {
         Order order = orderRepository.findById(orderServiceModel.getId()).orElseThrow();
-        List<SparePart> spareParts = orderServiceModel.getSpId().stream().map(sp -> sparePartsService.findById(sp)).collect(Collectors.toList());
-        order.setSpareParts(spareParts);
+        List<Long> spareParts = orderServiceModel.getSpId();
+        if (spareParts == null) {
+            spareParts = new ArrayList<>();
+        }
+        List<SparePart> sparePartsList = spareParts.stream().map(sp -> sparePartsService.findById(sp)).collect(Collectors.toList());
+        order.setTotalSparePartsPrice(orderServiceModel.getSpPrice());
+        order.setTotalRepairPrice(orderServiceModel.getTotalPrice());
+        order.setSpareParts(sparePartsList);
+        orderRepository.save(order);
+    }
+
+    @Override
+    public OrderReadyViewModel getReadyById(Long id) {
+        Order order = orderRepository.findById(id).orElseThrow();
+        OrderReadyViewModel orderReadyViewModel = modelMapper.map(order, OrderReadyViewModel.class);
+        orderReadyViewModel.setBrand(order.getModel().getBrand().getBrandName());
+        return orderReadyViewModel;
+    }
+
+    @Override
+    public void pay(Long id) {
+        Order order = orderRepository.findById(id).orElseThrow();
         order.setLeaveDate(LocalDateTime.now());
         orderRepository.save(order);
     }

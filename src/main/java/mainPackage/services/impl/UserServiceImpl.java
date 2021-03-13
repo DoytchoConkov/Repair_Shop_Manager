@@ -50,7 +50,9 @@ public class UserServiceImpl implements UserService {
         MultipartFile img = userServiceModel.getImageUrl();
 
         String imageUrl = cloudinaryService.uploadImage(img);
-        //TODO:add default image
+        if (imageUrl==null){
+            imageUrl="https://res.cloudinary.com/dislhsmj5/image/upload/v1615625459/logo_cohct8.png";
+        }
         User user = this.modelMapper.map(userServiceModel, User.class);
         user.setImageUrl(imageUrl);
         user.setPassword(this.bCryptPasswordEncoder.encode(userServiceModel.getPassword()));

@@ -25,7 +25,7 @@
                     </li>
                     <li class="nav-item">
                         <th:block sec:authorize="isAuthenticated()">
-                            <a class="nav-link" href="/front-office/export">Fixed Orders</a>
+                            <a class="nav-link" href="/front-office/fixed-orders">Fixed Orders</a>
                         </th:block>
                     </li>
                     <li class="nav-item">
@@ -77,7 +77,7 @@
                             <div class="form-inline my-2 my-lg-0 border px-3">
                                                     <span class="logged-user"
                                                           th:text="|Welcome, ${#authentication.getPrincipal().getUsername()} !|"></span>
-                                <img th:src="*{imgUrl}" alt="Student picture" width="300px">
+<!--                                <img th:src="${#authentication.getPrincipal().getImageUrl()}" alt="User picture" width="30px">-->
                             </div>
                         </li>
                         <li>

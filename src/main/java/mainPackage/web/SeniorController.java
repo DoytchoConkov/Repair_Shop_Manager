@@ -71,7 +71,7 @@ public class SeniorController {
     @DeleteMapping("/order/delete/{id}")
     public String deleteOrder(@PathVariable Long id, Model model) {
         orderService.deleteOrder(id);
-        return "redirect:/senior/edit-spare-parts";
+        return "redirect:/home";
     }
 
 }

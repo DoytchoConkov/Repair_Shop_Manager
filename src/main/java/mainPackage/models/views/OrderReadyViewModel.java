@@ -10,7 +10,8 @@ public class OrderReadyViewModel {
     private String clientName;
     private String model;
     private String brand;
-    private BigDecimal price;
+    private BigDecimal totalSparePartsPrice;
+    private BigDecimal totalRepairPrice;
 
     public OrderReadyViewModel() {
     }
@@ -71,11 +72,19 @@ public class OrderReadyViewModel {
         this.brand = brand;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public BigDecimal getTotalSparePartsPrice() {
+        return totalSparePartsPrice;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setTotalSparePartsPrice(BigDecimal totalSparePartsPrice) {
+        this.totalSparePartsPrice = totalSparePartsPrice;
+    }
+
+    public BigDecimal getTotalRepairPrice() {
+        return totalRepairPrice;
+    }
+
+    public void setTotalRepairPrice(BigDecimal totalRepairPrice) {
+        this.totalRepairPrice = totalRepairPrice;
     }
 }

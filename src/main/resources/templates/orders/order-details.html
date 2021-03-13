@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:include="~{fragments/head}"></th:block>
+
+<body>
+
+<th:block th:include="~{fragments/nav-bar}"></th:block>
+
+<main>
+    <div class="container">
+        <h2 class="text-center text-white m-3">Order</h2>
+        <div class='row mb-8 d-flex justify-content-around'>
+            <form th:object="${orderReadyViewModel}" method="post" th:action="@{/front-office/pay-order/{id}(id=*{id})}"
+                  class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+                    <div class=" form-group">
+                        <label class="text-white float-left" th:text="|Brand: *{brand}    |"></label>
+                    </div>
+                    <div class=" form-group">
+                        <label class="text-white float-left" th:text="|Model: *{model}|"></label>
+                    </div>
+                    <div class=" form-group">
+                        <label class="text-white float-left" th:text="|Serial number: *{serialNumber}  |"></label>
+                    </div>
+                <div class=" form-group">
+                    <label class="text-white float-left" th:text="|Damage: *{damage}|"></label>
+                </div>
+                <div class=" form-group">
+                    <label class="text-white float-left" th:text="|Spare parts price: *{totalSparePartsPrice}|"></label>
+                </div>
+                <div class=" form-group">
+                    <label class="text-white float-left" th:text="|Total price: *{totalRepairPrice}|"></label>
+                </div>
+                <div class=" form-group">
+                    <label class="text-white float-left" th:text="*{notes} ?: ''"></label>
+                </div>
+                <div class=" form-group">
+                    <label class="text-white float-left" th:text="|Client name: *{clientName}|"><br></label>
+                </div>
+
+                <div class="button-holder d-flex">
+                    <input type="submit" class="btn btn-info btn-sm" value="Pay Now"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<th:block th:include="~{fragments/footer}"></th:block>
+
+</body>
+</html>

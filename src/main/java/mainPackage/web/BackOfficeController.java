@@ -67,8 +67,12 @@ public class BackOfficeController {
     @PreAuthorize("isAuthenticated()")
     public String fixOrderConfirm(@PathVariable Long id, @Valid @ModelAttribute OrderFixBindingModel orderFixBindingModel,
                                   BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors() || orderFixBindingModel.getSpPrice().compareTo(orderFixBindingModel.getTotalPrice()) < 0) {
+        boolean compareResesult = orderFixBindingModel.getSpPrice().compareTo(orderFixBindingModel.getTotalPrice()) > 0;
+        if (bindingResult.hasErrors() || compareResesult) {
             redirectAttributes.addFlashAttribute("orderFixBindingModel", orderFixBindingModel);
+            if (compareResesult) {
+                redirectAttributes.addFlashAttribute("totalPriceError", true);
+            }
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.orderFixBindingModel", bindingResult);
             return "redirect:/back-office/fix/" + id;
         }

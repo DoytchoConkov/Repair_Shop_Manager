@@ -15,9 +15,8 @@
             <div class="form-group col-md-6 mb-3">
                 <label class="text-white font-weight-bold" for="brand">Brand</label>
                 <input th:field="*{brand}" th:errorclass="bg-danger" id="brand" type="text" class="form-control"
-                       list="brandsList"
-                       placeholder="Brand">
-                <datalist id="brandsList" >
+                       list="brandsList" placeholder="Brand">
+                <datalist id="brandsList">
                     <option th:each="brand : ${brands}" th:value="${brand.brandName}" th:text="${brand.brandName}">
                 </datalist>
                 <small th:each="e : ${#fields.errors('brand')}" th:text="${e}" id="brandError"
@@ -27,9 +26,8 @@
             <div class="form-group col-md-6 mb-3">
                 <label class="text-white font-weight-bold" for="model">Model</label>
                 <input th:field="*{model}" th:errorclass="bg-danger" id="model" type="text" class="form-control"
-                       list="modelsList"
-                       placeholder="Model">
-                <datalist id="modelsList" >
+                       list="modelsList" placeholder="Model">
+                <datalist id="modelsList">
                     <optgroup th:each="brand : ${brands}" th:label="${brand.brandName}">
                         <div th:each="model: ${brand.models}">
                             <option th:value="${model.modelName}" th:text="${model.modelName}">Model</option>
@@ -43,8 +41,7 @@
             <div class="form-group col-md-6 mb-3">
                 <label class="text-white font-weight-bold" for="serialNumber">Serial Number</label>
                 <input th:field="*{serialNumber}" th:errorclass="bg-danger" id="serialNumber" type="text"
-                       class="form-control"
-                       placeholder="Serial number">
+                       class="form-control" placeholder="Serial number">
                 <small th:each="e : ${#fields.errors('serialNumber')}" th:text="${e}" id="serialNumberError"
                        class="text-light form-text bg-danger rounded">Username length must be more than 3
                     characters</small>
@@ -55,7 +52,8 @@
                        list="damageList"
                        placeholder="Damage">
                 <datalist id="damageList">
-                    <option th:each="damage : ${damages}" th:value="${damage.damageName}" th:text="${damage.damageName}">
+                    <option th:each="damage : ${damages}" th:value="${damage.damageName}"
+                            th:text="${damage.damageName}">
                 </datalist>
                 <small th:each="e : ${#fields.errors('damage')}" th:text="${e}" id="damageError"
                        class="text-light form-text bg-danger rounded">Username length must be more than 3
@@ -65,8 +63,7 @@
         <div class="form-group">
             <label class="text-white font-weight-bold" for="orderNote">Order Note</label>
             <textarea th:field="*{orderNote}" th:errorclass="bg-danger" id="orderNote" type="textarea"
-                      class="form-control" rows="3"
-                      placeholder="Note"></textarea>
+                      class="form-control" rows="3" placeholder="Note"></textarea>
         </div>
         <div class="form-group ">
             <label class="text-white font-weight-bold" for="clientName">Full Name</label>
@@ -78,20 +75,18 @@
         </div>
         <div class="row">
             <div class="form-group col-md-6 mb-3">
-                <label class="text-white font-weight-bold" for="clientEmail">Email</label>
-                <input th:field="*{clientEmail}" th:errorclass="bg-danger" id="clientEmail" type="email"
-                       class="form-control"
-                       placeholder="Client Email">
-                <small th:each="e : ${#fields.errors('clientEmail')}" th:text="${e}" id="clientEmailError"
+                <label class="text-white font-weight-bold" for="clientPhoneNumber">Phone Number</label>
+                <input th:field="*{clientPhoneNumber}" th:errorclass="bg-danger" id="clientPhoneNumber" type="text"
+                       class="form-control" placeholder="Client Phone Number">
+                <small th:each="e : ${#fields.errors('clientPhoneNumber')}" th:text="${e}" id="clientPhoneNumberError"
                        class="text-light form-text bg-danger rounded">Username length must be more than 3
                     characters</small>
             </div>
             <div class="form-group col-md-6 mb-3">
-                <label class="text-white font-weight-bold" for="clientPhoneNumber">Phone Number</label>
-                <input th:field="*{clientPhoneNumber}" th:errorclass="bg-danger" id="clientPhoneNumber" type="text"
-                       class="form-control"
-                       placeholder="Client Phone Number">
-                <small th:each="e : ${#fields.errors('clientPhoneNumber')}" th:text="${e}" id="clientPhoneNumberError"
+                <label class="text-white font-weight-bold" for="clientEmail">Email</label>
+                <input th:field="*{clientEmail}" th:errorclass="bg-danger" id="clientEmail" type="email"
+                       class="form-control" placeholder="Client Email">
+                <small th:each="e : ${#fields.errors('clientEmail')}" th:text="${e}" id="clientEmailError"
                        class="text-light form-text bg-danger rounded">Username length must be more than 3
                     characters</small>
             </div>

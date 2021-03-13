@@ -23,4 +23,8 @@ public interface OrderService {
     List<OrderReadyViewModel> getNotPayedOrders();
 
     void fix(OrderFixServiceModel map);
+
+    OrderReadyViewModel getReadyById(Long id);
+
+    void pay(Long id);
 }
