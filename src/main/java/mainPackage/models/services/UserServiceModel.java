@@ -1,10 +1,14 @@
 package mainPackage.models.services;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
 import java.util.Set;
 
 public class UserServiceModel {
     private String id;
     private String username;
+    private MultipartFile imageUrl;
     private String password;
     private Set<RoleServiceModel> authorities;
 
@@ -25,6 +29,14 @@ public class UserServiceModel {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public MultipartFile  getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(MultipartFile  imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getPassword() {

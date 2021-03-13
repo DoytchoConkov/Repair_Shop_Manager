@@ -1,10 +1,14 @@
 package mainPackage.models.bindings;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.io.File;
 
 public class UserRegisterBindingModel {
     private String username;
+    private MultipartFile imageUrl;
     private String password;
     private String confirmPassword;
 
@@ -19,6 +23,14 @@ public class UserRegisterBindingModel {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public MultipartFile  getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(MultipartFile  imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     @NotBlank(message = "Password can not be empty.")

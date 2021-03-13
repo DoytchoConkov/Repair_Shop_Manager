@@ -1,6 +1,7 @@
 package mainPackage.services;
 
 import mainPackage.models.entities.SparePart;
+import mainPackage.models.services.OrderFixServiceModel;
 import mainPackage.models.views.OrderNotReadyViewModel;
 import mainPackage.models.services.OrderReceiveServiceModel;
 import mainPackage.models.views.OrderReadyViewModel;
@@ -20,4 +21,6 @@ public interface OrderService {
     boolean isContainSparePart(Long id);
 
     List<OrderReadyViewModel> getNotPayedOrders();
+
+    void fix(OrderFixServiceModel map);
 }

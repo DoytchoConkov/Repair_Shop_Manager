@@ -9,6 +9,7 @@ import mainPackage.models.services.UserServiceModel;
 import mainPackage.models.views.UserViewModel;
 import mainPackage.repositories.UserRepository;
 import mainPackage.repositories.UserRoleRepository;
+import mainPackage.services.CloudinaryService;
 import mainPackage.services.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,20 +33,26 @@ public class UserServiceImpl implements UserService {
     private final ModelMapper modelMapper;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final UserServiceDB userServiceDB;
+    private final CloudinaryService cloudinaryService;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, UserRoleRepository userRoleRepository, ModelMapper modelMapper, BCryptPasswordEncoder bCryptPasswordEncoder, UserServiceDB userServiceDB) {
+    public UserServiceImpl(UserRepository userRepository, UserRoleRepository userRoleRepository, ModelMapper modelMapper, BCryptPasswordEncoder bCryptPasswordEncoder, UserServiceDB userServiceDB, CloudinaryService cloudinaryService) {
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
         this.modelMapper = modelMapper;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.userServiceDB = userServiceDB;
+        this.cloudinaryService = cloudinaryService;
     }
 
     @Override
-    public void registerUserAndLogin(UserServiceModel userServiceModel) {
+    public void registerUserAndLogin(UserServiceModel userServiceModel) throws IOException {
+        MultipartFile img = userServiceModel.getImageUrl();
 
+        String imageUrl = cloudinaryService.uploadImage(img);
+        //TODO:add default image
         User user = this.modelMapper.map(userServiceModel, User.class);
+        user.setImageUrl(imageUrl);
         user.setPassword(this.bCryptPasswordEncoder.encode(userServiceModel.getPassword()));
         if (userRepository.count() == 0) {
             UserRole userRole = userRoleRepository.

@@ -76,8 +76,8 @@
                         <li class="nav-item">
                             <div class="form-inline my-2 my-lg-0 border px-3">
                                                     <span class="logged-user"
-                                                          th:text="|Welcome, ${#authentication.getPrincipal().getUsername()}|"></span>
-                                <span class="logged-user">!</span>
+                                                          th:text="|Welcome, ${#authentication.getPrincipal().getUsername()} !|"></span>
+                                <img th:src="*{imgUrl}" alt="Student picture" width="300px">
                             </div>
                         </li>
                         <li>

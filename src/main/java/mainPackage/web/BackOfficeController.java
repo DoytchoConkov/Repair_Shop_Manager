@@ -3,6 +3,7 @@ package mainPackage.web;
 import mainPackage.models.bindings.OrderFixBindingModel;
 import mainPackage.models.bindings.SparePartBindingModel;
 import mainPackage.models.bindings.UserRegisterBindingModel;
+import mainPackage.models.services.OrderFixServiceModel;
 import mainPackage.models.services.SparePartServiceModel;
 import mainPackage.models.views.BrandViewModel;
 import mainPackage.models.views.OrderNotReadyViewModel;
@@ -71,6 +72,10 @@ public class BackOfficeController {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.orderFixBindingModel", bindingResult);
             return "redirect:/back-office/fix/" + id;
         }
+        OrderFixServiceModel orderFixServiceModel = modelMapper.map(orderFixBindingModel, OrderFixServiceModel.class);
+        orderFixServiceModel.setId(id);
+        orderService.fix(orderFixServiceModel);
+
         return "redirect:/back-office/not-fixed";
     }
 

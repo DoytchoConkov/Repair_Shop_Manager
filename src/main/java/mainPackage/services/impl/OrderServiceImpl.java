@@ -2,6 +2,7 @@ package mainPackage.services.impl;
 
 import mainPackage.models.entities.*;
 import mainPackage.models.services.ClientServiceModel;
+import mainPackage.models.services.OrderFixServiceModel;
 import mainPackage.models.views.OrderNotReadyViewModel;
 import mainPackage.models.services.OrderReceiveServiceModel;
 import mainPackage.models.views.OrderReadyViewModel;
@@ -25,15 +26,17 @@ public class OrderServiceImpl implements OrderService {
     private final DamageService damageService;
     private final ModelMapper modelMapper;
     private final UserService userService;
+    private final SparePartsService sparePartsService;
 
     public OrderServiceImpl(OrderRepository OrderRepository, ClientService clientService, ModelService modelService,
-                            DamageService damageService, ModelMapper modelMapper, UserService userService) {
+                            DamageService damageService, ModelMapper modelMapper, UserService userService, SparePartsService sparePartsService) {
         this.orderRepository = OrderRepository;
         this.clientService = clientService;
         this.modelService = modelService;
         this.damageService = damageService;
         this.modelMapper = modelMapper;
         this.userService = userService;
+        this.sparePartsService = sparePartsService;
     }
 
     @Override
@@ -97,5 +100,15 @@ public class OrderServiceImpl implements OrderService {
         }).collect(Collectors.toList());
 
     }
+
+    @Override
+    public void fix(OrderFixServiceModel orderServiceModel) {
+        Order order = orderRepository.findById(orderServiceModel.getId()).orElseThrow();
+        List<SparePart> spareParts = orderServiceModel.getSpId().stream().map(sp -> sparePartsService.findById(sp)).collect(Collectors.toList());
+        order.setSpareParts(spareParts);
+        order.setLeaveDate(LocalDateTime.now());
+        orderRepository.save(order);
+    }
+
 
 }

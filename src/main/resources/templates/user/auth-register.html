@@ -14,31 +14,32 @@
         <div class="form-group col-md-12 mb-4">
             <label for="username" class="text-white font-weight-bold">Username</label>
             <input th:value="*{username}" th:errorclass="alert-danger" id="username" type="text" min="2" max="20"
-                   class="form-control"
-                   placeholder="username" name="username"/>
+                   class="form-control" placeholder="username" name="username"/>
             <small th:each="e : ${#fields.errors('username')}" th:text="${e}" id="usernameError"
-                   class="text-light form-text bg-danger rounded">Username length must be more than 3
-                characters</small>
-
+                   class="text-light form-text bg-danger rounded">Username length must be more than 3 characters</small>
+        </div>
+        <div class="form-group col-md-12 mb-4">
+            <label for="username" class="text-white font-weight-bold">User Photo</label>
+            <input th:value="*{imageUrl}" th:errorclass="alert-danger" id="imageUrl" type="file" min="2" max="20"
+                   class="form-control" placeholder="imageUrl" name="imageUrl"/>
+            <small th:each="e : ${#fields.errors('username')}" th:text="${e}" id="imageUrlError"
+                   class="text-light form-text bg-danger rounded">Username length must be more than 3 characters</small>
         </div>
         <div class="form-group col-md-12 mb-4">
             <label for="password" class="text-white font-weight-bold">Password</label>
-            <input  th:errorclass="alert-danger" id="password" type="password" min="2" max="20"
-                   class="form-control"
-                   placeholder="password" name="password"/>
-            <small th:each="e : ${#fields.errors('password')}" th:text="${e}" id="password"
-                   class="text-light form-text bg-danger rounded">Username length must be more than 3
-                characters</small>
+            <input th:errorclass="alert-danger" id="password" type="password" min="2" max="20"
+                   class="form-control" placeholder="password" name="password"/>
+            <small th:each="e : ${#fields.errors('password')}" th:text="${e}" id="passwordError"
+                   class="text-light form-text bg-danger rounded">Username length must be more than 3 characters</small>
         </div>
         <div class="form-group col-md-12 mb-4">
             <label for="confirmPassword" class="text-white font-weight-bold">ConfirmPassword</label>
-            <input th:errorclass="alert-danger" id="confirmPassword" type="password" min="2" max="20" class="form-control"
-                   placeholder="confirmPassword" name="confirmPassword"/>
-            <small th:if="${notEqual}" class="text-light form-text bg-danger rounded" th:text="|Passwords not equals!|"></small>
+            <input th:errorclass="alert-danger" id="confirmPassword" type="password" min="2" max="20"
+                   class="form-control" placeholder="confirmPassword" name="confirmPassword"/>
+            <small th:if="${notEqual}" class="text-light form-text bg-danger rounded"
+                   th:text="|Passwords not equals!|"></small>
         </div>
-        <div th:if="${userExist}" class="alert alert-danger" role="alert">
-            User already exist!
-        </div>
+        <div th:if="${userExist}" class="alert alert-danger" role="alert">User already exist!</div>
         <div class="col col-md-12">
             <div class="button-holder d-flex">
                 <input type="submit" class="btn btn-info btn-sm" value="Register"/>
@@ -47,10 +48,7 @@
     </form>
 </div>
 
-<footer>
-    <th:block th:include="~{fragments/footer}"></th:block>
-</footer>
-
+<th:block th:include="~{fragments/footer}"></th:block>
 
 </body>
 </html>
