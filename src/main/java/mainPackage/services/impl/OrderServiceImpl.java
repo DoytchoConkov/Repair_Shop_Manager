@@ -132,5 +132,12 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.save(order);
     }
 
-
+    @Override
+    public void makeNotFixed(Long id) {
+        Order order = orderRepository.findById(id).orElseThrow();
+        order.setTotalRepairPrice(null);
+        order.setTotalSparePartsPrice(null);
+        order.getSpareParts().clear();
+        orderRepository.save(order);
+    }
 }

@@ -13,13 +13,14 @@ public class Order extends BaseEntity {
     private String serialNumber;
     private Damage damage;
     private String notes;
+    private Client client;
     private LocalDateTime receiveDate;
-    private LocalDateTime leaveDate;
+    private String imageUrl;
     private List<SparePart> spareParts = new ArrayList<>();
     private BigDecimal totalSparePartsPrice;
     private BigDecimal totalRepairPrice;
     private User user;
-    private Client client;
+    private LocalDateTime leaveDate;
 
     public Order() {
     }
@@ -47,8 +48,8 @@ public class Order extends BaseEntity {
         return receiveDate;
     }
 
-    public void setReceiveDate(LocalDateTime reciveDate) {
-        this.receiveDate = reciveDate;
+    public void setReceiveDate(LocalDateTime receiveDate) {
+        this.receiveDate = receiveDate;
     }
 
     @Column(name = "leave_date")
@@ -56,8 +57,8 @@ public class Order extends BaseEntity {
         return leaveDate;
     }
 
-    public void setLeaveDate(LocalDateTime leavedate) {
-        this.leaveDate = leavedate;
+    public void setLeaveDate(LocalDateTime leaveDate) {
+        this.leaveDate = leaveDate;
     }
 
     @ManyToOne
@@ -67,6 +68,15 @@ public class Order extends BaseEntity {
 
     public void setDamage(Damage damage) {
         this.damage = damage;
+    }
+
+    @Column(name = "image_Url")
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     @ManyToMany

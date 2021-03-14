@@ -14,10 +14,10 @@
             <form th:object="${order}" method="post" th:action="@{/back-office/fix/{id}(id=*{id})}"
                   class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
                     <div class=" form-group">
-                        <label class="text-white float-left" th:text="|Brand: *{brand}    |"></label>
+                        <label id="brand" class="text-white float-left" th:text="|Brand: *{brand}|" th:value="*{brand}"></label>
                     </div>
                     <div class=" form-group">
-                        <label class="text-white float-left" th:text="|Model: *{model}|"></label>
+                        <label id="model" class="text-white float-left" th:text="|Model: *{model}|"  th:value="*{model}"></label>
                     </div>
                     <div class=" form-group">
                         <label class="text-white float-left" th:text="|Serial number: *{serialNumber}  |"></label>
@@ -32,21 +32,27 @@
                     <label class="text-white float-left" th:text="|Client name: *{clientName}|"><br></label>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group col-md-12 mb-4">
+                    <label for="imageUrl" class="text-white font-weight-bold">Upload Photo of Damage</label>
+                    <input th:field="${orderFixedBindingModel.imageUrl}"  id="imageUrl" type="file"
+                           class="form-control" placeholder="imageUrl" name="imageUrl"/>
+                </div>
+
+                <div class="form-group" id="spareParts">
                     <label class="text-white " for="sparePartName">Select spare part</label>
                     <select th:field="${orderFixedBindingModel.spId}" name="sparePartName" id="sparePartName"
                             class="custom-select">
                         <option value="" selected>Select spare part</option>
                                                 <option th:each="sp : ${spareParts}" th:object="${sp}" th:value="*{id}"
                                                         th:text="*{sparePartName}">
-                                                    Select username
+                                                    Select spare part
                                                 </option>
                     </select>
                 </div>
 
                 <div class="form-group ">
                     <div class="btn btn-primary btn-sm" id="addSpareParts">Add Spare Part</div>
-                    <div class="btn btn-primary btn-sm" id="addAllSpareParts">Add All Spare Part for Brand</div>-->
+                    <div class="btn btn-primary btn-sm" id="addAllSparePartsForBrand">Add All Spare Part for Brand</div>-->
                 </div>
 
                 <div class="form-group">
@@ -79,4 +85,5 @@
 <th:block th:include="~{fragments/footer}"></th:block>
 
 </body>
+<script src="/js/addSpareParts.js" type="text/javascript"></script>
 </html>

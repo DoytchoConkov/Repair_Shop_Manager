@@ -11,7 +11,7 @@
 
 <div class="container">
     <h2 class="text-center text-white m-3">Repair Orders</h2>
-    <div class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center text-white">
+    <div class="div-form mx-auto col-md-8 d-flex flex-column justify-content-center text-white">
         <table class="striped" th:if="${orderNotReadyViewModels.size()}>0">
             <thead></thead>
             <tr>
@@ -19,6 +19,7 @@
                 <td>Model</td>
                 <td>Serial Number</td>
                 <td>Damage</td>
+                <td>Action</td>
             </tr>
             </thead>
             <tbody>

@@ -26,7 +26,7 @@ public class User extends BaseEntity {
         this.username = username;
     }
 
-    @Column(name = "image_url", nullable = false)
+    @Column(name = "image_url")
     public String getImageUrl() {
         return imageUrl;
     }

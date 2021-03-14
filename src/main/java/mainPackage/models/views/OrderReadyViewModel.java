@@ -10,6 +10,7 @@ public class OrderReadyViewModel {
     private String clientName;
     private String model;
     private String brand;
+    private String imageUrl;
     private BigDecimal totalSparePartsPrice;
     private BigDecimal totalRepairPrice;
 
@@ -70,6 +71,14 @@ public class OrderReadyViewModel {
 
     public void setBrand(String brand) {
         this.brand = brand;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public BigDecimal getTotalSparePartsPrice() {

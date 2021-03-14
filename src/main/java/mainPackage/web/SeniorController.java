@@ -74,4 +74,10 @@ public class SeniorController {
         return "redirect:/home";
     }
 
+    @PostMapping("/order/make-not-fixed/{id}")
+    public String makeOrderNotFixed(@PathVariable Long id, Model model) {
+        orderService.makeNotFixed(id);
+        return "redirect:/home";
+    }
+
 }

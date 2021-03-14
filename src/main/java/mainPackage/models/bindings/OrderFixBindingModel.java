@@ -6,6 +6,8 @@ import java.math.BigDecimal;
 
 public class OrderFixBindingModel {
     private Long spId;
+
+    private String imageUrl;
     @NotNull(message = "Price can not be empty.")
     @DecimalMin(value = "0", message = "Price must be positive")
     private BigDecimal spPrice;
@@ -22,6 +24,14 @@ public class OrderFixBindingModel {
 
     public void setSpId(Long spId) {
         this.spId = spId;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public BigDecimal getSpPrice() {

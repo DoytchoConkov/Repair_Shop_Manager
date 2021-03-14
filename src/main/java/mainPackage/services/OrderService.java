@@ -27,4 +27,6 @@ public interface OrderService {
     OrderReadyViewModel getReadyById(Long id);
 
     void pay(Long id);
+
+    void makeNotFixed(Long id);
 }

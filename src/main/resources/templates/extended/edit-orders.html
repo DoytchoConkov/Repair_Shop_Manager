@@ -11,8 +11,9 @@
 
 <div class="container">
     <h2 class="text-center text-white m-3">Edit Orders</h2>
-    <div class='row mb-4 d-flex justify-content-around text-white'>
+    <div class='div-form mb-4 d-flex justify-content-around text-white'>
         <table class="striped">
+            <thead>
             <tr>
                 <th>Brand</th>
                 <th>Model</th>
@@ -23,6 +24,8 @@
                 <th>Client name</th>
                 <th>Action</th>
             </tr>
+            </thead>
+            <tbody>
             <tr th:each="pr : ${orderReadyViewModels}">
                 <td th:text="${pr.brand}">Brand</td>
                 <td th:text="${pr.model}">Model</td>
@@ -31,18 +34,19 @@
                 <td th:text="${pr.totalSparePartsPrice}">Total Spare Parts Price</td>
                 <td th:text="${pr.totalRepairPrice}">Total Price</td>
                 <td th:text="${pr.clientName}">Client</td>
-                <td><a class="nav-link" th:href="@{/senior/order/make-not-fixed/{id}(id=${pr.id})}">Make Not Fixed</a>
+                <td th:if="${pr.totalRepairPrice}!=null">
+                    <form th:action="@{/senior/order/make-not-fixed/{id}(id=${pr.id})}" th:method="post">
+                        <input class="card-link" type="submit" value="Make Not Fixed">
+                    </form>
                 </td>
                 <td>
                     <form th:action="@{/senior/order/delete/{id}(id=${pr.id})}"
                           th:method="delete">
-                        <input
-                                class="card-link"
-                                type="submit"
-                                value="Delete">
+                        <input class="card-link" type="submit" value="Delete">
                     </form>
                 </td>
             </tr>
+            </tbody>
         </table>
     </div>
 </div>
