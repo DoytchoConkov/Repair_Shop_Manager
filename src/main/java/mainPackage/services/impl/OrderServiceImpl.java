@@ -6,6 +6,7 @@ import mainPackage.models.services.OrderFixServiceModel;
 import mainPackage.models.views.OrderNotReadyViewModel;
 import mainPackage.models.services.OrderReceiveServiceModel;
 import mainPackage.models.views.OrderReadyViewModel;
+import mainPackage.models.views.OrderViewModel;
 import mainPackage.repositories.OrderRepository;
 import mainPackage.services.*;
 import org.modelmapper.ModelMapper;
@@ -138,5 +139,17 @@ public class OrderServiceImpl implements OrderService {
         order.setTotalSparePartsPrice(null);
         order.getSpareParts().clear();
         orderRepository.save(order);
+    }
+
+    @Override
+    public List<OrderViewModel> findOrders(String serialNumber) {
+        List<Order> ords=orderRepository.findAllBySerialNumber("%"+serialNumber+"%");
+        List<OrderViewModel> orders = ords.stream()
+                .map(ord -> {
+                    OrderViewModel orderViewModel = modelMapper.map(ord, OrderViewModel.class);
+                    orderViewModel.setBrand(ord.getModel().getBrand().getBrandName());
+                    return orderViewModel;
+                }).collect(Collectors.toList());
+        return orders;
     }
 }
