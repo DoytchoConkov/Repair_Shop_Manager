@@ -2,6 +2,7 @@ package mainPackage.repositories;
 
 import mainPackage.models.entities.Model;
 import mainPackage.models.entities.SparePart;
+import mainPackage.models.views.SparePartViewModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -21,12 +22,10 @@ public interface SparePartsRepository extends JpaRepository<SparePart, Long> {
     @Query("select sp.model.modelName from SparePart as sp join sp.model as m join m.brand as b where b.brandName=:brandName")
     List<String> getModelsByBrandName(@Param("brandName") String brandName);
 
-    @Query("select sp.sparePartName from SparePart as sp join sp.model as m join m.brand as b where m.modelName=:modelName and b.brandName=:brandName")
-    List<String> getSparePartsByBrandNameAndModels(String brandName, String modelName);
+    @Query("select sp from SparePart as sp join sp.model as m join m.brand as b where m.modelName=:modelName and b.brandName=:brandName")
+    List<SparePart> getSparePartsByBrandNameAndModel(String brandName, String modelName);
 
-    @Query("select sp from SparePart as sp join sp.model as m join m.brand as b where m.modelName=:modelName and b.brandName=:brandName and sp.pieces>0")
-    List<SparePart> getSparePartsForAddByBrandNameAndModel(String brandName, String modelName);
 
     @Query("select sp from SparePart as sp join sp.model as m join m.brand as b where b.brandName=:brandName and sp.pieces>0")
-    List<SparePart> getSparePartsForAddByBrandName(String brandName);
+    List<SparePart> getSparePartsBrandName(String brandName);
 }

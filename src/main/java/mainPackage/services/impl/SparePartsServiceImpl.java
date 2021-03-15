@@ -3,7 +3,6 @@ package mainPackage.services.impl;
 import mainPackage.models.entities.Model;
 import mainPackage.models.entities.SparePart;
 import mainPackage.models.services.SparePartServiceModel;
-import mainPackage.models.views.SparePartAddViewModel;
 import mainPackage.models.views.SparePartViewModel;
 import mainPackage.repositories.SparePartsRepository;
 import mainPackage.services.ModelService;
@@ -89,24 +88,23 @@ public class SparePartsServiceImpl implements SparePartsService {
     }
 
     @Override
-    public List<String> getSparePartsByBrandNameAndModel(String brandName, String modelName) {
-        List<String> spareParts = sparePartsRepository.getSparePartsByBrandNameAndModels(brandName, modelName);
+    public List<SparePartViewModel> getSparePartsByBrandNameAndModel(String brandName, String modelName) {
+        List<SparePartViewModel> spareParts = sparePartsRepository.getSparePartsByBrandNameAndModel(brandName, modelName)
+                .stream().map(sp->modelMapper.map(sp,SparePartViewModel.class)).collect(Collectors.toList());
         return spareParts;
     }
 
     @Override
-    public List<SparePartAddViewModel> getSparePartsByBrandNameAndModelForAdd(String brandName, String modelName) {
-        List<SparePartAddViewModel> spareParts = sparePartsRepository
-                .getSparePartsForAddByBrandNameAndModel(brandName, modelName).stream()
-                .map(sp->modelMapper.map(sp,SparePartAddViewModel.class)).collect(Collectors.toList());
+    public List<SparePartViewModel> getSparePartsByBrandNameForAdd(String brandName) {
+        List<SparePartViewModel> spareParts = sparePartsRepository
+                .getSparePartsBrandName(brandName).stream()
+                .map(sp->modelMapper.map(sp,SparePartViewModel.class)).collect(Collectors.toList());
         return spareParts;
     }
 
     @Override
-    public List<SparePartAddViewModel> getSparePartsByBrandNameForAdd(String brandName) {
-        List<SparePartAddViewModel> spareParts = sparePartsRepository
-                .getSparePartsForAddByBrandName(brandName).stream()
-                .map(sp->modelMapper.map(sp,SparePartAddViewModel.class)).collect(Collectors.toList());
-        return spareParts;
+    public SparePartViewModel getSparePartById(Long id) {
+        SparePart sparePart = sparePartsRepository.findById(id).orElseThrow();
+        return modelMapper.map(sparePart,SparePartViewModel.class);
     }
 }

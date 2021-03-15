@@ -7,14 +7,16 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+
 import java.util.List;
 import java.util.stream.Collectors;
-import  mainPackage.repositories.UserRepository;
+
+import mainPackage.repositories.UserRepository;
 
 @Component
 public class UserServiceDB implements UserDetailsService {
 
-    private final  UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public UserServiceDB(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -33,7 +35,7 @@ public class UserServiceDB implements UserDetailsService {
         List<GrantedAuthority> authorities =
                 user.getRoles()
                         .stream()
-                       .map(r -> new SimpleGrantedAuthority("ROLE_" + r.getRole().name()))
+                        .map(r -> new SimpleGrantedAuthority("ROLE_" + r.getRole().name()))
                         .collect(Collectors.toList());
 
         return new User(
@@ -42,4 +44,5 @@ public class UserServiceDB implements UserDetailsService {
                 authorities
         );
     }
+
 }

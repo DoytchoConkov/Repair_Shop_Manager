@@ -18,7 +18,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("select o from Order as o where o.client.clientName='clientName' order by o.model.brand.brandName , o.model.modelName")
     List<Order> findByClient(String clientName);
 
-    @Query("select count(*) from Order as o JOIN o.spareParts as sp WHERE sp.id=:id")
+    @Query("select count(o.id) from Order as o JOIN o.spareParts as sp WHERE sp.id=:id")
     Long findBySparePart(@Param("id") Long id);
 
     List<Order> findAllByLeaveDateIsNull();

@@ -7,23 +7,19 @@
 
 <th:block th:include="~{fragments/nav-bar}"></th:block>
 
+
 <div class="container">
     <h2 class="text-center text-white">Client orders info.</h2>
     <form class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
         <div class="form-group">
-            <label class="text-white font-weight-bold" for="clientName">Select client</label>
-            <select name="clientName" id="clientName"
-                    class="custom-select">
-                <option value="" selected>Select client</option>
-                <option th:each="cl : ${clients}" th:object="${cl}" th:value="*{id}"
-                        th:text="|*{clientName} *{clientPhoneNumber}|">
-                    Select username
-                </option>
-            </select>
+            <label class="text-white font-weight-bold" for="serialNumber">Enter Part of Client Name or Phone Number</label>
+            <textarea name="serialNumber" id="serialNumber" class="custom-select">
+            </textarea>
         </div>
     </form>
 </div>
 <th:block th:include=" ~{fragments/footer}"></th:block>
 
 </body>
+<script src="/js/findClient.js" type="text/javascript"></script>
 </html>

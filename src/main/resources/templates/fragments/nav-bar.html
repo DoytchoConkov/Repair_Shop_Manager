@@ -77,7 +77,7 @@
                             <div class="form-inline my-2 my-lg-0 border px-3">
                                                     <span class="logged-user"
                                                           th:text="|Welcome, ${#authentication.getPrincipal().getUsername()} !|"></span>
-<!--                                <img th:src="${#authentication.getPrincipal().getImageUrl()}" alt="User picture" width="30px">-->
+<!--                                <img th:src="${#authentication.getPrincipal()}" alt="User picture" width="30px">-->
                             </div>
                         </li>
                         <li>

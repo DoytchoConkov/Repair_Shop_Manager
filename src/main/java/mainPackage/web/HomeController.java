@@ -18,14 +18,13 @@ public class HomeController {
 
     @GetMapping("/")
     public String index() {
+
         return "/index";
     }
 
     @GetMapping("/home")
     @PreAuthorize("isAuthenticated()")
     public String home(ModelAndView modelAndView) {
-        //TODO fix user roles !!!
-
         boolean areFrontOffice = true;
         boolean areBackOffice = true;
 

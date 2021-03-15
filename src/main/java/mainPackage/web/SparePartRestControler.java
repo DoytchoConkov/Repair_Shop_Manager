@@ -1,6 +1,6 @@
 package mainPackage.web;
 
-import mainPackage.models.views.SparePartAddViewModel;
+import mainPackage.models.views.SparePartViewModel;
 import mainPackage.services.SparePartsService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,20 +25,19 @@ public class SparePartRestControler {
     }
 
     @GetMapping("/spare-parts")
-    public List<String> getSparePartsForBrandAndModel(@RequestParam String brandName,@RequestParam String modelName) {
-        List<String> spareParts = sparePartsService.getSparePartsByBrandNameAndModel(brandName,modelName);
-        return spareParts;
-    }
-
-    @GetMapping("/spare-parts-add")
-    public List<SparePartAddViewModel> getSparePartsForBrandAndModelForAdd(@RequestParam String brandName,@RequestParam String modelName) {
-        List<SparePartAddViewModel> spareParts = sparePartsService.getSparePartsByBrandNameAndModelForAdd(brandName,modelName);
+    public List<SparePartViewModel> getSparePartsForBrandAndModel(@RequestParam String brandName, @RequestParam String modelName) {
+        List<SparePartViewModel> spareParts = sparePartsService.getSparePartsByBrandNameAndModel(brandName,modelName);
         return spareParts;
     }
 
     @GetMapping("/spare-parts-for-brand")
-    public List<SparePartAddViewModel> getSparePartsForBrandForAdd(@RequestParam String brandName) {
-        List<SparePartAddViewModel> spareParts = sparePartsService.getSparePartsByBrandNameForAdd(brandName);
+    public List<SparePartViewModel> getSparePartsForBrandForAdd(@RequestParam String brandName) {
+        List<SparePartViewModel> spareParts = sparePartsService.getSparePartsByBrandNameForAdd(brandName);
         return spareParts;
+    }
+    @GetMapping("/spare-part-by-id")
+    public SparePartViewModel getSparePartsById(@RequestParam Long id) {
+        SparePartViewModel sparePart = sparePartsService.getSparePartById(id);
+        return sparePart;
     }
 }

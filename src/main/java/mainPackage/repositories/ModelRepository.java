@@ -13,8 +13,6 @@ import java.util.Optional;
 public interface ModelRepository extends JpaRepository<Model, Long> {
     Model findByModelName(String name);
 
-    Optional<Model> findById(String id);
-
     @Query("select m from Model as m where m.brand.brandName=:brandName order by m.modelName")
     List<Model> findByBrandName(@Param("brandName") String brandName);
 }

@@ -11,6 +11,6 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User,Long> {
     Optional<User> findByUsername(String username);
 
-    @Query("select count(*) from User as u JOIN u.roles as r WHERE r.role='ADMIN'")
+    @Query("select count(u.id) from User as u JOIN u.roles as r WHERE r.role='ADMIN'")
     int findAdminUsers();
 }

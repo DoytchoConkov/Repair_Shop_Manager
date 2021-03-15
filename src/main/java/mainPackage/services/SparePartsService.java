@@ -2,7 +2,6 @@ package mainPackage.services;
 
 import mainPackage.models.entities.SparePart;
 import mainPackage.models.services.SparePartServiceModel;
-import mainPackage.models.views.SparePartAddViewModel;
 import mainPackage.models.views.SparePartViewModel;
 
 import java.util.List;
@@ -24,9 +23,9 @@ public interface SparePartsService {
 
     List<String> getModelsByBrandName(String brandName);
 
-    List<String> getSparePartsByBrandNameAndModel(String brandName, String modelName);
+    List<SparePartViewModel> getSparePartsByBrandNameAndModel(String brandName, String modelName);
 
-    List<SparePartAddViewModel> getSparePartsByBrandNameAndModelForAdd(String brandName, String modelName);
+    List<SparePartViewModel> getSparePartsByBrandNameForAdd(String brandName);
 
-    List<SparePartAddViewModel> getSparePartsByBrandNameForAdd(String brandName);
+    SparePartViewModel getSparePartById(Long id);
 }
