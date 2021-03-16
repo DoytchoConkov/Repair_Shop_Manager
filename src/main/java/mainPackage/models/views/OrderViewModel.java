@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 public class OrderViewModel {
     private Long id;
-    private String brand;
+    private String brandName;
     private String model;
     private String serialNumber;
     private String damage;
@@ -26,12 +26,12 @@ public class OrderViewModel {
         this.id = id;
     }
 
-    public String getBrand() {
-        return brand;
+    public String getBrandName() {
+        return brandName;
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
     }
 
     public String getModel() {

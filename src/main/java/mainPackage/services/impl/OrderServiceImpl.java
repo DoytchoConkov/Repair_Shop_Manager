@@ -147,7 +147,7 @@ public class OrderServiceImpl implements OrderService {
         List<OrderViewModel> orders = ords.stream()
                 .map(ord -> {
                     OrderViewModel orderViewModel = modelMapper.map(ord, OrderViewModel.class);
-                    orderViewModel.setBrand(ord.getModel().getBrand().getBrandName());
+                    orderViewModel.setBrandName(ord.getModel().getBrand().getBrandName());
                     return orderViewModel;
                 }).collect(Collectors.toList());
         return orders;
