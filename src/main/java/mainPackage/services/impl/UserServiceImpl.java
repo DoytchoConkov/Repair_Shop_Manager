@@ -49,6 +49,12 @@ public class UserServiceImpl implements UserService {
     public void registerUserAndLogin(UserServiceModel userServiceModel) throws IOException {
         User user = this.modelMapper.map(userServiceModel, User.class);
         user.setPassword(this.bCryptPasswordEncoder.encode(userServiceModel.getPassword()));
+        if (userServiceModel.getImageUrl() == null) {
+            user.setImageUrl("https://res.cloudinary.com/dislhsmj5/image/upload/v1615625459/logo_cohct8.png");
+        } else {
+            MultipartFile file = userServiceModel.getImageUrl();
+            user.setImageUrl(cloudinaryService.uploadImage(file));
+        }
         if (userRepository.count() == 0) {
             UserRole userRole = userRoleRepository.
                     findByRole(RoleName.ADMIN).orElseThrow(
@@ -102,7 +108,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean isMoreOneAdmin() {
         int admins = userRepository.findAdminUsers();
-        return admins==1;
+        return admins == 1;
     }
 
     @Override

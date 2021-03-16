@@ -58,7 +58,6 @@ public class UserControler {
             redirectAttributes.addFlashAttribute("notEqual", true);
             return "redirect:/users/register";
         }
-//TODO: login user
         this.userService.registerUserAndLogin(this.modelMapper.map(userRegisterBindingModel, UserServiceModel.class));
         return "redirect:/home";
     }
