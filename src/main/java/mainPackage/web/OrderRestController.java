@@ -1,5 +1,6 @@
 package mainPackage.web;
 
+import mainPackage.models.views.IncomePerDayViewModel;
 import mainPackage.models.views.OrderViewModel;
 import mainPackage.services.OrderService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,5 +27,10 @@ public class OrderRestController {
     @GetMapping("/find-clientById")
     public List<OrderViewModel> getAllByClientId(@RequestParam String clientId) {
         return orderService.findOrdersByClientId(Long.valueOf(clientId));
+    }
+
+    @GetMapping("/income")
+    public List<IncomePerDayViewModel> getOrderPerPeriod(@RequestParam String starDate, @RequestParam String endDate) {
+        return orderService.getByStartDateAndEndDate(starDate,endDate);
     }
 }

@@ -1,5 +1,7 @@
 package mainPackage.models.entities;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -53,6 +55,7 @@ public class Order extends BaseEntity {
     }
 
     @Column(name = "leave_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     public LocalDateTime getLeaveDate() {
         return leaveDate;
     }

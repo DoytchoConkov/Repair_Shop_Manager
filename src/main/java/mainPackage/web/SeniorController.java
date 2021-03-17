@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -50,8 +51,17 @@ public class SeniorController {
 
     @GetMapping("/income-info")
     @PreAuthorize("isAuthenticated()")
-    public String incomeInfo() {
-        return "/extended/income-info";
+    public String incomeInfo(Model model) {
+        if(!model.containsAttribute("startDate")){
+            model.addAttribute("startDate", LocalDate.now());
+        }
+        if(!model.containsAttribute("endDate")){
+            model.addAttribute("endDate", LocalDate.now());
+        }
+        if(!model.containsAttribute("income")){
+            model.addAttribute("income",orderService.getByStartDateAndEndDate(LocalDate.now().toString(),LocalDate.now().toString()));
+        }
+        return "/info/income-info";
     }
 
     @DeleteMapping("/spare_part/delete/{id}")

@@ -18,31 +18,28 @@
         <div class="form-group">
             <div class="row">
                 <label class="text-white" for="startDate">Start Date</label>
-                <input type="date" name="startDate" id="startDate">
+                <input type="date" name="startDate" id="startDate" th:value="${startDate}">
 
                 <label class="text-white" for="endDate">End Date</label>
-                <input type="date" name="endDate" id="endDate">
+                <input type="date" name="endDate" id="endDate" th:value="${endDate}">
             </div>
         </div>
-        <table class="striped">
+        <div id="error" class="alert alert-danger" role="alert" style="display: none">
+            Start date must be Before End date.
+        </div>
+        <table class="striped" id="table">
             <thead>
             <tr>
-                <th>No</th>
-                <th>Brand</th>
-                <th>Model</th>
-                <th>Serial Number</th>
-                <th>Damage</th>
-                <th>Price</th>
+                <th>Date</th>
+                <th>Total Spare Parts Price</th>
+                <th>Total Price</th>
             </tr>
             </thead>
-            <tbody>
-            <tr>
-                <th>No</th>
-                <th>Brand</th>
-                <th>Model</th>
-                <th>Serial Number</th>
-                <th>Damage</th>
-                <th>Price</th>
+            <tbody id="tableBody">
+            <tr th:each="o : ${income}" >
+                <td th:text="${o.leaveDate}">No</td>
+                <td th:text="${o.sparePartsTotalPrice}">No</td>
+                <td th:text="${o.totalPrice}">No</td>
             </tr>
             </tbody>
         </table>
@@ -54,6 +51,6 @@
     <th:block th:include="~{fragments/footer}"></th:block>
 </footer>
 
-
 </body>
+<script src="/js/infoPerPeriod.js" type="text/javascript"></script>
 </html>

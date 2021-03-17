@@ -3,6 +3,7 @@ package mainPackage.services.impl;
 import mainPackage.models.entities.*;
 import mainPackage.models.services.ClientServiceModel;
 import mainPackage.models.services.OrderFixServiceModel;
+import mainPackage.models.views.IncomePerDayViewModel;
 import mainPackage.models.views.OrderNotReadyViewModel;
 import mainPackage.models.services.OrderReceiveServiceModel;
 import mainPackage.models.views.OrderReadyViewModel;
@@ -15,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,7 +33,8 @@ public class OrderServiceImpl implements OrderService {
     private final SparePartsService sparePartsService;
 
     public OrderServiceImpl(OrderRepository OrderRepository, ClientService clientService, ModelService modelService,
-                            DamageService damageService, ModelMapper modelMapper, UserService userService, SparePartsService sparePartsService) {
+                            DamageService damageService, ModelMapper modelMapper, UserService userService,
+                            SparePartsService sparePartsService) {
         this.orderRepository = OrderRepository;
         this.clientService = clientService;
         this.modelService = modelService;
@@ -143,7 +146,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderViewModel> findOrders(String serialNumber) {
-        List<Order> ords=orderRepository.findAllBySerialNumber("%"+serialNumber+"%");
+        List<Order> ords = orderRepository.findAllBySerialNumber("%" + serialNumber + "%");
         return ords.stream()
                 .map(ord -> {
                     OrderViewModel orderViewModel = modelMapper.map(ord, OrderViewModel.class);
@@ -154,12 +157,28 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderViewModel> findOrdersByClientId(Long id) {
-        List<Order> ords=orderRepository.findAllByClientId(id);
+        List<Order> ords = orderRepository.findAllByClientId(id);
         return ords.stream()
                 .map(ord -> {
                     OrderViewModel orderViewModel = modelMapper.map(ord, OrderViewModel.class);
                     orderViewModel.setBrandName(ord.getModel().getBrand().getBrandName());
                     return orderViewModel;
                 }).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<IncomePerDayViewModel> getByStartDateAndEndDate(String startDate, String endDate) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatterToString = DateTimeFormatter.ofPattern("dd-MM-YYYY");
+        //TODO do for other places where have a LocalDateTime !!!
+        //   LocalDateTime formatDateTime = LocalDateTime.parse(now, formatter);
+        //    String formatDateTime = now.format(formatter);
+        List<Order> incomeList=orderRepository.findAllByLeaveDateBetween(LocalDateTime.parse(startDate + " 00:00:00",formatter),
+                LocalDateTime.parse(endDate + " 23:59:59",formatter));
+        return incomeList.stream().map(o->{
+            IncomePerDayViewModel viewModel= modelMapper.map(o,IncomePerDayViewModel.class);
+            viewModel.setLeaveDate(o.getLeaveDate().format(formatterToString));
+            return viewModel;
+        }).collect(Collectors.toList());
     }
 }

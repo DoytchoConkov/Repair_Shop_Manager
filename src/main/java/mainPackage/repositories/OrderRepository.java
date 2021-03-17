@@ -1,10 +1,13 @@
 package mainPackage.repositories;
 
 import mainPackage.models.entities.Order;
+import mainPackage.models.views.IncomePerDayViewModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
@@ -27,4 +30,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query("select o from Order as o join o.client as c join o.model as m join m.brand as b where c.id=:id order by b.brandName,m.modelName")
     List<Order> findAllByClientId(@Param("id") Long id);
+
+    List<Order> findAllByLeaveDateBetween(LocalDateTime startDate, LocalDateTime endDate);
+
 }

@@ -3,11 +3,13 @@ package mainPackage.services;
 import mainPackage.models.entities.Order;
 import mainPackage.models.entities.SparePart;
 import mainPackage.models.services.OrderFixServiceModel;
+import mainPackage.models.views.IncomePerDayViewModel;
 import mainPackage.models.views.OrderNotReadyViewModel;
 import mainPackage.models.services.OrderReceiveServiceModel;
 import mainPackage.models.views.OrderReadyViewModel;
 import mainPackage.models.views.OrderViewModel;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface OrderService {
@@ -35,4 +37,6 @@ public interface OrderService {
     List<OrderViewModel> findOrders(String serialNumber);
 
     List<OrderViewModel> findOrdersByClientId(Long id);
+
+    List<IncomePerDayViewModel> getByStartDateAndEndDate(String startDate, String endDate);
 }
