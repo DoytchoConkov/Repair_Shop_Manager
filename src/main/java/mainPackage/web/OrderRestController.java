@@ -17,8 +17,14 @@ public class OrderRestController {
     public OrderRestController(OrderService orderService) {
         this.orderService = orderService;
     }
+
     @GetMapping("/find-order")
     public List<OrderViewModel> getAllModelsForBrand(@RequestParam String serialNumber) {
         return orderService.findOrders(serialNumber);
+    }
+
+    @GetMapping("/find-clientById")
+    public List<OrderViewModel> getAllByClientId(@RequestParam String clientId) {
+        return orderService.findOrdersByClientId(Long.valueOf(clientId));
     }
 }

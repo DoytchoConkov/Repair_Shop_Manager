@@ -144,12 +144,22 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<OrderViewModel> findOrders(String serialNumber) {
         List<Order> ords=orderRepository.findAllBySerialNumber("%"+serialNumber+"%");
-        List<OrderViewModel> orders = ords.stream()
+        return ords.stream()
                 .map(ord -> {
                     OrderViewModel orderViewModel = modelMapper.map(ord, OrderViewModel.class);
                     orderViewModel.setBrandName(ord.getModel().getBrand().getBrandName());
                     return orderViewModel;
                 }).collect(Collectors.toList());
-        return orders;
+    }
+
+    @Override
+    public List<OrderViewModel> findOrdersByClientId(Long id) {
+        List<Order> ords=orderRepository.findAllByClientId(id);
+        return ords.stream()
+                .map(ord -> {
+                    OrderViewModel orderViewModel = modelMapper.map(ord, OrderViewModel.class);
+                    orderViewModel.setBrandName(ord.getModel().getBrand().getBrandName());
+                    return orderViewModel;
+                }).collect(Collectors.toList());
     }
 }

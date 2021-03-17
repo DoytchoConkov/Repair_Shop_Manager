@@ -33,4 +33,6 @@ public interface OrderService {
     void makeNotFixed(Long id);
 
     List<OrderViewModel> findOrders(String serialNumber);
+
+    List<OrderViewModel> findOrdersByClientId(Long id);
 }

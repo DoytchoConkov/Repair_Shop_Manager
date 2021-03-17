@@ -10,4 +10,6 @@ public interface ClientService {
     Client findByNameAndPhoneNumber(ClientServiceModel clientServiceModel);
 
     List<ClientViewModel> getAllClientNames();
+
+    List<ClientViewModel> findByNameOrPhoneNumber(String clientName);
 }

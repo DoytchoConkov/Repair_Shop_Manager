@@ -24,4 +24,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query("select o from Order as o where o.serialNumber like :serialNumber ")
     List<Order> findAllBySerialNumber(@Param("serialNumber") String serialNumber);
+
+    @Query("select o from Order as o join o.client as c join o.model as m join m.brand as b where c.id=:id order by b.brandName,m.modelName")
+    List<Order> findAllByClientId(@Param("id") Long id);
 }
