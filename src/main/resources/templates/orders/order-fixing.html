@@ -41,34 +41,32 @@
                 </div>
 
                 <div class="form-group" id="spareParts">
-<!--                    <label class="text-white " for="sparePartName" id="sparePartsList">Select spare part</label>-->
-<!--                    <select th:field="${orderFixedBindingModel.spId}" name="sparePartName" id="sparePartName"-->
-<!--                            class="custom-select">-->
-<!--                        <option value="" selected>Select spare part</option>-->
-<!--                        <option th:each="sp : ${spareParts}" th:object="${sp}" th:value="*{id}"-->
-<!--                                th:text="*{sparePartName}">-->
-<!--                            Select spare part-->
-<!--                        </option>-->
-<!--                    </select>-->
+                    <!--                    <label class="text-white " for="sparePartName" id="sparePartsList">Select spare part</label>-->
+                    <!--                    <select th:field="${orderFixedBindingModel.spId}" name="sparePartName" id="sparePartName"-->
+                    <!--                            class="custom-select">-->
+                    <!--                        <option value="" selected>Select spare part</option>-->
+                    <!--                        <option th:each="sp : ${spareParts}" th:object="${sp}" th:value="*{id}"-->
+                    <!--                                th:text="*{sparePartName}">-->
+                    <!--                            Select spare part-->
+                    <!--                        </option>-->
+                    <!--                    </select>-->
                 </div>
 
                 <div class="form-group ">
                     <div class="btn btn-primary btn-sm" id="addSpareParts">Add Spare Part</div>
                     <div class="btn btn-primary btn-sm" id="addAllSparePartsForBrand">Add All Spare Part for Brand</div>
-                    -->
                 </div>
 
                 <div class="form-group">
-                    <label class="text-white " for="price">Total Spare Part Price</label>
-                    <input th:field="${orderFixedBindingModel.spPrice}" id="price" type="number" step="0.01"
-                           class="form-control"
-                           placeholder="Put Price here">
+                    <label class="text-white " for="sparePartPrice">Total Spare Part Price</label>
+                    <input th:field="${orderFixedBindingModel.spPrice}" id="sparePartPrice" name="sparePartPrice" type="number" value="0" step="1"
+                           class="form-control"                           placeholder="Put Price here">
                 </div>
 
                 <div class="form-group">
                     <label class="text-white " for="totalPrice">Total Price</label>
-                    <input th:field="${orderFixedBindingModel.totalPrice}" id="totalPrice" type="number" step="0.01"
-                           class="form-control"
+                    <input th:field="${orderFixedBindingModel.totalPrice}" id="totalPrice" type="number" step="1"
+                           class="form-control" value="0" min="0"
                            placeholder="Put total price here">
                 </div>
 
@@ -83,5 +81,5 @@
 <th:block th:include="~{fragments/footer}"></th:block>
 
 </body>
-<script src="/js/addSpareParts.js" type="text/javascript"></script>
+<script src="/js/order-fix.js" type="text/javascript"></script>
 </html>

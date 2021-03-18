@@ -1,22 +1,21 @@
-package mainPackage.models.views;
+package mainPackage.models.services;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class IncomePerPeriodViewModel {
+public class IncomePerPeriodServiceModel {
     private LocalDateTime leaveDate;
     private BigDecimal totalSparePartsPrice;
     private BigDecimal totalRepairPrice;
-    private String leaveDateString;
 
-    public IncomePerPeriodViewModel() {
-    }
-
-    public IncomePerPeriodViewModel(LocalDateTime leaveDate, BigDecimal totalSparePartsPrice, BigDecimal totalRepairPrice,  String leaveDateString) {
+    public IncomePerPeriodServiceModel(LocalDateTime leaveDate, BigDecimal totalSparePartsPrice, BigDecimal totalRepairPrice) {
         this.leaveDate = leaveDate;
         this.totalSparePartsPrice = totalSparePartsPrice;
         this.totalRepairPrice = totalRepairPrice;
-        this.leaveDateString=leaveDateString;
+    }
+
+    public IncomePerPeriodServiceModel() {
+
     }
 
     public LocalDateTime getLeaveDate() {
@@ -41,13 +40,5 @@ public class IncomePerPeriodViewModel {
 
     public void setTotalRepairPrice(BigDecimal totalRepairPrice) {
         this.totalRepairPrice = totalRepairPrice;
-    }
-
-    public String getLeaveDateString() {
-        return leaveDateString;
-    }
-
-    public void setLeaveDateString(String leaveDateString) {
-        this.leaveDateString = leaveDateString;
     }
 }

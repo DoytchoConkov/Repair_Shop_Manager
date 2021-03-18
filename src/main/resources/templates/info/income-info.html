@@ -13,8 +13,7 @@
 
 <div class="container">
     <h2 class="text-center text-white">Income per Period</h2>
-    <form method="post" th:action="@{/admin/set-user-role}"
-          class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center text-white">
+    <div class="div-form mx-auto col-md-8 d-flex flex-column justify-content-center text-white">
         <div class="form-group">
             <div class="row">
                 <label class="text-white" for="startDate">Start Date</label>
@@ -31,22 +30,37 @@
             <thead>
             <tr>
                 <th>Date</th>
-                <th>Total Spare Parts Price</th>
-                <th>Total Price</th>
+                <th>Daily Spare Parts Price</th>
+                <th>Daily Repair Price</th>
+                <th>Daily Income</th>
+                <th>Details</th>
             </tr>
             </thead>
             <tbody id="tableBody">
-            <tr th:each="o : ${income}" >
-                <td th:text="${o.leaveDate}">No</td>
-                <td th:text="${o.sparePartsTotalPrice}">No</td>
-                <td th:text="${o.totalPrice}">No</td>
+            <tr th:each="o : ${income}">
+                <td th:text="${o.leaveDateString}">No</td>
+                <td th:text="${o.totalSparePartsPrice}">No</td>
+                <td th:text="${o.totalRepairPrice}">No</td>
+                <td th:text="${o.totalRepairPrice}-${o.totalSparePartsPrice}">No</td>
+                <td><a class="nav-link" th:href="@{/senior/order/{leaveDate}(leaveDate=${o.leaveDate})}">Details</a>
+                </td>
             </tr>
             </tbody>
         </table>
-    </form>
+        <label></label>
+        <label></label>
+        <label class="text-white" for="totalSparePartPerPeriod" id="totalSparePartPerPeriod">
+            <!--                   th:value="|Total Spare Parts Price: ${o.totalSparePartsPrice}|">Total Spare Parts Price: -->
+        </label>
+        <label class="text-white" for="totalPerPeriod" id="totalPerPeriod">
+            <!--                   th:value="|Total Spare Parts Price: ${o.totalRepairPrice}|">Total Price Per Period:-->
+        </label>
+        <label class="text-white" for="incomePerPeriod" id="incomePerPeriod">
+            <!--                   th:value="|Total Spare Parts Price: (${o.totalRepairPrice}-${o.totalSparePartsPrice})|">Income Per-->
+            <!--                Period: -->
+        </label>
+    </div>
 </div>
-
-
 <footer>
     <th:block th:include="~{fragments/footer}"></th:block>
 </footer>

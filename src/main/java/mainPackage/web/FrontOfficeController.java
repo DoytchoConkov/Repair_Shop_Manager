@@ -1,16 +1,13 @@
 package mainPackage.web;
 
 import mainPackage.models.bindings.OrderReceiveBindingModel;
-import mainPackage.models.bindings.SparePartBindingModel;
 import mainPackage.models.services.ClientServiceModel;
 import mainPackage.models.services.OrderReceiveServiceModel;
 import mainPackage.models.views.BrandViewModel;
 import mainPackage.models.views.DamageViewModel;
+import mainPackage.models.views.ModelViewModel;
 import mainPackage.models.views.OrderReadyViewModel;
-import mainPackage.services.BrandService;
-import mainPackage.services.ClientService;
-import mainPackage.services.DamageService;
-import mainPackage.services.OrderService;
+import mainPackage.services.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -25,19 +22,20 @@ import java.util.List;
 @Controller
 @RequestMapping("/front-office")
 public class FrontOfficeController {
-
     private final ModelMapper modelMapper;
     private final OrderService orderService;
     private final DamageService damageService;
     private final BrandService brandService;
     private final ClientService clientService;
+    private final ModelService modelService;
 
-    public FrontOfficeController(ModelMapper modelMapper, OrderService orderService, DamageService damageService, BrandService brandService, ClientService clientService) {
+    public FrontOfficeController(ModelMapper modelMapper, OrderService orderService, DamageService damageService, BrandService brandService, ClientService clientService, ModelService modelService) {
         this.modelMapper = modelMapper;
         this.orderService = orderService;
         this.damageService = damageService;
         this.brandService = brandService;
         this.clientService = clientService;
+        this.modelService = modelService;
     }
 
     @GetMapping("/fixed-orders")
@@ -70,6 +68,8 @@ public class FrontOfficeController {
         model.addAttribute("damages", damages);
         List<BrandViewModel> brands = brandService.getAll();
         model.addAttribute("brands", brands);
+        List<ModelViewModel> models = modelService.getAll();
+        model.addAttribute("models", models);
         if (!model.containsAttribute("OrderReceiveBindingModel")) {
             model.addAttribute("OrderReceiveBindingModel", new OrderReceiveBindingModel());
         }

@@ -12,8 +12,8 @@ public class OrderViewModel {
     private String notes;
     private String clientName;
     private BigDecimal totalRepairPrice;
-    private LocalDateTime receiveDate;
-    private LocalDateTime leaveDate;
+    private String receiveDate;
+    private String leaveDate;
 
     public OrderViewModel() {
     }
@@ -82,19 +82,19 @@ public class OrderViewModel {
         this.totalRepairPrice = totalRepairPrice;
     }
 
-    public LocalDateTime getReceiveDate() {
+    public String getReceiveDate() {
         return receiveDate;
     }
 
-    public void setReceiveDate(LocalDateTime receiveDate) {
+    public void setReceiveDate(String receiveDate) {
         this.receiveDate = receiveDate;
     }
 
-    public LocalDateTime getLeaveDate() {
+    public String getLeaveDate() {
         return leaveDate;
     }
 
-    public void setLeaveDate(LocalDateTime leaveDate) {
+    public void setLeaveDate(String leaveDate) {
         this.leaveDate = leaveDate;
     }
 }

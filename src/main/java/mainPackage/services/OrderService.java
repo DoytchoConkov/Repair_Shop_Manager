@@ -1,6 +1,7 @@
 package mainPackage.services;
 
 import mainPackage.models.services.OrderFixServiceModel;
+import mainPackage.models.views.IncomePerPeriodViewModel;
 import mainPackage.models.views.OrderNotReadyViewModel;
 import mainPackage.models.services.OrderReceiveServiceModel;
 import mainPackage.models.views.OrderReadyViewModel;
@@ -34,5 +35,5 @@ public interface OrderService {
 
     List<OrderViewModel> findOrdersByClientId(Long id);
 
-    List<OrderViewModel> getByStartDateAndEndDate(String startDate, String endDate);
+    List<IncomePerPeriodViewModel> getByStartDateAndEndDate(String startDate, String endDate);
 }
