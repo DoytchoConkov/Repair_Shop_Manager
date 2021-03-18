@@ -3,7 +3,6 @@ package mainPackage.services.impl;
 import mainPackage.models.entities.*;
 import mainPackage.models.services.ClientServiceModel;
 import mainPackage.models.services.OrderFixServiceModel;
-import mainPackage.models.views.IncomePerDayViewModel;
 import mainPackage.models.views.OrderNotReadyViewModel;
 import mainPackage.models.services.OrderReceiveServiceModel;
 import mainPackage.models.views.OrderReadyViewModel;
@@ -23,8 +22,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class OrderServiceImpl implements OrderService {
-
-    private final OrderRepository orderRepository;
+private final OrderRepository orderRepository;
     private final ClientService clientService;
     private final ModelService modelService;
     private final DamageService damageService;
@@ -32,10 +30,10 @@ public class OrderServiceImpl implements OrderService {
     private final UserService userService;
     private final SparePartsService sparePartsService;
 
-    public OrderServiceImpl(OrderRepository OrderRepository, ClientService clientService, ModelService modelService,
+    public OrderServiceImpl(OrderRepository orderRepository, ClientService clientService, ModelService modelService,
                             DamageService damageService, ModelMapper modelMapper, UserService userService,
                             SparePartsService sparePartsService) {
-        this.orderRepository = OrderRepository;
+        this.orderRepository = orderRepository;
         this.clientService = clientService;
         this.modelService = modelService;
         this.damageService = damageService;
@@ -167,17 +165,18 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<IncomePerDayViewModel> getByStartDateAndEndDate(String startDate, String endDate) {
+    public List<OrderViewModel> getByStartDateAndEndDate(String startDate, String endDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         DateTimeFormatter formatterToString = DateTimeFormatter.ofPattern("dd-MM-YYYY");
         //TODO do for other places where have a LocalDateTime !!!
         //   LocalDateTime formatDateTime = LocalDateTime.parse(now, formatter);
         //    String formatDateTime = now.format(formatter);
+
+
         List<Order> incomeList=orderRepository.findAllByLeaveDateBetween(LocalDateTime.parse(startDate + " 00:00:00",formatter),
                 LocalDateTime.parse(endDate + " 23:59:59",formatter));
         return incomeList.stream().map(o->{
-            IncomePerDayViewModel viewModel= modelMapper.map(o,IncomePerDayViewModel.class);
-            viewModel.setLeaveDate(o.getLeaveDate().format(formatterToString));
+            OrderViewModel viewModel= modelMapper.map(o,OrderViewModel.class);
             return viewModel;
         }).collect(Collectors.toList());
     }

@@ -55,7 +55,6 @@ public class Order extends BaseEntity {
     }
 
     @Column(name = "leave_date")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     public LocalDateTime getLeaveDate() {
         return leaveDate;
     }
