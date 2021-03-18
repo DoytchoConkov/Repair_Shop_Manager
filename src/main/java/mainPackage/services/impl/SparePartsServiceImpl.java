@@ -1,11 +1,13 @@
 package mainPackage.services.impl;
 
+import mainPackage.models.bindings.SparePartBindingModel;
 import mainPackage.models.entities.Model;
 import mainPackage.models.entities.SparePart;
 import mainPackage.models.services.SparePartServiceModel;
 import mainPackage.models.views.SparePartViewModel;
 import mainPackage.repositories.SparePartsRepository;
 import mainPackage.services.ModelService;
+import mainPackage.services.OrderService;
 import mainPackage.services.SparePartsService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -77,11 +79,6 @@ public class SparePartsServiceImpl implements SparePartsService {
     }
 
     @Override
-    public void update(SparePart sparePart) {
-        sparePartsRepository.save(sparePart);
-    }
-
-    @Override
     public List<String> getModelsByBrandName(String brandName) {
         List<String> models = sparePartsRepository.getModelsByBrandName(brandName);
         return models;
@@ -90,7 +87,7 @@ public class SparePartsServiceImpl implements SparePartsService {
     @Override
     public List<SparePartViewModel> getSparePartsByBrandNameAndModel(String brandName, String modelName) {
         List<SparePartViewModel> spareParts = sparePartsRepository.getSparePartsByBrandNameAndModel(brandName, modelName)
-                .stream().map(sp->modelMapper.map(sp,SparePartViewModel.class)).collect(Collectors.toList());
+                .stream().map(sp -> modelMapper.map(sp, SparePartViewModel.class)).collect(Collectors.toList());
         return spareParts;
     }
 
@@ -98,13 +95,28 @@ public class SparePartsServiceImpl implements SparePartsService {
     public List<SparePartViewModel> getSparePartsByBrandNameForAdd(String brandName) {
         List<SparePartViewModel> spareParts = sparePartsRepository
                 .getSparePartsBrandName(brandName).stream()
-                .map(sp->modelMapper.map(sp,SparePartViewModel.class)).collect(Collectors.toList());
+                .map(sp -> modelMapper.map(sp, SparePartViewModel.class)).collect(Collectors.toList());
         return spareParts;
     }
 
     @Override
     public SparePartViewModel getSparePartById(Long id) {
         SparePart sparePart = sparePartsRepository.findById(id).orElseThrow();
-        return modelMapper.map(sparePart,SparePartViewModel.class);
+        return modelMapper.map(sparePart, SparePartViewModel.class);
+    }
+
+    @Override
+    public void edit(Long id, SparePartBindingModel sparePartBindingModel) {
+        SparePart sparePart = sparePartsRepository.findById(id).orElseThrow();
+        sparePart.setPieces(sparePartBindingModel.getPieces());
+        sparePart.setPrice(sparePartBindingModel.getPrice());
+        sparePartsRepository.save(sparePart);
+    }
+
+    @Override
+    public void update(Long id, int i) {
+        SparePart sparePart = sparePartsRepository.findById(id).orElseThrow();
+        sparePart.setPieces(0);
+        sparePartsRepository.save(sparePart);
     }
 }

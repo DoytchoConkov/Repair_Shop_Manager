@@ -52,29 +52,31 @@ public class SeniorController {
     @GetMapping("/income-info")
     @PreAuthorize("isAuthenticated()")
     public String incomeInfo(Model model) {
-        if(!model.containsAttribute("startDate")){
+        if (!model.containsAttribute("startDate")) {
             model.addAttribute("startDate", LocalDate.now());
         }
-        if(!model.containsAttribute("endDate")){
+        if (!model.containsAttribute("endDate")) {
             model.addAttribute("endDate", LocalDate.now());
         }
-        if(!model.containsAttribute("income")){
-            model.addAttribute("income",orderService.getByStartDateAndEndDate(LocalDate.now().toString(),LocalDate.now().toString()));
+        if (!model.containsAttribute("income")) {
+            model.addAttribute("income", orderService.getByStartDateAndEndDate(LocalDate.now().toString(), LocalDate.now().toString()));
         }
         return "/info/income-info";
     }
 
+    @PutMapping("/spare_part/edit/{id}")
+    public String editSparePart(@PathVariable Long id, @ModelAttribute SparePartBindingModel sparePartBindingModel) {
+        sparePartsService.edit(id, sparePartBindingModel);
+        return "redirect:/home";
+    }
+
     @DeleteMapping("/spare_part/delete/{id}")
-    public String deleteSparePart(@PathVariable Long id,
-                                  Model model) {
-        SparePart sparePart = sparePartsService.findById(id);
-        if (orderService.isContainSparePart(sparePart.getId())) {
-            sparePart.setPieces(0);
-            sparePartsService.update(sparePart);
+    public String deleteSparePart(@PathVariable Long id) {
+        if (orderService.isContainSparePart(id)) {
+            sparePartsService.update(id,0);
         } else {
             sparePartsService.deleteSparePart(id);
         }
-
         return "redirect:/home";
     }
 

@@ -11,8 +11,7 @@
 
 <div class="container">
     <h2 class="text-center text-white">Edit Spare Part</h2>
-    <div id="sparePartsContainer" th:object="${sparePartsReceiveBindingModel}" method="post"
-         th:action="@{/senior/edit-spare-part/}"
+    <div id="sparePartsContainer" th:object="${sparePartsReceiveBindingModel}"
          class="div-form mx-auto col-md-8 d-flex flex-column justify-content-center">
         <div class="form-group">
             <label class="text-white font-weight-bold" for="brand">Brand</label>
@@ -42,13 +41,13 @@
             <input id="price" type="number" step="0.10" class="form-control" placeholder="Put Price here">
 
             <div class=" row">
-                <div class="col col-md-4">
-                    <div class="button-holder d-flex">
-                        <input type="submit" class="btn btn-info btn-sm" value="Edit"/>
-                    </div>
-                </div>
-                <form class="btn" th:action="@{/senior/spare_part/delete/{id}(id=1)}" th:method="delete">
-                    <input class="btn-dark" type="submit" value="Delete">
+                <form th:object="${sparePartsReceiveBindingModel}" class="btn" th:action="@{/senior/spare_part/edit/{id}(id=3)}" th:method="put" id="edit">
+                    <input type="hidden" name="pieces" th:value="1" id="hiddenPieces">
+                    <input type="hidden" name="price" th:value="1" id="hiddenPrice">
+                    <input type="submit" class="btn btn-info btn-sm" value="Edit"/>
+                </form>
+                <form class="btn" th:action="@{/senior/spare_part/delete/{id}(id=1)}" th:method="delete" id="delete">
+                    <input class="btn-danger" type="submit" value="Delete">
                 </form>
             </div>
         </div>

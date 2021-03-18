@@ -34,8 +34,19 @@ spareParts.change(() => {
     fetch('http://localhost:8080/spare-parts/spare-part-by-id?id=' + spareParts[0].value)
         .then((response) => response.json())
         .then((sp) => {
+            console.log($('#edit')[0]);
+            $('#edit').attr("action", "/senior/spare_part/edit/" + sp.id);
+            $('#delete').attr("action", "/senior/spare_part/delete/" + sp.id);
             $('#pieces')[0].value = sp.pieces;
+            $('#hiddenPieces')[0].value = sp.pieces;
             $('#price')[0].value = sp.price;
+            $('#hiddenPrice')[0].value = sp.price;
         })
     $('#details')[0].style.display = "block";
 })
+$('#pieces').change(() =>
+    $('#hiddenPieces')[0].value = $('#pieces')[0].value
+)
+$('#price').change(() =>
+    $('#hiddenPrice')[0].value = $('#price')[0].value
+)
