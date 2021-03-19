@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -39,5 +40,9 @@ public class SparePartRestControler {
     public SparePartViewModel getSparePartsById(@RequestParam Long id) {
         SparePartViewModel sparePart = sparePartsService.getSparePartById(id);
         return sparePart;
+    }
+    @GetMapping("/spare-parts-totalPrice")
+    public BigDecimal getTotalSparePartPrice(@RequestParam String[] sparePartsId) {
+        return sparePartsService.getTotalSparePartPrice(sparePartsId);
     }
 }

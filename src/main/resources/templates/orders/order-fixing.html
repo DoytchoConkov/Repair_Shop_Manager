@@ -59,8 +59,8 @@
 
                 <div class="form-group">
                     <label class="text-white " for="sparePartPrice">Total Spare Part Price</label>
-                    <input th:field="${orderFixedBindingModel.spPrice}" id="sparePartPrice" name="sparePartPrice" type="number" value="0" step="1"
-                           class="form-control"                           placeholder="Put Price here">
+                    <input th:field="${orderFixedBindingModel.spPrice}" id="sparePartPrice" name="sparePartPrice" +
+                           type="number" value="0" step="1" class="form-control" placeholder="Put Price here" disabled>
                 </div>
 
                 <div class="form-group">

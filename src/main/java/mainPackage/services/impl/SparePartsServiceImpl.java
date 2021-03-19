@@ -13,6 +13,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -118,5 +119,10 @@ public class SparePartsServiceImpl implements SparePartsService {
         SparePart sparePart = sparePartsRepository.findById(id).orElseThrow();
         sparePart.setPieces(0);
         sparePartsRepository.save(sparePart);
+    }
+
+    @Override
+    public BigDecimal getTotalSparePartPrice(String[] sparePartsId) {
+        return sparePartsRepository.getTotalPrice(Arrays.stream(sparePartsId).map(s->Long.valueOf(s)).toArray(Long[]::new));
     }
 }

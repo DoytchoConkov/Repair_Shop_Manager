@@ -5,6 +5,7 @@ import mainPackage.models.entities.SparePart;
 import mainPackage.models.services.SparePartServiceModel;
 import mainPackage.models.views.SparePartViewModel;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface SparePartsService {
@@ -31,4 +32,6 @@ public interface SparePartsService {
     void edit(Long id, SparePartBindingModel sparePartBindingModel);
 
     void update(Long id, int i);
+
+    BigDecimal getTotalSparePartPrice(String[] sparePartsId);
 }
