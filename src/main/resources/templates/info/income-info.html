@@ -11,7 +11,7 @@
     <th:block th:include="~{fragments/nav-bar}"></th:block>
 </div>
 
-<div class="container">
+<div class="container" id="info" style=" display:block">
     <h2 class="text-center text-white">Income per Period</h2>
     <div class="div-form mx-auto col-md-8 d-flex flex-column justify-content-center text-white">
         <div class="form-group">
@@ -26,7 +26,7 @@
         <div id="error" class="alert alert-danger" role="alert" style="display: none">
             Start date must be Before End date.
         </div>
-        <table class="striped" id="table">
+        <table class="striped" id="tableInfo">
             <thead>
             <tr>
                 <th>Date</th>
@@ -61,6 +61,29 @@
         </label>
     </div>
 </div>
+
+<div class="container" id="details" style="display:none">
+    <h2 class="text-center text-white" id="headTitle"></h2>
+    <div class="div-form mx-auto col-md-12 d-flex flex-column justify-content-center text-white">
+        <table class="striped">
+            <thead>
+            <tr>
+                <td>Brand</td>
+                <td>Model</td>
+                <td>Serial Number</td>
+                <td>Damage</td>
+                <td>TotalPrice</td>
+                <td>Client</td>
+            </tr>
+            </thead>
+            <tbody id="tableDetails">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
 <footer>
     <th:block th:include="~{fragments/footer}"></th:block>
 </footer>

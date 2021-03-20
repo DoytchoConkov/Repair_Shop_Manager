@@ -2,6 +2,8 @@ package mainPackage.repositories;
 
 import mainPackage.models.entities.Order;
 import mainPackage.models.services.IncomePerPeriodServiceModel;
+import mainPackage.models.views.IncomePerPeriodViewModel;
+import mainPackage.models.views.OrderViewModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -29,4 +31,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query(" select new mainPackage.models.services.IncomePerPeriodServiceModel(o.leaveDate as leaveDate,sum(o.totalSparePartsPrice) as totalSparePartsPrice,sum(o.totalRepairPrice) as totalRepairPrice) from Order as o where o.leaveDate between :startDate and :endDate group by o.leaveDate order by o.leaveDate")
     List<IncomePerPeriodServiceModel> findAllByLeaveDateBetween(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
+
+    @Query("select o from Order as o where o.leaveDate between :startDate and :endDate order by o.leaveDate")
+    List<Order> getByDate(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
 }

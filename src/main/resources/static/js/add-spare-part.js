@@ -1,10 +1,12 @@
 let brand = $('#brand');
 let models = $('#modelsList');
+let model = $('#model');
 let spareParts = $('#sparePartNameList');
+let sp = $('#sparePartName');
 
 brand.change(() => {
     models.empty();
-    models.append('<option value="" selected>Select model</option>');
+    models.append('<option value="">Select model</option>');
     fetch('http://localhost:8080/spare-parts/models?brandName=' + brand[0].value)
         .then((response) => response.json())
         .then((json) => json.forEach((ml) => {
@@ -12,14 +14,41 @@ brand.change(() => {
             models.append(option);
         }))
 })
-$('#model').change(() => {
+
+model.change(() => {
     spareParts.empty();
-    spareParts.append('<option value="" selected>Select spare part</option>');
-    fetch('http://localhost:8080/spare-parts/spare-parts?brandName=' + brand[0].value + '&modelName=' + $('#model')[0].value)
+    spareParts.append('<option value="">Select Spare Part</option>');
+    fetch('http://localhost:8080/spare-parts/spare-parts?brandName=' + brand[0].value + '&modelName=' + model[0].value)
         .then((response) => response.json())
         .then((json) => json.forEach((sp) => {
-            let name=sp.sparePartName;
-            let option = `<option >${name}</option>`;
-            spareParts.append(option);
+            let spn = `<option value="${sp.sparePartName}">${sp.sparePartName}</option>`;
+            spareParts.append(spn);
         }))
+})
+
+sp.change(() => {
+    fetch('http://localhost:8080/spare-parts/spare-parts-name?brandName=' + brand[0].value + '&modelName=' + model[0].value + '&spName=' + sp[0].value)
+        .then((response) => response.json())
+        .then((sp) => {
+            if (sp != null) {
+                console.log(sp)
+            } else {
+                console.log("Hello")
+            }
+        })
+})
+
+sp.keyup(() => {
+    if (sp[0].value.length >= 3) {
+        fetch('http://localhost:8080/spare-parts/spare-parts-name?brandName=' + brand[0].value + '&modelName=' + model[0].value + '&spName=' + sp[0].value)
+            .then((response) => response.json())
+            .then((sp) => {
+                if (sp != null) {
+                    $('#currentPieces').text(sp.pieces);
+                    $('#currentPrice').text(sp.price);
+                } else {
+                    console.log("Hello")
+                }
+            })
+    }
 })

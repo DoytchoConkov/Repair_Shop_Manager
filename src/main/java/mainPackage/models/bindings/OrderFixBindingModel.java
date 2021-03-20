@@ -3,14 +3,14 @@ package mainPackage.models.bindings;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.List;
 
 public class OrderFixBindingModel {
-    private Long spId;
-
+    private String sparePartName;
     private String imageUrl;
     @NotNull(message = "Price can not be empty.")
     @DecimalMin(value = "0", message = "Price must be positive")
-    private BigDecimal spPrice;
+    private BigDecimal sparePartPrice;
     @NotNull(message = "Price can not be empty.")
     @DecimalMin(value = "0", message = "Price must be positive")
     private BigDecimal totalPrice;
@@ -18,12 +18,12 @@ public class OrderFixBindingModel {
     public OrderFixBindingModel() {
     }
 
-    public Long getSpId() {
-        return spId;
+    public String getSparePartName() {
+        return sparePartName;
     }
 
-    public void setSpId(Long spId) {
-        this.spId = spId;
+    public void setSparePartName(String sparePartName) {
+        this.sparePartName = sparePartName;
     }
 
     public String getImageUrl() {
@@ -34,12 +34,12 @@ public class OrderFixBindingModel {
         this.imageUrl = imageUrl;
     }
 
-    public BigDecimal getSpPrice() {
-        return spPrice;
+    public BigDecimal getSparePartPrice() {
+        return sparePartPrice;
     }
 
-    public void setSpPrice(BigDecimal spPrice) {
-        this.spPrice = spPrice;
+    public void setSparePartPrice(BigDecimal sparePartPrice) {
+        this.sparePartPrice = sparePartPrice;
     }
 
     public BigDecimal getTotalPrice() {

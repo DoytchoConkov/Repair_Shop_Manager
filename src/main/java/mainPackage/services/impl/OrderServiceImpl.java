@@ -160,13 +160,27 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<IncomePerPeriodViewModel> getByStartDateAndEndDate(String startDate, String endDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        DateTimeFormatter formatterToString = DateTimeFormatter.ofPattern("dd-MM-YYYY");
+        DateTimeFormatter formatterToString = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         List<IncomePerPeriodServiceModel> incomeList = orderRepository.findAllByLeaveDateBetween(LocalDateTime.parse(startDate + " 00:00:00", formatter),
                 LocalDateTime.parse(endDate + " 23:59:59", formatter));
         return incomeList.stream().map(o -> {
             IncomePerPeriodViewModel viewModel = modelMapper.map(o, IncomePerPeriodViewModel.class);
             viewModel.setLeaveDateString(o.getLeaveDate().format(formatterToString));
             return viewModel;
+        }).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<OrderViewModel> getByDate(String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        DateTimeFormatter formatterToString = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDateTime startDate = LocalDateTime.parse(date + " 00:00:00", formatter);
+        LocalDateTime endDate = LocalDateTime.parse(date + " 23:59:59", formatter);
+        List<Order> orders = orderRepository.getByDate(startDate, endDate);
+        return orders.stream().map(o -> {
+            OrderViewModel order = modelMapper.map(o, OrderViewModel.class);
+            order.setBrandName(o.getModel().getBrand().getBrandName());
+            return order;
         }).collect(Collectors.toList());
     }
 

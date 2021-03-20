@@ -32,4 +32,7 @@ public interface SparePartsRepository extends JpaRepository<SparePart, Long> {
 
     @Query("select sum(sp.price) from SparePart as sp where sp.id in :sparePartsId ")
     BigDecimal getTotalPrice(@Param("sparePartsId") Long[] sparePartsId);
+
+    @Query("select sp from SparePart as sp where sp.model.brand.brandName=:brandName and sp.model.modelName=:modelName and sp.sparePartName=:spName")
+    SparePart getByBrandModelName(String brandName, String modelName, String spName);
 }

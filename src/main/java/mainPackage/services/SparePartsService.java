@@ -34,4 +34,6 @@ public interface SparePartsService {
     void update(Long id, int i);
 
     BigDecimal getTotalSparePartPrice(String[] sparePartsId);
+
+    SparePartViewModel getByBrandModelName(String brandName, String modelName, String spName);
 }

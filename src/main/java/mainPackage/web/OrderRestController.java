@@ -33,4 +33,9 @@ public class OrderRestController {
     public List<IncomePerPeriodViewModel> getOrderPerPeriod(@RequestParam String starDate, @RequestParam String endDate) {
         return orderService.getByStartDateAndEndDate(starDate,endDate);
     }
+
+    @GetMapping("/orderBydate")
+    public List<OrderViewModel> getOrdersPerDate(@RequestParam String date) {
+        return orderService.getByDate(date);
+    }
 }

@@ -6,7 +6,7 @@ let sparePartsList = document.getElementById('spareParts');
 
 addBrandBtn.click(() => {
     let select = document.createElement("select")
-    select.addEventListener("change", calculateSparePartTotalPrice);
+    select.setAttribute("name", "sparePartsList[]");
     sparePartsList.appendChild(select);
     select.setAttribute("name", "sparePartName");
     select.setAttribute("id", "sparePartName");
@@ -23,12 +23,13 @@ addBrandBtn.click(() => {
             option.text = sp.sparePartName;
             select.appendChild(option);
         }))
+    select.addEventListener("change", calculateSparePartTotalPrice);
 })
 
 
 addBtn.click(() => {
-    let select = document.createElement("select")
-    select.addEventListener("change", calculateSparePartTotalPrice);
+    let select = document.createElement("select");
+    select.setAttribute("name", "sparePartsList");
     sparePartsList.appendChild(select);
     select.setAttribute("name", "sparePartName");
     select.setAttribute("id", "sparePartName");
@@ -45,6 +46,7 @@ addBtn.click(() => {
             option.text = sp.sparePartName;
             select.appendChild(option);
         }))
+    select.addEventListener("change", calculateSparePartTotalPrice);
 })
 
 
@@ -56,5 +58,7 @@ function calculateSparePartTotalPrice() {
     }
     fetch('http://localhost:8080/spare-parts/spare-parts-totalPrice?sparePartsId=' + sparePartsId)
         .then((response) => response.json())
-        .then((json) => $('#sparePartPrice').val(json));
+        .then((json) => {
+            $('#sparePartPrice')[0].value = json;
+        });
 }
