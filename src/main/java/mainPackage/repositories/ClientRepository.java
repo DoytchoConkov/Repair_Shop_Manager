@@ -12,6 +12,8 @@ import java.util.Optional;
 
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Long> {
+    @Query("select c from Client  as c order by c.clientName , c.clientPhoneNumber")
+    List<Client> findAll();
 
     Client findByClientNameAndClientPhoneNumber(String name, String phoneNumber);
 

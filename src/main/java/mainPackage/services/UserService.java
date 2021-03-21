@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface UserService extends UserDetailsService {
     void registerUserAndLogin(UserServiceModel userServiceModel) throws IOException;
-     
+
     UserServiceModel findUserByUserName(String username);
 
     User getUserByUserName(String springSecurityFormUsernameKey);
