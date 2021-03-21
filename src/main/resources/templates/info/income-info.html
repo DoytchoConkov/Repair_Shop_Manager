@@ -37,14 +37,6 @@
             </tr>
             </thead>
             <tbody id="tableBody">
-            <tr th:each="o : ${income}">
-                <td th:text="${o.leaveDateString}">No</td>
-                <td th:text="${o.totalSparePartsPrice}">No</td>
-                <td th:text="${o.totalRepairPrice}">No</td>
-                <td th:text="${o.totalRepairPrice}-${o.totalSparePartsPrice}">No</td>
-                <td><a class="nav-link" th:href="@{/senior/order/{leaveDate}(leaveDate=${o.leaveDate})}">Details</a>
-                </td>
-            </tr>
             </tbody>
         </table>
         <label></label>

@@ -20,9 +20,6 @@ public interface SparePartsRepository extends JpaRepository<SparePart, Long> {
     @Query("select sp from SparePart as sp JOIN sp.model as m JOIN m.brand as b where b.brandName=:brand and m.modelName=:model")
     List<SparePart> findByBrandAndModel(@Param("brand") String brand, @Param("model") String model);
 
-    @Query("select distinct sp.model.modelName from SparePart as sp join sp.model as m join m.brand as b where b.brandName=:brandName")
-    List<String> getModelsByBrandName(@Param("brandName") String brandName);
-
     @Query("select sp from SparePart as sp join sp.model as m join m.brand as b where m.modelName=:modelName and b.brandName=:brandName")
     List<SparePart> getSparePartsByBrandNameAndModel(String brandName, String modelName);
 

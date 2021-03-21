@@ -81,7 +81,7 @@ public class SparePartsServiceImpl implements SparePartsService {
 
     @Override
     public List<String> getModelsByBrandName(String brandName) {
-        List<String> models = sparePartsRepository.getModelsByBrandName(brandName);
+        List<String> models = modelService.getByBrandName(brandName);
         return models;
     }
 

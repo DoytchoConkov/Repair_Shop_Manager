@@ -58,9 +58,6 @@ public class SeniorController {
         if (!model.containsAttribute("endDate")) {
             model.addAttribute("endDate", LocalDate.now());
         }
-        if (!model.containsAttribute("income")) {
-            model.addAttribute("income", orderService.getByStartDateAndEndDate(LocalDate.now().toString(), LocalDate.now().toString()));
-        }
         return "/info/income-info";
     }
 

@@ -31,7 +31,6 @@ function getDetails(sDate, enDate) {
                         let btn = document.createElement("button");
                         btn.value = o.leaveDateString;
                         btn.innerText = "Details";
-
                         btn.addEventListener("click", () => {
                             $('#info')[0].style.display = "none";
                             $('#details')[0].style.display = "block";
@@ -56,7 +55,6 @@ function getDetails(sDate, enDate) {
                         row.appendChild(d3);
                         row.appendChild(d4);
                         row.appendChild(d5);
-                        tableBody.innerHTML = "";
                         tableBody.appendChild(row);
                     })
                     $('#totalSparePartPerPeriod')[0].innerText = "Total Spare Parts Price: " + totalSparePartsPrice.toFixed(2);
@@ -73,11 +71,17 @@ function getDetails(sDate, enDate) {
 startDate.change(() => {
     getDetails(startDate[0].value, endDate[0].value);
 })
+
 endDate.change(() => {
     getDetails(startDate[0].value, endDate[0].value);
 })
+
 $('#details').click(() => {
     $('#info')[0].style.display = "block";
     $('#details')[0].style.display = "none";
 })
+
+$(document).ready( function () {
+    getDetails(startDate[0].value, endDate[0].value);
+});
 

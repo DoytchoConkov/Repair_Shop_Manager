@@ -12,7 +12,9 @@ import java.util.List;
 public interface OrderService {
 
     void add(OrderReceiveServiceModel OrderReceiveServiceModel);
+
     List<OrderNotReadyViewModel> getNotReady();
+
     List<OrderReadyViewModel> getReady();
 
     OrderNotReadyViewModel getById(Long id);
