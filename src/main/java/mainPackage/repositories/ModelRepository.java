@@ -11,7 +11,8 @@ import java.util.Optional;
 
 @Repository
 public interface ModelRepository extends JpaRepository<Model, Long> {
-    Model findByModelName(String name);
+    @Query("select m from Model as m where m.modelName=:model and m.brand.brandName=:brand")
+    Model findByModelName(String brand,String model);
 
     @Query("select m.modelName from Model as m where m.brand.brandName=:brandName order by m.modelName")
     List<String> findByBrandName(@Param("brandName") String brandName);

@@ -47,7 +47,7 @@ public class UserControler {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel", bindingResult);
             return "redirect:/users/register";
         }
-        if (userService.findUserByUserName(userRegisterBindingModel.getUsername()) != null) {
+        if (!userService.findUserByUserName(userRegisterBindingModel.getUsername())) {
             redirectAttributes.addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel);
             redirectAttributes.addFlashAttribute("userExist", true);
             return "redirect:/users/register";

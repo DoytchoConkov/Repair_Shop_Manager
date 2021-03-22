@@ -2,14 +2,11 @@ package mainPackage.services;
 
 import mainPackage.models.entities.Client;
 import mainPackage.models.services.ClientServiceModel;
-import mainPackage.models.views.BrandViewModel;
 import mainPackage.models.views.ClientViewModel;
-import mainPackage.repositories.BrandRepository;
 import mainPackage.repositories.ClientRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -40,7 +37,7 @@ class ClientServiceTest {
         ClientServiceModel clientServiceModel =new ClientServiceModel();
         clientServiceModel.setClientName("Gosho");
         clientServiceModel.setClientPhoneNumber("0878263591");
-                Mockito.when(mockClientRepository.findByClientNameAndClientPhoneNumber("Gosho", "0878263591")).thenReturn(client);
+        Mockito.when(mockClientRepository.findByClientNameAndClientPhoneNumber("Gosho", "0878263591")).thenReturn(client);
         Client receivedClient = clientService.findByNameAndPhoneNumber(clientServiceModel);
         assertEquals(client,receivedClient);
     }
@@ -55,7 +52,26 @@ class ClientServiceTest {
     }
 
     @Test
-    void findByNameOrPhoneNumber() {
+    void findContainingInName() {
+        List<Client> clients = new ArrayList<>();
+        Client client = new Client();
+        client.setClientName("Gosho");
+        client.setClientPhoneNumber("0878263591");
+        clients.add(new Client());
+        Mockito.when(mockClientRepository.findByClientNameOrPhoneNumber("%osh%")).thenReturn(clients);
+        List<ClientViewModel> allClients = clientService.findByNameOrPhoneNumber("osh");
+        assertEquals(clients.size(), allClients.size());
+    }
 
+    @Test
+    void findContainingInPhoneNumber() {
+        List<Client> clients = new ArrayList<>();
+        Client client = new Client();
+        client.setClientName("Gosho");
+        client.setClientPhoneNumber("0878263591");
+        clients.add(new Client());
+        Mockito.when(mockClientRepository.findByClientNameOrPhoneNumber("%087%")).thenReturn(clients);
+        List<ClientViewModel> allClients = clientService.findByNameOrPhoneNumber("087");
+        assertEquals(clients.size(), allClients.size());
     }
 }

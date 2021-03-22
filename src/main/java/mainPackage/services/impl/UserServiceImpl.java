@@ -75,15 +75,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserServiceModel findUserByUserName(String username) {
-        return this.userRepository.findByUsername(username)
-                .map(u -> this.modelMapper.map(u, UserServiceModel.class))
-                .orElse(null);
+    public boolean findUserByUserName(String username) {
+        return this.userRepository.findByUsername(username).isPresent();
     }
 
     @Override
     public User getUserByUserName(String username) {
-        return this.userRepository.findByUsername(username).orElse(null);
+        return this.userRepository.findByUsername(username).orElseThrow();
     }
 
     @Override

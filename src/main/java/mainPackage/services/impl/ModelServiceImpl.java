@@ -26,7 +26,7 @@ public class ModelServiceImpl implements ModelService {
 
     @Override
     public Model getModel(String brand, String model) {
-        Model modelEntity = modelRepository.findByModelName(model);
+        Model modelEntity = modelRepository.findByModelName(brand,model);
         if (modelEntity == null) {
             modelEntity = new Model(model, brandService.getBrand(brand));
             modelEntity = modelRepository.save(modelEntity);
