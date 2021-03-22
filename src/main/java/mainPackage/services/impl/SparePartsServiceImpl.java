@@ -56,14 +56,6 @@ public class SparePartsServiceImpl implements SparePartsService {
     }
 
     @Override
-    public SparePartViewModel getById(Long id) {
-        SparePart sparePart = sparePartsRepository.findById(id).orElseThrow();
-        SparePartViewModel sparePartViewModel = modelMapper.map(sparePart, SparePartViewModel.class);
-        sparePartViewModel.setBrand(sparePart.getModel().getBrand().getBrandName());
-        return sparePartViewModel;
-    }
-
-    @Override
     public List<SparePartViewModel> getByBrandAndModel(String brandName, String modelName) {
         List<SparePart> spareParts = sparePartsRepository.findByBrandAndModel(brandName, modelName);
         return spareParts.stream().map(sp -> modelMapper.map(sp, SparePartViewModel.class)).collect(Collectors.toList());

@@ -35,14 +35,14 @@ class BrandServiceTest {
         assertEquals(brand.getBrandName(),receivedBrand.getBrandName());
     }
 
-//    @Test
-//    void getByMissingBrand() {
-//        Brand brand = new Brand("Nokia");
-//        Mockito.when(mockBrandRepository.findByBrandName("Nokia")).thenReturn(Optional.empty());
-//        Mockito.when(mockBrandRepository.save(brand)).thenReturn(brand);
-//        Brand receivedBrand=brandService.getBrand("Nokia");
-//        assertEquals(brand.getBrandName(),receivedBrand.getBrandName());
-//    }
+    @Test
+    void getByMissingBrand() {
+        Brand brand = new Brand("Nokia");
+        Mockito.when(mockBrandRepository.findByBrandName("Nokia")).thenReturn(Optional.empty());
+        Mockito.when(mockBrandRepository.save(brand)).thenReturn(brand);
+        Brand receivedBrand=brandService.getBrand("Nokia");
+        assertEquals(brand.getBrandName(),receivedBrand.getBrandName());
+    }
 
     @Test
     void getAll() {

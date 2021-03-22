@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean findUserByUserName(String username) {
-        return this.userRepository.findByUsername(username).isPresent();
+        return this.userRepository.findByUsername(username).isEmpty();
     }
 
     @Override
@@ -97,7 +97,7 @@ public class UserServiceImpl implements UserService {
         userRolesBindingModel.getRoles().forEach(r -> {
             UserRole userRole = userRoleRepository.
                     findByRole(RoleName.valueOf(r)).orElseThrow(
-                    () -> new IllegalStateException("USER role not found. Please seed the roles."));
+                    () -> new IllegalStateException("User Role not found. Please seed the roles."));
             user.getRoles().add(userRole);
         });
         userRepository.save(user);

@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface DamageRepository extends JpaRepository<Damage,Long> {
 
-    Optional<Damage> findByDamageName(String damage);
+    Damage findByDamageName(String damage);
 }

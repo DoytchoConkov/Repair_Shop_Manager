@@ -13,6 +13,6 @@ public interface BrandRepository extends JpaRepository<Brand, Long> {
 
     Optional<Brand> findByBrandName(String brand);
 
-    @Query("select b from Brand as b JOIN b.models as m order by b.brandName,m.modelName")
+    @Query("select b from Brand as b order by b.brandName")
     List<Brand> findAll();
 }

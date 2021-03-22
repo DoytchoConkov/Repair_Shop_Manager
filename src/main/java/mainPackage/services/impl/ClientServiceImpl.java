@@ -27,7 +27,7 @@ public class ClientServiceImpl implements ClientService {
                 clientServiceModel.getClientPhoneNumber());
         if (client == null) {
             client = modelMapper.map(clientServiceModel, Client.class);
-            client = clientRepository.save(client);
+//            client = clientRepository.save(client);
         }
         return client;
     }

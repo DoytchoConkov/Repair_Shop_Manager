@@ -41,7 +41,7 @@ class ModelServiceTest {
         Brand brand = new Brand("Apple");
         model.setModelName("Iphone 12 Pro Max");
         model.setBrand(brand);
-        Mockito.when(mockModelRepository.findByModelName("Samsung", "Galaxy S21")).thenReturn(model);
+        Mockito.when(mockModelRepository.findByModelName("Samsung", "Galaxy S21")).thenReturn(null);
         Model receivedModel = modelService.getModel("Apple", "Iphone 12 Pro Max");
         assertEquals(model.getModelName(), receivedModel.getModelName());
     }

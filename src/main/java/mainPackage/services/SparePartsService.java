@@ -13,8 +13,6 @@ public interface SparePartsService {
 
     void save(SparePartServiceModel sparePart);
 
-    SparePartViewModel getById(Long id);
-
     List<SparePartViewModel> getByBrandAndModel(String brandName,String modelName);
 
     void deleteSparePart(Long id);

@@ -26,18 +26,17 @@ class DamageServiceTest {
     @Test
     void getDamage() {
         Damage damage = new Damage("Broken LCD");
-        Mockito.when(mockDamageRepository.findByDamageName("Broken LCD")).thenReturn(java.util.Optional.of(damage));
+        Mockito.when(mockDamageRepository.findByDamageName("Broken LCD")).thenReturn(damage);
         Damage receivedBrand = damageService.getDamage("Broken LCD");
         assertEquals(damage.getDamageName(), receivedBrand.getDamageName());
     }
-    //TODO
-//    @Test
-//    void getDamageWhenNotExist() {
-//        Damage damage = new Damage("Broken LCD");
-//        Mockito.when(mockDamageRepository.findByDamageName("Broken LCD")).thenReturn(java.util.Optional.of(damage));
-//        Damage receivedBrand = damageService.getDamage("Broken LCD");
-//        assertEquals(damage.getDamageName(), receivedBrand.getDamageName());
-//    }
+    @Test
+    void getDamageWhenNotExist() {
+        Damage damage = new Damage("Broken LCD");
+        Mockito.when(mockDamageRepository.findByDamageName("Broken LCD")).thenReturn(null);
+        Damage receivedBrand = damageService.getDamage("Broken LCD");
+        assertEquals(damage.getDamageName(), receivedBrand.getDamageName());
+    }
 
     @Test
     void getAll() {
