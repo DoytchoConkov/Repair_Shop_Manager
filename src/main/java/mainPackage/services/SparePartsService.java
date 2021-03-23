@@ -19,8 +19,6 @@ public interface SparePartsService {
 
     SparePart findById(Long id);
 
-    List<String> getModelsByBrandName(String brandName);
-
     List<SparePartViewModel> getSparePartsByBrandNameAndModel(String brandName, String modelName);
 
     List<SparePartViewModel> getSparePartsByBrandNameForAdd(String brandName);

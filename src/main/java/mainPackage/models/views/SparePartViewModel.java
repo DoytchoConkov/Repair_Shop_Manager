@@ -13,6 +13,12 @@ public class SparePartViewModel {
     public SparePartViewModel() {
     }
 
+    public SparePartViewModel(String brand, String model, String sparePartName) {
+        this.brand = brand;
+        this.model = model;
+        this.sparePartName = sparePartName;
+    }
+
     public Long getId() {
         return id;
     }

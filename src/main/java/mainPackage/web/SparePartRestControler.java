@@ -1,6 +1,7 @@
 package mainPackage.web;
 
 import mainPackage.models.views.SparePartViewModel;
+import mainPackage.services.ModelService;
 import mainPackage.services.SparePartsService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,14 +15,16 @@ import java.util.List;
 @RequestMapping("/spare-parts")
 public class SparePartRestControler {
     private final SparePartsService sparePartsService;
+    private final ModelService modelService;
 
-    public SparePartRestControler(SparePartsService sparePartsService) {
+    public SparePartRestControler(SparePartsService sparePartsService, ModelService modelService) {
         this.sparePartsService = sparePartsService;
+        this.modelService = modelService;
     }
 
     @GetMapping("/models")
     public List<String> getAllModelsForBrand(@RequestParam String brandName) {
-        List<String> models = sparePartsService.getModelsByBrandName(brandName);
+        List<String> models = modelService.getByBrandName(brandName);
         return models;
     }
 
@@ -46,7 +49,7 @@ public class SparePartRestControler {
         return sparePartsService.getTotalSparePartPrice(sparePartsId);
     }
     @GetMapping("/spare-parts-name")
-    public SparePartViewModel getByBrandfModelName(@RequestParam String brandName, @RequestParam String modelName,@RequestParam String spName) {
+    public SparePartViewModel getByBrandModelAndName(@RequestParam String brandName, @RequestParam String modelName,@RequestParam String spName) {
         return sparePartsService.getByBrandModelName(brandName,modelName,spName);
     }
 }

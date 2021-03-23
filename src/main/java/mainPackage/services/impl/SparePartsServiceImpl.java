@@ -71,11 +71,6 @@ public class SparePartsServiceImpl implements SparePartsService {
         return sparePartsRepository.findById(id).orElseThrow();
     }
 
-    @Override
-    public List<String> getModelsByBrandName(String brandName) {
-        List<String> models = modelService.getByBrandName(brandName);
-        return models;
-    }
 
     @Override
     public List<SparePartViewModel> getSparePartsByBrandNameAndModel(String brandName, String modelName) {
@@ -95,7 +90,9 @@ public class SparePartsServiceImpl implements SparePartsService {
     @Override
     public SparePartViewModel getSparePartById(Long id) {
         SparePart sparePart = sparePartsRepository.findById(id).orElseThrow();
-        return modelMapper.map(sparePart, SparePartViewModel.class);
+        SparePartViewModel sparePartViewModel = modelMapper.map(sparePart, SparePartViewModel.class);
+        sparePartViewModel.setBrand(sparePart.getModel().getBrand().getBrandName());
+        return sparePartViewModel;
     }
 
     @Override
@@ -115,11 +112,14 @@ public class SparePartsServiceImpl implements SparePartsService {
 
     @Override
     public BigDecimal getTotalSparePartPrice(String[] sparePartsId) {
-        return sparePartsRepository.getTotalPrice(Arrays.stream(sparePartsId).map(s->Long.valueOf(s)).toArray(Long[]::new));
+        return sparePartsRepository.getTotalPrice(Arrays.stream(sparePartsId).map(s -> Long.valueOf(s)).toArray(Long[]::new));
     }
 
     @Override
     public SparePartViewModel getByBrandModelName(String brandName, String modelName, String spName) {
-        return modelMapper.map(sparePartsRepository.getByBrandModelName(brandName,  modelName,  spName),SparePartViewModel.class);
+        SparePart sparePart = sparePartsRepository.getByBrandModelName(brandName, modelName, spName);
+                SparePartViewModel sparePartViewModel = modelMapper.map(sparePart, SparePartViewModel.class);
+        sparePartViewModel.setBrand(sparePart.getModel().getBrand().getBrandName());
+        return sparePartViewModel;
     }
 }

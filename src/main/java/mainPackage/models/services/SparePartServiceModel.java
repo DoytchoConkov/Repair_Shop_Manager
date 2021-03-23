@@ -12,6 +12,14 @@ public class SparePartServiceModel {
     public SparePartServiceModel() {
     }
 
+    public SparePartServiceModel(String brand, String model, String sparePartName, BigDecimal price, int pieces) {
+        this.brand = brand;
+        this.model = model;
+        this.sparePartName = sparePartName;
+        this.price = price;
+        this.pieces = pieces;
+    }
+
     public String getBrand() {
         return brand;
     }
