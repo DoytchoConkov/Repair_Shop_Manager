@@ -16,7 +16,7 @@ public class Model extends BaseEntity{
         this.brand = brand;
     }
 
-    @Column(name = "model_name", nullable = false, length = 100, unique = true)
+    @Column(name = "model_name", nullable = false, length = 30, unique = true)
     public String getModelName() {
         return modelName;
     }

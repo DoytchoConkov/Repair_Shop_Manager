@@ -20,7 +20,7 @@ addBrandBtn.click(() => {
         .then((json) => json.forEach((sp) => {
             let option = document.createElement("option");
             option.setAttribute("value", sp.id);
-            option.text = sp.sparePartName;
+            option.text = sp.model + " - " + sp.sparePartName;
             select.appendChild(option);
         }))
     select.addEventListener("change", calculateSparePartTotalPrice);

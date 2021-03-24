@@ -14,7 +14,7 @@ public class SparePartBindingModel {
     }
 
     @NotBlank(message = "Brand can not be empty.")
-    @Size(min = 5, max = 20,message = "Brand name must be between 10 and 20 symbols.")
+    @Size(min = 3, max = 20,message = "Brand name must be between 10 and 20 symbols.")
     public String getBrand() {
         return brand;
     }
@@ -24,7 +24,7 @@ public class SparePartBindingModel {
     }
 
     @NotBlank(message = "Model can not be empty.")
-    @Size(min = 3, max = 20,message = "Model name must be between 3 and 20 symbols.")
+    @Size(min = 1, max = 30,message = "Model name must be between 3 and 20 symbols.")
     public String getModel() {
         return model;
     }

@@ -28,7 +28,7 @@ public class ModelServiceImpl implements ModelService {
         Model modelEntity = modelRepository.findByModelName(brand,model);
         if (modelEntity == null) {
             modelEntity = new Model(model, brandService.getBrand(brand));
-//            modelEntity = modelRepository.save(modelEntity);
+            modelEntity = modelRepository.save(modelEntity);
         }
         return modelEntity;
     }

@@ -25,7 +25,7 @@ public class BrandServiceImpl implements BrandService {
         Brand brandEntity =brandRepository.findByBrandName(brand).orElse(null);
         if(brandEntity==null){
             brandEntity=new Brand(brand);
-//            brandEntity=  brandRepository.save(brandEntity);
+            brandEntity=  brandRepository.save(brandEntity);
         }
         return brandEntity;
     }

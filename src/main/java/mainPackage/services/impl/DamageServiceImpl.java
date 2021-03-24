@@ -26,7 +26,7 @@ public class DamageServiceImpl implements DamageService {
         Damage damageEntity = damageRepository.findByDamageName(damage);
         if (damageEntity==null) {
             damageEntity = new Damage(damage);
-//            damageEntity = damageRepository.save(damageEntity);
+            damageEntity = damageRepository.save(damageEntity);
         }
         return damageEntity;
     }
