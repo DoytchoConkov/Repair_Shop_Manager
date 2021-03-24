@@ -3,11 +3,8 @@ package mainPackage.services;
 import mainPackage.models.entities.Brand;
 import mainPackage.models.entities.Model;
 import mainPackage.models.entities.SparePart;
-import mainPackage.models.services.SparePartServiceModel;
 import mainPackage.models.views.SparePartViewModel;
 import mainPackage.repositories.SparePartsRepository;
-import mainPackage.repositories.UserRepository;
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -17,19 +14,15 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
 class SparePartsServiceTest {
-    @Autowired
-    private SparePartsRepository sPRepository;
     @Autowired
     private SparePartsService sparePartsService;
     @MockBean
