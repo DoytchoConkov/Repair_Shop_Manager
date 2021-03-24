@@ -10,7 +10,6 @@ import java.util.List;
 @Table(name = "brands")
 public class Brand extends BaseEntity {
     private String brandName;
-    private List<Model> models;
 
     public Brand() {
     }
@@ -26,14 +25,5 @@ public class Brand extends BaseEntity {
 
     public void setBrandName(String brandName) {
         this.brandName = brandName;
-    }
-
-    @OneToMany(mappedBy = "brand")
-    public List<Model> getModels() {
-        return models;
-    }
-
-    public void setModels(List<Model> models) {
-        this.models = models;
     }
 }

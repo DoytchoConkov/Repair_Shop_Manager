@@ -22,7 +22,7 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public Brand getBrand(String brand) {
-        Brand brandEntity =brandRepository.findByBrandName(brand).orElse(null);
+        Brand brandEntity =brandRepository.findByBrandName(brand);
         if(brandEntity==null){
             brandEntity=new Brand(brand);
             brandEntity=  brandRepository.save(brandEntity);
