@@ -7,6 +7,7 @@
 <header>
     <th:block th:include="~{fragments/nav-bar}"></th:block>
 </header>
+<main>
 <div class="container">
     <h2 class="text-center text-white">Register User</h2>
     <form th:object="${userRegisterBindingModel}" th:method="post" th:action="@{/users/register}"
@@ -40,7 +41,7 @@
         </div>
     </form>
 </div>
-
+</main>
 <th:block th:include="~{fragments/footer}"></th:block>
 
 </body>

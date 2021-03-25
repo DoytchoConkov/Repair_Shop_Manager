@@ -27,7 +27,7 @@ public class AdminControler {
     }
 
     @GetMapping("/set-user-role")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String addUserRole(Model model) {
         model.addAttribute("users", userService.getUsers());
         if (!model.containsAttribute("userRolesBindingModel")) {
@@ -37,7 +37,7 @@ public class AdminControler {
     }
 
     @PostMapping("/set-user-role")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String addUserRoleConfirm(@Valid UserRolesBindingModel userRolesBindingModel, RedirectAttributes redirectAttributes) {
         if (userRolesBindingModel.getRoles().isEmpty() || userRolesBindingModel.getUsername().isEmpty()) {
             redirectAttributes.addFlashAttribute("userRolesBindingModel", userRolesBindingModel);

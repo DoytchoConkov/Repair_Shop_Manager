@@ -39,7 +39,7 @@ public class BackOfficeController {
     }
 
     @GetMapping("/not-fixed")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ROLE_BACK_OFFICE')")
     public String OrdersToRepairAll(Model model) {
         List<OrderNotReadyViewModel> orderNotReadyViewModels = orderService.getNotReady();
         model.addAttribute("orderNotReadyViewModels", orderNotReadyViewModels);
@@ -51,7 +51,7 @@ public class BackOfficeController {
     }
 
     @GetMapping("/fix/{id}")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ROLE_BACK_OFFICE')")
     public String fixOrder(@PathVariable Long id, Model model) {
         OrderNotReadyViewModel orderToFixViewModel = orderService.getById(id);
         List<SparePartViewModel> sparePartViewModels = sparePartsService.getByBrandAndModel(orderToFixViewModel.getBrand(), orderToFixViewModel.getModel());
@@ -64,7 +64,7 @@ public class BackOfficeController {
     }
 
     @PostMapping("/fix/{id}")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ROLE_BACK_OFFICE')")
     public String fixOrderConfirm(@PathVariable Long id, @Valid @ModelAttribute OrderFixBindingModel orderFixBindingModel,
                                   BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         boolean compareResult = orderFixBindingModel.getSparePartPrice().compareTo(orderFixBindingModel.getTotalPrice()) > 0;
@@ -85,7 +85,7 @@ public class BackOfficeController {
     }
 
     @GetMapping("/add-spare-part")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ROLE_BACK_OFFICE')")
     public String addSparePart(Model model) {
         List<BrandViewModel> brands = brandService.getAll();
         model.addAttribute("brands", brands);
@@ -98,7 +98,7 @@ public class BackOfficeController {
     }
 
     @PostMapping("/add-spare-part")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ROLE_BACK_OFFICE')")
     public String addSparePartConfirm(@Valid @ModelAttribute("sparePartsReceiveBindingModel")
                                               SparePartBindingModel sparePartsReceiveBindingModel,
                                       BindingResult bindingResult, RedirectAttributes redirectAttributes) {

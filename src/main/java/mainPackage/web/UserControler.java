@@ -70,6 +70,7 @@ public class UserControler {
 
 
     @PostMapping("/login-error")
+    @PreAuthorize("isAnonymous()")
     public ModelAndView failedLogin(@ModelAttribute(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
                                             String username, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();

@@ -2,6 +2,7 @@ package mainPackage.web;
 
 import mainPackage.models.views.ClientViewModel;
 import mainPackage.services.ClientService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +21,7 @@ public class ClientRestController {
     }
 
     @GetMapping("/find-client")
+    @PreAuthorize("hasRole('ROLE_BACK_OFFICE') or hasRole('ROLE_SENIOR')")
     public List<ClientViewModel> getAllModelsForBrand(@RequestParam String clientName) {
         return clientService.findByNameOrPhoneNumber(clientName);
     }
