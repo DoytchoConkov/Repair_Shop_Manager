@@ -20,7 +20,7 @@ public class FixOrder {
     @AfterReturning(pointcut = "trackSave()", returning = "orderFixModel")
     public void loggingAfterReturning(JoinPoint joinPoint, Object orderFixModel) throws IOException {
         OrderFixServiceModel orderFixServiceModel = (OrderFixServiceModel) orderFixModel;
-        FileWriter myWriter = new FileWriter("scr/main/java/logs/mainPackage/orderFix.log", true);
+        FileWriter myWriter = new FileWriter("src/main/java/mainPackage/logs/orderFix.log", true);
 //        myWriter.write(String.format("User with email - %s - sent consultation to a doctor with email - %s%n",
 //                consultationDetails.getUser().getEmail(),
 //                consultationDetails.getDoctor().getEmail()));
