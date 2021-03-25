@@ -36,13 +36,13 @@
                 <td th:text="${pr.clientName}">Client</td>
                 <td th:if="${pr.totalRepairPrice}!=null">
                     <form th:action="@{/senior/order/make-not-fixed/{id}(id=${pr.id})}" th:method="post">
-                        <input class="card-link" type="submit" value="Make Not Fixed">
+                        <button class="card-link" type="submit">Make Not Fixed</button>
                     </form>
                 </td>
                 <td>
                     <form th:action="@{/senior/order/delete/{id}(id=${pr.id})}"
                           th:method="delete">
-                        <input class="card-link" type="submit" value="Delete">
+                        <button class="card-link" type="submit">Delete</button>
                     </form>
                 </td>
             </tr>

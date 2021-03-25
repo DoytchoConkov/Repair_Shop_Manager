@@ -44,10 +44,10 @@
                 <form th:object="${sparePartsReceiveBindingModel}" class="btn" th:action="@{/senior/spare_part/edit/{id}(id=3)}" th:method="put" id="edit">
                     <input type="hidden" name="pieces" th:value="1" id="hiddenPieces">
                     <input type="hidden" name="price" th:value="1" id="hiddenPrice">
-                    <input type="submit" class="btn btn-info btn-sm" value="Edit"/>
+                    <button type="submit" class="btn btn-info btn-sm">Edit</button>
                 </form>
                 <form class="btn" th:action="@{/senior/spare_part/delete/{id}(id=1)}" th:method="delete" id="delete">
-                    <input class="btn-danger" type="submit" value="Delete">
+                    <button class="btn-danger" type="submit">Delete</button>
                 </form>
             </div>
         </div>

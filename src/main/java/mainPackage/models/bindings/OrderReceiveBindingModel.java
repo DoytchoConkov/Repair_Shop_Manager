@@ -18,7 +18,7 @@ public class OrderReceiveBindingModel {
     }
 
     @NotBlank(message = "Serial number can not be empty.")
-    @Size(min = 3, max = 20,message = "Serial number must be between 10 and 20 symbols.")
+    @Size(min = 6, max = 20,message = "Serial number must be between 10 and 20 symbols.")
     public String getSerialNumber() {
         return serialNumber;
     }
@@ -28,7 +28,7 @@ public class OrderReceiveBindingModel {
     }
 
     @NotBlank(message = "Brand can not be empty.")
-    @Size(min = 1, max = 30,message = "Brand name must be between 10 and 20 symbols.")
+    @Size(min = 3, max = 20,message = "Brand name must be between 10 and 20 symbols.")
     public String getBrand() {
         return brand;
     }
@@ -38,7 +38,7 @@ public class OrderReceiveBindingModel {
     }
 
     @NotBlank(message = "Model can not be empty.")
-    @Size(min = 3, max = 20,message = "Model name must be between 3 and 20 symbols.")
+    @Size(min = 1, max = 20,message = "Model name must be between 3 and 20 symbols.")
     public String getModel() {
         return model;
     }

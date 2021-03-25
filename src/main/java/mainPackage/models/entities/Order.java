@@ -27,7 +27,7 @@ public class Order extends BaseEntity {
     public Order() {
     }
 
-    @Column(name = "serial_number", nullable = false, length = 25)
+    @Column(name = "serial_number", nullable = false, length = 20)
     public String getSerialNumber() {
         return serialNumber;
     }

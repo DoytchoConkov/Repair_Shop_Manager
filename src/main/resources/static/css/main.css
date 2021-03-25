@@ -66,3 +66,14 @@ div.div-form {
 .logged-user {
      color: white;
 }
+input:valid {
+     border: lawngreen solid 2px;
+}
+
+/*input:invalid{*/
+/*     border: red solid 2px;*/
+/*}*/
+
+input:invalid:required{
+     background-image: linear-gradient(to right, lightgrey, grey);
+}
