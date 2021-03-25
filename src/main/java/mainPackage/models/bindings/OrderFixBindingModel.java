@@ -3,10 +3,9 @@ package mainPackage.models.bindings;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.util.List;
 
 public class OrderFixBindingModel {
-    private String sparePartName;
+    private String[] sparePartIds;
     private String imageUrl;
     @NotNull(message = "Price can not be empty.")
     @DecimalMin(value = "0", message = "Price must be positive")
@@ -18,12 +17,12 @@ public class OrderFixBindingModel {
     public OrderFixBindingModel() {
     }
 
-    public String getSparePartName() {
-        return sparePartName;
+    public String[] getSparePartIds() {
+        return sparePartIds;
     }
 
-    public void setSparePartName(String sparePartName) {
-        this.sparePartName = sparePartName;
+    public void setSparePartIds(String[] sparePartIds) {
+        this.sparePartIds = sparePartIds;
     }
 
     public String getImageUrl() {

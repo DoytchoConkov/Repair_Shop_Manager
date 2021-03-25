@@ -5,8 +5,8 @@ import java.util.List;
 
 public class OrderFixServiceModel {
     private Long id;
-    private List<Long> spId;
-    private BigDecimal spPrice;
+    private List<Long> sparePartIds;
+    private BigDecimal sparePartPrice;
     private BigDecimal totalPrice;
 
     public OrderFixServiceModel() {
@@ -20,20 +20,20 @@ public class OrderFixServiceModel {
         this.id = id;
     }
 
-    public List<Long> getSpId() {
-        return spId;
+    public List<Long> getSparePartIds() {
+        return sparePartIds;
     }
 
-    public void setSpId(List<Long> spId) {
-        this.spId = spId;
+    public void setSparePartIds(List<Long> sparePartIds) {
+        this.sparePartIds = sparePartIds;
     }
 
-    public BigDecimal getSpPrice() {
-        return spPrice;
+    public BigDecimal getSparePartPrice() {
+        return sparePartPrice;
     }
 
-    public void setSpPrice(BigDecimal spPrice) {
-        this.spPrice = spPrice;
+    public void setSparePartPrice(BigDecimal sparePartPrice) {
+        this.sparePartPrice = sparePartPrice;
     }
 
     public BigDecimal getTotalPrice() {

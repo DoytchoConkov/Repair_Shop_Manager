@@ -109,12 +109,12 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void fix(OrderFixServiceModel orderServiceModel) {
         Order order = orderRepository.findById(orderServiceModel.getId()).orElseThrow();
-        List<Long> spareParts = orderServiceModel.getSpId();
+        List<Long> spareParts = orderServiceModel.getSparePartIds();
         if (spareParts == null) {
             spareParts = new ArrayList<>();
         }
         List<SparePart> sparePartsList = spareParts.stream().map(sp -> sparePartsService.findById(sp)).collect(Collectors.toList());
-        order.setTotalSparePartsPrice(orderServiceModel.getSpPrice());
+        order.setTotalSparePartsPrice(orderServiceModel.getSparePartPrice());
         order.setTotalRepairPrice(orderServiceModel.getTotalPrice());
         order.setSpareParts(sparePartsList);
         orderRepository.save(order);

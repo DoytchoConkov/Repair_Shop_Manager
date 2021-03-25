@@ -74,7 +74,7 @@ public class BackOfficeController {
                 redirectAttributes.addFlashAttribute("totalPriceError", true);
             }
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.orderFixBindingModel", bindingResult);
-            return "redirect:/back-office/fix/" + id;
+            return String.format("redirect:/back-office/fix/{%d}",id);
         }
         //TODO fix spare parts price and list
         OrderFixServiceModel orderFixServiceModel = modelMapper.map(orderFixBindingModel, OrderFixServiceModel.class);
