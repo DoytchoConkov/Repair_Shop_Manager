@@ -1,13 +1,14 @@
 let startDate = $('#startDate');
 let endDate = $('#endDate');
+let technician = $('#technician');
 let tableBody = document.getElementById("tableBody")
 let table = $('#tableInfo');
 let error = $('#error');
 let tableDetails = $('#tableDetails');
 
-function getDetails(sDate, enDate) {
+function getDetails(sDate, enDate, techic) {
     if (startDate[0].value <= endDate[0].value) {
-        fetch('http://localhost:8080/orders/income?starDate=' + sDate + '&endDate=' + enDate)
+        fetch('http://localhost:8080/orders/income?starDate=' + sDate + '&endDate=' + enDate + '&technician=' + techic)
             .then((response) => response.json())
             .then((or) => {
                     tableBody.innerHTML = "";
@@ -69,11 +70,15 @@ function getDetails(sDate, enDate) {
 }
 
 startDate.change(() => {
-    getDetails(startDate[0].value, endDate[0].value);
+    getDetails(startDate[0].value, endDate[0].value, technician[0].value);
 })
 
 endDate.change(() => {
-    getDetails(startDate[0].value, endDate[0].value);
+    getDetails(startDate[0].value, endDate[0].value, technician[0].value);
+})
+
+technician.change(() => {
+    getDetails(startDate[0].value, endDate[0].value, technician[0].value);
 })
 
 $('#details').click(() => {
@@ -81,7 +86,7 @@ $('#details').click(() => {
     $('#details')[0].style.display = "none";
 })
 
-$(document).ready( function () {
+$(document).ready(function () {
     getDetails(startDate[0].value, endDate[0].value);
 });
 

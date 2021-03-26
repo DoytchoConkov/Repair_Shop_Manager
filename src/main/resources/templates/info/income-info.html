@@ -21,6 +21,11 @@
 
                 <label class="text-white" for="endDate">End Date</label>
                 <input type="date" name="endDate" id="endDate" th:value="${endDate}">
+
+                <select id="technician" type="text" class="form-control" list="technicianList" placeholder="Select technician here.">
+                    <option value="" selected>Select technician</option>
+                    <option th:each="technician : ${technicians}" th:value="${technician}" th:text="${technician}">
+                </select>
             </div>
         </div>
         <div id="error" class="alert alert-danger" role="alert" style="display: none">
@@ -42,14 +47,10 @@
         <label></label>
         <label></label>
         <label class="text-white" for="totalSparePartPerPeriod" id="totalSparePartPerPeriod">
-            <!--                   th:value="|Total Spare Parts Price: ${o.totalSparePartsPrice}|">Total Spare Parts Price: -->
         </label>
         <label class="text-white" for="totalPerPeriod" id="totalPerPeriod">
-            <!--                   th:value="|Total Spare Parts Price: ${o.totalRepairPrice}|">Total Price Per Period:-->
         </label>
         <label class="text-white" for="incomePerPeriod" id="incomePerPeriod">
-            <!--                   th:value="|Total Spare Parts Price: (${o.totalRepairPrice}-${o.totalSparePartsPrice})|">Income Per-->
-            <!--                Period: -->
         </label>
     </div>
 </div>

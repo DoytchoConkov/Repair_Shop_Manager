@@ -30,8 +30,9 @@ public class OrderRestController {
     }
 
     @GetMapping("/income")
-    public List<IncomePerPeriodViewModel> getOrderPerPeriod(@RequestParam String starDate, @RequestParam String endDate) {
-        return orderService.getByStartDateAndEndDate(starDate,endDate);
+    public List<IncomePerPeriodViewModel> getOrderPerPeriod(@RequestParam String starDate, @RequestParam String endDate,
+                                                            @RequestParam String technician) {
+        return orderService.getByStartDateAndEndDate(starDate, endDate, technician);
     }
 
     @GetMapping("/orderBydate")

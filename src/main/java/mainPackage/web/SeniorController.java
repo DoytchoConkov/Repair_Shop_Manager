@@ -1,11 +1,11 @@
 package mainPackage.web;
 
 import mainPackage.models.bindings.SparePartBindingModel;
-import mainPackage.models.entities.SparePart;
 import mainPackage.models.views.BrandViewModel;
 import mainPackage.services.BrandService;
 import mainPackage.services.OrderService;
 import mainPackage.services.SparePartsService;
+import mainPackage.services.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -22,13 +22,15 @@ public class SeniorController {
     private final BrandService brandService;
     private final SparePartsService sparePartsService;
     private final OrderService orderService;
+    private final UserService userService;
 
     public SeniorController(ModelMapper modelMapper, BrandService brandService, SparePartsService sparePartsService,
-                            OrderService orderService) {
+                            OrderService orderService, UserService userService) {
         this.modelMapper = modelMapper;
         this.brandService = brandService;
         this.sparePartsService = sparePartsService;
         this.orderService = orderService;
+        this.userService = userService;
     }
 
     @GetMapping("/edit-spare-parts")
@@ -58,6 +60,9 @@ public class SeniorController {
         if (!model.containsAttribute("endDate")) {
             model.addAttribute("endDate", LocalDate.now());
         }
+        if (!model.containsAttribute("technicians")) {
+            model.addAttribute("technicians", userService.findTechnician());
+        }
         return "/info/income-info";
     }
 
@@ -70,7 +75,7 @@ public class SeniorController {
     @DeleteMapping("/spare_part/delete/{id}")
     public String deleteSparePart(@PathVariable Long id) {
         if (orderService.isContainSparePart(id)) {
-            sparePartsService.update(id,0);
+            sparePartsService.update(id, 0);
         } else {
             sparePartsService.deleteSparePart(id);
         }

@@ -110,6 +110,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<String> findTechnician() {
+        return userRepository.findTechnician();
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         return (UserDetails) this.userRepository
                 .findByUsername(s)

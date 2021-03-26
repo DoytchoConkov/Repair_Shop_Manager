@@ -284,7 +284,7 @@ class OrderServiceTest {
         incomes.add(income);
         Mockito.when(mockOrderRepository.findAllByLeaveDateBetween(LocalDateTime.parse("2021-03-01 00:00:00", formatter),
                 LocalDateTime.parse("2021-03-31 23:59:59", formatter))).thenReturn(incomes);
-        List<IncomePerPeriodViewModel> actual = orderService.getByStartDateAndEndDate("2021-03-01","2021-03-31");
+        List<IncomePerPeriodViewModel> actual = orderService.getByStartDateAndEndDate("2021-03-01","2021-03-31","Gosho");
         assertEquals(income.getLeaveDate().format(formatterToString), actual.get(0).getLeaveDateString());
         assertEquals(income.getTotalSparePartsPrice(), actual.get(0).getTotalSparePartsPrice());
         assertEquals(income.getTotalRepairPrice(), actual.get(0).getTotalRepairPrice());

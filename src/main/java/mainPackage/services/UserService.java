@@ -21,4 +21,6 @@ public interface UserService extends UserDetailsService {
     void setRoles(UserRolesBindingModel userRolesBindingModel);
 
     boolean isMoreOneAdmin();
+
+    List<String> findTechnician();
 }

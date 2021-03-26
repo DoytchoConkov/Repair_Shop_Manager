@@ -37,7 +37,7 @@ public interface OrderService {
 
     List<OrderViewModel> findOrdersByClientId(Long id);
 
-    List<IncomePerPeriodViewModel> getByStartDateAndEndDate(String startDate, String endDate);
+    List<IncomePerPeriodViewModel> getByStartDateAndEndDate(String startDate, String endDate,String technician);
 
     List<OrderViewModel> getByDate(String date);
 }
