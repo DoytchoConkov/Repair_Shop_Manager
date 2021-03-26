@@ -1,5 +1,6 @@
 package mainPackage.services.impl;
 
+import mainPackage.errors.SparePartIdNotFoundException;
 import mainPackage.models.bindings.SparePartBindingModel;
 import mainPackage.models.entities.Model;
 import mainPackage.models.entities.SparePart;
@@ -68,7 +69,7 @@ public class SparePartsServiceImpl implements SparePartsService {
 
     @Override
     public SparePart findById(Long id) {
-        return sparePartsRepository.findById(id).orElseThrow();
+        return sparePartsRepository.findById(id).orElseThrow(()-> new SparePartIdNotFoundException(String.format("No spare part with id:%d",id)));
     }
 
 
@@ -97,7 +98,7 @@ public class SparePartsServiceImpl implements SparePartsService {
 
     @Override
     public void edit(Long id, SparePartBindingModel sparePartBindingModel) {
-        SparePart sparePart = sparePartsRepository.findById(id).orElseThrow();
+        SparePart sparePart = sparePartsRepository.findById(id).orElseThrow(()-> new SparePartIdNotFoundException(String.format("No spare part with id:%d",id)));
         sparePart.setPieces(sparePartBindingModel.getPieces());
         sparePart.setPrice(sparePartBindingModel.getPrice());
         sparePartsRepository.save(sparePart);
@@ -105,13 +106,14 @@ public class SparePartsServiceImpl implements SparePartsService {
 
     @Override
     public void update(Long id, int i) {
-        SparePart sparePart = sparePartsRepository.findById(id).orElseThrow();
+        SparePart sparePart = sparePartsRepository.findById(id).orElseThrow(()-> new SparePartIdNotFoundException(String.format("No spare part with id:%d",id)));
         sparePart.setPieces(0);
         sparePartsRepository.save(sparePart);
     }
 
     @Override
     public BigDecimal getTotalSparePartPrice(String[] sparePartsId) {
+        //TODO make spare parts to set and remove ""
         return sparePartsRepository.getTotalPrice(Arrays.stream(sparePartsId).map(s -> Long.valueOf(s)).toArray(Long[]::new));
     }
 

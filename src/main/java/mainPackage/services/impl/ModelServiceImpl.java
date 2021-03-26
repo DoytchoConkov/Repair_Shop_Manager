@@ -35,7 +35,8 @@ public class ModelServiceImpl implements ModelService {
 
     @Override
     public List<ModelViewModel> getAll() {
-        return modelRepository.findAll().stream().map(m->modelMapper.map(m,ModelViewModel.class)).collect(Collectors.toList());
+        return modelRepository.findAll().stream().map(m->modelMapper.map(m,ModelViewModel.class))
+                .collect(Collectors.toList());
     }
 
     @Override

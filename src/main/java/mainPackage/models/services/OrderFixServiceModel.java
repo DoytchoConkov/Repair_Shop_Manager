@@ -2,10 +2,11 @@ package mainPackage.models.services;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 public class OrderFixServiceModel {
     private Long id;
-    private List<Long> sparePartIds;
+    private Set<Long> sparePartIds;
     private BigDecimal sparePartPrice;
     private BigDecimal totalPrice;
 
@@ -20,11 +21,11 @@ public class OrderFixServiceModel {
         this.id = id;
     }
 
-    public List<Long> getSparePartIds() {
+    public Set<Long> getSparePartIds() {
         return sparePartIds;
     }
 
-    public void setSparePartIds(List<Long> sparePartIds) {
+    public void setSparePartIds(Set<Long> sparePartIds) {
         this.sparePartIds = sparePartIds;
     }
 

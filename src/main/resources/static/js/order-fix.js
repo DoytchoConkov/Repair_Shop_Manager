@@ -53,6 +53,7 @@ function calculateSparePartTotalPrice() {
     let spareParts = $('select');
     let sparePartsId = [];
     for (sp of spareParts) {
+        if(sp.value!="")
         sparePartsId.push(sp.value);
     }
     fetch('http://localhost:8080/spare-parts/spare-parts-totalPrice?sparePartsId=' + sparePartsId)
