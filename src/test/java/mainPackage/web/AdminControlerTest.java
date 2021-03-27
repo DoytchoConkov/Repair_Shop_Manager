@@ -5,8 +5,7 @@ import mainPackage.models.entities.User;
 import mainPackage.models.entities.UserRole;
 import mainPackage.repositories.UserRepository;
 import mainPackage.repositories.UserRoleRepository;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -18,7 +17,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -37,13 +35,13 @@ class AdminControlerTest {
     @Autowired
     private UserRoleRepository userRoleRepository;
 
-    @BeforeEach
+    @Before
     public void setup() {
         this.init();
     }
 
     @Test
-    @WithMockUser(username = "Mitko", roles = {"ADMIN"})
+    @WithMockUser(username = "Borko", roles = {"ADMIN"})
     void addUserRole() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(
                 ADMIN_CONTROLLER_PREFIX + "/set-user-role"))
@@ -53,10 +51,11 @@ class AdminControlerTest {
     }
 
     @Test
-    @WithMockUser(username = "Mitko", roles = {"ADMIN"})
+    @WithMockUser(username = "Borko", roles = {"ADMIN"})
     void addUserRoleConfirm() throws Exception {
+        this.init();
         mockMvc.perform(MockMvcRequestBuilders.post(ADMIN_CONTROLLER_PREFIX + "/set-user-role")
-                .param("username", "Mitko")
+                .param("username", "Borko")
                         .param("roles", "ADMIN")
                         .param("roles", "USER")
                         .param("roles", "SENIOR")
@@ -65,12 +64,8 @@ class AdminControlerTest {
     }
 
     private void init() {
-        for (RoleName r : RoleName.values()) {
-            UserRole userRole = new UserRole(r);
-            userRoleRepository.save(userRole);
-        }
         User user = new User();
-        user.setUsername("Mitko");
+        user.setUsername("Borko");
         user.setPassword("$2a$10$Dr9P8sptTPVfPyE0ynbXJOd9BYAwMCPL3l.NIe29F4LnNyZhi0lSu");
         UserRole userRole = userRoleRepository.findByRole(RoleName.ADMIN).orElseThrow();
         user.setRoles(Set.of(userRole));

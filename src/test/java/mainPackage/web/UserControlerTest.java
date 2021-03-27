@@ -5,6 +5,8 @@ import mainPackage.models.entities.User;
 import mainPackage.models.entities.UserRole;
 import mainPackage.repositories.UserRepository;
 import mainPackage.repositories.UserRoleRepository;
+import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +35,7 @@ class UserControlerTest {
     @Autowired
     private UserRoleRepository userRoleRepository;
 
-    @BeforeEach
+    @Before
     public void setup() {
         this.init();
     }
@@ -48,6 +50,7 @@ class UserControlerTest {
 
     @Test
     void registerConfirm() throws Exception {
+        this.init();
         mockMvc.perform(MockMvcRequestBuilders.post(USER_CONTROLLER_PREFIX + "/register")
                 .param("username", "Gosho")
                 .param("password", "12345")
@@ -104,10 +107,7 @@ class UserControlerTest {
     }
 
     private void init() {
-        for (RoleName r : RoleName.values()) {
-            UserRole userRole = new UserRole(r);
-            userRoleRepository.save(userRole);
-        }
+
         User user = new User();
         user.setUsername("Mitko");
         user.setPassword("$2a$10$Dr9P8sptTPVfPyE0ynbXJOd9BYAwMCPL3l.NIe29F4LnNyZhi0lSu");

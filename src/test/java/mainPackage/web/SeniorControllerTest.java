@@ -2,6 +2,7 @@ package mainPackage.web;
 
 import mainPackage.models.entities.*;
 import mainPackage.repositories.*;
+import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -123,10 +124,6 @@ class SeniorControllerTest {
     }
 
     private void init() {
-        for (RoleName r : RoleName.values()) {
-            UserRole userRole = new UserRole(r);
-            userRoleRepository.save(userRole);
-        }
         User user = new User();
         user.setUsername("Mitko");
         user.setPassword("$2a$10$Dr9P8sptTPVfPyE0ynbXJOd9BYAwMCPL3l.NIe29F4LnNyZhi0lSu");

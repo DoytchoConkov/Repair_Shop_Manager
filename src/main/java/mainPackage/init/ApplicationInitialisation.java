@@ -16,11 +16,11 @@ public class ApplicationInitialisation implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-//        if (userRoleRepository.count() == 0) {
-//            for (RoleName r : RoleName.values()) {
-//                UserRole userRole = new UserRole(r);
-//                userRoleRepository.save(userRole);
-//            }
-//        }
+        if (userRoleRepository.count() == 0) {
+            for (RoleName r : RoleName.values()) {
+                UserRole userRole = new UserRole(r);
+                userRoleRepository.save(userRole);
+            }
+        }
     }
 }
