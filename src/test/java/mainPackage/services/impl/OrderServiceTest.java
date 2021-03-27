@@ -1,4 +1,4 @@
-package mainPackage.services;
+package mainPackage.services.impl;
 
 import mainPackage.models.entities.*;
 import mainPackage.models.services.IncomePerPeriodServiceModel;
@@ -7,6 +7,7 @@ import mainPackage.models.views.OrderNotReadyViewModel;
 import mainPackage.models.views.OrderReadyViewModel;
 import mainPackage.models.views.OrderViewModel;
 import mainPackage.repositories.OrderRepository;
+import mainPackage.services.OrderService;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;

@@ -1,8 +1,9 @@
-package mainPackage.services;
+package mainPackage.services.impl;
 
 import mainPackage.models.entities.Brand;
 import mainPackage.models.views.BrandViewModel;
 import mainPackage.repositories.BrandRepository;
+import mainPackage.services.BrandService;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;

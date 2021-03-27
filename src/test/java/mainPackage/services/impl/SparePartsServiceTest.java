@@ -1,10 +1,11 @@
-package mainPackage.services;
+package mainPackage.services.impl;
 
 import mainPackage.models.entities.Brand;
 import mainPackage.models.entities.Model;
 import mainPackage.models.entities.SparePart;
 import mainPackage.models.views.SparePartViewModel;
 import mainPackage.repositories.SparePartsRepository;
+import mainPackage.services.SparePartsService;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;

@@ -1,8 +1,9 @@
-package mainPackage.services;
+package mainPackage.services.impl;
 
 import mainPackage.models.entities.Damage;
 import mainPackage.models.views.DamageViewModel;
 import mainPackage.repositories.DamageRepository;
+import mainPackage.services.DamageService;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;

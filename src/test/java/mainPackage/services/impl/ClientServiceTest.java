@@ -1,9 +1,10 @@
-package mainPackage.services;
+package mainPackage.services.impl;
 
 import mainPackage.models.entities.Client;
 import mainPackage.models.services.ClientServiceModel;
 import mainPackage.models.views.ClientViewModel;
 import mainPackage.repositories.ClientRepository;
+import mainPackage.services.ClientService;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
