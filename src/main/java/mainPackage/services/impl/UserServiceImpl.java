@@ -101,11 +101,4 @@ public class UserServiceImpl implements UserService {
         return admins == 1;
     }
 
-
-    @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return (UserDetails) this.userRepository
-                .findByUsername(s)
-                .orElseThrow(() -> new UsernameNotFoundException(Constants.USERNAME_NOT_FOUND));
-    }
 }

@@ -277,23 +277,21 @@ class OrderServiceTest {
 
     @Test
     void getByStartDateAndEndDate() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter formatterToString = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         IncomePerPeriodServiceModel income = new IncomePerPeriodServiceModel(LocalDate.of(2021,03,01), BigDecimal.valueOf(100),BigDecimal.valueOf(50));
         List<IncomePerPeriodServiceModel> incomes = new ArrayList<>();
-
-        LocalDate startDate=LocalDate.of(2021,03,01);
-        LocalDate endDate=LocalDate.of(2021,03,31);
+        incomes.add(income);
         Mockito.when(mockOrderRepository.findAllByLeaveDateBetween(LocalDate.parse("2021-03-01",formatter),LocalDate.parse("2021-03-31",formatter))).thenReturn(incomes);
-        List<IncomePerPeriodViewModel> actual = orderService.getByStartDateAndEndDate("2021-03-01", "2021-03-31","Gosho");
-        assertEquals(income.getLeaveDate(), actual.get(0).getLeaveDateString());
+        List<IncomePerPeriodViewModel> actual = orderService.getByStartDateAndEndDate("2021-03-01", "2021-03-31","");
+        assertEquals(income.getLeaveDate().format(formatterToString), actual.get(0).getLeaveDateString());
         assertEquals(income.getTotalSparePartsPrice(), actual.get(0).getTotalSparePartsPrice());
         assertEquals(income.getTotalRepairPrice(), actual.get(0).getTotalRepairPrice());
     }
 
     @Test
     void getByDate() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         Order order = new Order();
         Client client = new Client();
         client.setClientName("Gosho");

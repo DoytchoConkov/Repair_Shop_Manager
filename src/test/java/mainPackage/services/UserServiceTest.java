@@ -1,17 +1,24 @@
 package mainPackage.services;
 
+import mainPackage.models.entities.RoleName;
 import mainPackage.models.entities.User;
+import mainPackage.models.entities.UserRole;
 import mainPackage.repositories.UserRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -85,10 +92,5 @@ class UserServiceTest {
     void isMoreOneAdmin2() {
         Mockito.when(mockUserRepository.findAdminUsers()).thenReturn(2);
         assertFalse(userService.isMoreOneAdmin());
-    }
-
-    @Test
-    void loadUserByUsername() {
-        //TODO:
     }
 }
