@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest
 @RunWith(SpringRunner.class)
 class OrderServiceTest {
@@ -34,6 +35,7 @@ class OrderServiceTest {
 
     @Test
     void add() {
+        //TODO:
     }
 
     @Test
@@ -121,7 +123,7 @@ class OrderServiceTest {
 
     @Test
     void deleteOrder() {
-       orderService.deleteOrder(1L);
+        orderService.deleteOrder(1L);
     }
 
     @Test
@@ -163,7 +165,7 @@ class OrderServiceTest {
 
     @Test
     void fix() {
-
+//TODO
     }
 
     @Test
@@ -273,11 +275,11 @@ class OrderServiceTest {
     void getByStartDateAndEndDate() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter formatterToString = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        IncomePerPeriodServiceModel income = new IncomePerPeriodServiceModel(LocalDate.of(2021,03,01), BigDecimal.valueOf(100),BigDecimal.valueOf(50));
+        IncomePerPeriodServiceModel income = new IncomePerPeriodServiceModel(LocalDate.of(2021, 03, 01), BigDecimal.valueOf(100), BigDecimal.valueOf(50));
         List<IncomePerPeriodServiceModel> incomes = new ArrayList<>();
         incomes.add(income);
-        Mockito.when(mockOrderRepository.findAllByLeaveDateBetween(LocalDate.parse("2021-03-01",formatter),LocalDate.parse("2021-03-31",formatter))).thenReturn(incomes);
-        List<IncomePerPeriodViewModel> actual = orderService.getByStartDateAndEndDate("2021-03-01", "2021-03-31","");
+        Mockito.when(mockOrderRepository.findAllByLeaveDateBetween(LocalDate.parse("2021-03-01", formatter), LocalDate.parse("2021-03-31", formatter))).thenReturn(incomes);
+        List<IncomePerPeriodViewModel> actual = orderService.getByStartDateAndEndDate("2021-03-01", "2021-03-31", "");
         assertEquals(income.getLeaveDate().format(formatterToString), actual.get(0).getLeaveDateString());
         assertEquals(income.getTotalSparePartsPrice(), actual.get(0).getTotalSparePartsPrice());
         assertEquals(income.getTotalRepairPrice(), actual.get(0).getTotalRepairPrice());
@@ -304,7 +306,7 @@ class OrderServiceTest {
         order.setUser(user);
         order.setReceiveDate(LocalDate.now());
         List<Order> orders = List.of(order);
-        Mockito.when(mockOrderRepository.getByDate(LocalDate.parse("01-03-2021",formatter))).thenReturn(orders);
+        Mockito.when(mockOrderRepository.getByDate(LocalDate.parse("01-03-2021", formatter))).thenReturn(orders);
         List<OrderViewModel> actual = orderService.getByDate("01-03-2021");
         assertEquals(order.getClient().getClientName(), actual.get(0).getClientName());
         assertEquals(order.getModel().getModelName(), actual.get(0).getModel());
