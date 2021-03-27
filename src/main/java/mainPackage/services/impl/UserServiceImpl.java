@@ -49,12 +49,6 @@ public class UserServiceImpl implements UserService {
     public void registerUserAndLogin(UserServiceModel userServiceModel) throws IOException {
         User user = this.modelMapper.map(userServiceModel, User.class);
         user.setPassword(this.bCryptPasswordEncoder.encode(userServiceModel.getPassword()));
-        if (userServiceModel.getImageUrl() == null) {
-            user.setImageUrl("https://res.cloudinary.com/dislhsmj5/image/upload/v1615625459/logo_cohct8.png");
-        } else {
-            MultipartFile file = userServiceModel.getImageUrl();
-            user.setImageUrl(cloudinaryService.uploadImage(file));
-        }
         if (userRepository.count() == 0) {
             UserRole userRole = userRoleRepository.
                     findByRole(RoleName.ADMIN).orElseThrow(
@@ -64,13 +58,11 @@ public class UserServiceImpl implements UserService {
         }
         this.userRepository.save(user);
         UserDetails principal = userServiceDB.loadUserByUsername(user.getUsername());
-
         Authentication authentication = new UsernamePasswordAuthenticationToken(
                 principal,
                 user.getPassword(),
                 principal.getAuthorities()
         );
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
@@ -109,10 +101,6 @@ public class UserServiceImpl implements UserService {
         return admins == 1;
     }
 
-    @Override
-    public List<String> findTechnician() {
-        return userRepository.findTechnician();
-    }
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {

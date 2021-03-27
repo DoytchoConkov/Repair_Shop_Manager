@@ -36,10 +36,10 @@ function getDetails(sDate, enDate, techic) {
                             $('#info')[0].style.display = "none";
                             $('#details')[0].style.display = "block";
                             $('#headTitle')[0].innerText = "Details for " + btn.value;
-                            fetch('http://localhost:8080/orders/orderBydate?date=' + btn.value)
+                            tableDetails.empty();
+                            fetch('http://localhost:8080/orders/orderByDate?date=' + btn.value)
                                 .then((response) => response.json())
                                 .then((json) => json.forEach((o) => {
-                                    tableDetails.empty();
                                     let row = `<tr><td>${o.brandName}</td>
                                      <td>${o.model}</td>
                                      <td>${o.serialNumber}</td>
@@ -87,6 +87,6 @@ $('#details').click(() => {
 })
 
 $(document).ready(function () {
-    getDetails(startDate[0].value, endDate[0].value);
+    getDetails(startDate[0].value, endDate[0].value,"");
 });
 

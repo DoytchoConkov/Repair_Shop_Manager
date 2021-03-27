@@ -7,6 +7,7 @@ import mainPackage.models.services.OrderReceiveServiceModel;
 import mainPackage.models.views.OrderReadyViewModel;
 import mainPackage.models.views.OrderViewModel;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface OrderService {
@@ -37,7 +38,9 @@ public interface OrderService {
 
     List<OrderViewModel> findOrdersByClientId(Long id);
 
-    List<IncomePerPeriodViewModel> getByStartDateAndEndDate(String startDate, String endDate,String technician);
+    List<IncomePerPeriodViewModel> getByStartDateAndEndDate(String startDate, String endDate, String technician);
 
     List<OrderViewModel> getByDate(String date);
+
+    List<String> findTechnicians();
 }

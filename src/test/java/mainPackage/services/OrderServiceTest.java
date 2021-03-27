@@ -16,6 +16,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -62,7 +63,7 @@ class OrderServiceTest {
         order.setDamage(damage);
         order.setModel(model);
         order.setSerialNumber("350101006543210");
-        order.setReceiveDate(LocalDateTime.now());
+        order.setReceiveDate(LocalDate.now());
         List<Order> orders = List.of(order);
         Mockito.when(mockOrderRepository.findNotReadyOrders()).thenReturn(orders);
         List<OrderNotReadyViewModel> actual = orderService.getNotReady();
@@ -91,7 +92,7 @@ class OrderServiceTest {
         order.setTotalRepairPrice(BigDecimal.valueOf(100));
         order.setTotalSparePartsPrice(BigDecimal.valueOf(50));
         order.setUser(user);
-        order.setReceiveDate(LocalDateTime.now());
+        order.setReceiveDate(LocalDate.now());
         List<Order> orders = List.of(order);
         Mockito.when(mockOrderRepository.findReadyOrders()).thenReturn(orders);
         List<OrderReadyViewModel> actual = orderService.getReady();
@@ -122,7 +123,7 @@ class OrderServiceTest {
         order.setTotalRepairPrice(BigDecimal.valueOf(100));
         order.setTotalSparePartsPrice(BigDecimal.valueOf(50));
         order.setUser(user);
-        order.setReceiveDate(LocalDateTime.now());
+        order.setReceiveDate(LocalDate.now());
         Mockito.when(mockOrderRepository.findById(1L)).thenReturn(java.util.Optional.of(order));
         OrderNotReadyViewModel actual = orderService.getById(1L);
         assertEquals(order.getClient().getClientName(), actual.getClientName());
@@ -160,7 +161,7 @@ class OrderServiceTest {
         order.setTotalRepairPrice(BigDecimal.valueOf(100));
         order.setTotalSparePartsPrice(BigDecimal.valueOf(50));
         order.setUser(user);
-        order.setReceiveDate(LocalDateTime.now());
+        order.setReceiveDate(LocalDate.now());
         List<Order> orders = List.of(order);
         Mockito.when(mockOrderRepository.findAllByLeaveDateIsNull()).thenReturn(orders);
         List<OrderReadyViewModel> actual = orderService.getNotPayedOrders();
@@ -195,7 +196,7 @@ class OrderServiceTest {
         order.setTotalRepairPrice(BigDecimal.valueOf(100));
         order.setTotalSparePartsPrice(BigDecimal.valueOf(50));
         order.setUser(user);
-        order.setReceiveDate(LocalDateTime.now());
+        order.setReceiveDate(LocalDate.now());
         Mockito.when(mockOrderRepository.findById(1L)).thenReturn(java.util.Optional.of(order));
         OrderReadyViewModel actual = orderService.getReadyById(1L);
         assertEquals(order.getClient().getClientName(), actual.getClientName());
@@ -231,7 +232,7 @@ class OrderServiceTest {
         order.setTotalRepairPrice(BigDecimal.valueOf(100));
         order.setTotalSparePartsPrice(BigDecimal.valueOf(50));
         order.setUser(user);
-        order.setReceiveDate(LocalDateTime.now());
+        order.setReceiveDate(LocalDate.now());
         List<Order> orders = new ArrayList<>();
         orders.add(order);
         Mockito.when(mockOrderRepository.findAllBySerialNumber("%350%")).thenReturn(orders);
@@ -262,7 +263,7 @@ class OrderServiceTest {
         order.setTotalRepairPrice(BigDecimal.valueOf(100));
         order.setTotalSparePartsPrice(BigDecimal.valueOf(50));
         order.setUser(user);
-        order.setReceiveDate(LocalDateTime.now());
+        order.setReceiveDate(LocalDate.now());
         List<Order> orders = List.of(order);
         Mockito.when(mockOrderRepository.findAllByClientId(1L)).thenReturn(orders);
         List<OrderViewModel> actual = orderService.findOrdersByClientId(1L);
@@ -278,14 +279,14 @@ class OrderServiceTest {
     void getByStartDateAndEndDate() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         DateTimeFormatter formatterToString = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        IncomePerPeriodServiceModel income = new IncomePerPeriodServiceModel(LocalDateTime.parse("2021-03-01 00:00:00", formatter),
-                BigDecimal.valueOf(100),BigDecimal.valueOf(50));
+        IncomePerPeriodServiceModel income = new IncomePerPeriodServiceModel(LocalDate.of(2021,03,01), BigDecimal.valueOf(100),BigDecimal.valueOf(50));
         List<IncomePerPeriodServiceModel> incomes = new ArrayList<>();
-        incomes.add(income);
-        Mockito.when(mockOrderRepository.findAllByLeaveDateBetween(LocalDateTime.parse("2021-03-01 00:00:00", formatter),
-                LocalDateTime.parse("2021-03-31 23:59:59", formatter))).thenReturn(incomes);
-        List<IncomePerPeriodViewModel> actual = orderService.getByStartDateAndEndDate("2021-03-01","2021-03-31","Gosho");
-        assertEquals(income.getLeaveDate().format(formatterToString), actual.get(0).getLeaveDateString());
+
+        LocalDate startDate=LocalDate.of(2021,03,01);
+        LocalDate endDate=LocalDate.of(2021,03,31);
+        Mockito.when(mockOrderRepository.findAllByLeaveDateBetween(LocalDate.parse("2021-03-01",formatter),LocalDate.parse("2021-03-31",formatter))).thenReturn(incomes);
+        List<IncomePerPeriodViewModel> actual = orderService.getByStartDateAndEndDate("2021-03-01", "2021-03-31","Gosho");
+        assertEquals(income.getLeaveDate(), actual.get(0).getLeaveDateString());
         assertEquals(income.getTotalSparePartsPrice(), actual.get(0).getTotalSparePartsPrice());
         assertEquals(income.getTotalRepairPrice(), actual.get(0).getTotalRepairPrice());
     }
@@ -309,10 +310,9 @@ class OrderServiceTest {
         order.setTotalRepairPrice(BigDecimal.valueOf(100));
         order.setTotalSparePartsPrice(BigDecimal.valueOf(50));
         order.setUser(user);
-        order.setReceiveDate(LocalDateTime.now());
+        order.setReceiveDate(LocalDate.now());
         List<Order> orders = List.of(order);
-        Mockito.when(mockOrderRepository.getByDate(LocalDateTime.parse("01-03-2021 00:00:00", formatter),
-                LocalDateTime.parse("01-03-2021 23:59:59", formatter))).thenReturn(orders);
+        Mockito.when(mockOrderRepository.getByDate(LocalDate.parse("01-03-2021",formatter))).thenReturn(orders);
         List<OrderViewModel> actual = orderService.getByDate("01-03-2021");
         assertEquals(order.getClient().getClientName(), actual.get(0).getClientName());
         assertEquals(order.getModel().getModelName(), actual.get(0).getModel());

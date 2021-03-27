@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -30,11 +31,14 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     List<Order> findAllByClientId(@Param("id") Long id);
 
     @Query(" select new mainPackage.models.services.IncomePerPeriodServiceModel(o.leaveDate as leaveDate,sum(o.totalSparePartsPrice) as totalSparePartsPrice,sum(o.totalRepairPrice) as totalRepairPrice) from Order as o where o.leaveDate between :startDate and :endDate group by o.leaveDate order by o.leaveDate")
-    List<IncomePerPeriodServiceModel> findAllByLeaveDateBetween(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
+    List<IncomePerPeriodServiceModel> findAllByLeaveDateBetween(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
-    @Query("select o from Order as o where o.leaveDate between :startDate and :endDate order by o.leaveDate")
-    List<Order> getByDate(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
+    @Query("select o from Order as o where o.leaveDate = :date order by o.leaveDate")
+    List<Order> getByDate(@Param("date") LocalDate date);
 
     @Query(" select new mainPackage.models.services.IncomePerPeriodServiceModel(o.leaveDate as leaveDate,sum(o.totalSparePartsPrice) as totalSparePartsPrice,sum(o.totalRepairPrice) as totalRepairPrice) from Order as o where o.user.username=:technician and o.leaveDate between :startDate and :endDate group by o.leaveDate order by o.leaveDate")
-    List<IncomePerPeriodServiceModel> findAllByLeaveDateBetweenAndTechnician(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDat,@Param("technician") String technician);
+    List<IncomePerPeriodServiceModel> findAllByLeaveDateBetweenAndTechnician(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDat, @Param("technician") String technician);
+
+    @Query("select o.user.username from Order as o where o.user.username is not NULL group by o.user.username order by o.user.username")
+    List<String> findTechnicians();
 }

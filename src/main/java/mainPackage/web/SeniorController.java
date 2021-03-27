@@ -61,7 +61,7 @@ public class SeniorController {
             model.addAttribute("endDate", LocalDate.now());
         }
         if (!model.containsAttribute("technicians")) {
-            model.addAttribute("technicians", userService.findTechnician());
+            model.addAttribute("technicians", orderService.findTechnicians());
         }
         return "/info/income-info";
     }

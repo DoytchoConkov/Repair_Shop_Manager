@@ -17,7 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +54,7 @@ public class OrderServiceImpl implements OrderService {
         Damage damage = damageService.getDamage(OrderReceiveServiceModel.getDamage());
         order.setModel(model);
         order.setClient(client);
-        order.setReceiveDate(LocalDateTime.now());
+        order.setReceiveDate(LocalDate.now());
         order.setDamage(damage);
         String username = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
         order.setUser(userService.getUserByUserName(username));
@@ -111,13 +111,13 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void fix(OrderFixServiceModel orderServiceModel) {
         Order order = orderRepository.findById(orderServiceModel.getId())
-                .orElseThrow(() ->new OrderIdNotFoundException(String.format("No order with this %d",orderServiceModel.getId())));
+                .orElseThrow(() -> new OrderIdNotFoundException(String.format("No order with this %d", orderServiceModel.getId())));
         Set<Long> spareParts = orderServiceModel.getSparePartIds();
         List<SparePart> sparePartsList = new ArrayList<>();
-        spareParts.remove("");
-        if (!spareParts.isEmpty()) {
-           sparePartsList = spareParts.stream().map(sp -> sparePartsService.findById(sp)).collect(Collectors.toList());
-       //TODO remove spare part from DB
+        if (spareParts != null) {
+            spareParts.remove("");
+            sparePartsList = spareParts.stream().map(sp -> sparePartsService.findById(sp)).collect(Collectors.toList());
+            //TODO remove spare part from DB
         }
         order.setTotalSparePartsPrice(orderServiceModel.getSparePartPrice());
         order.setTotalRepairPrice(orderServiceModel.getTotalPrice());
@@ -127,7 +127,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderReadyViewModel getReadyById(Long id) {
-        Order order = orderRepository.findById(id).orElseThrow(() ->new OrderIdNotFoundException(String.format("No order with this %d",id)));
+        Order order = orderRepository.findById(id).orElseThrow(() -> new OrderIdNotFoundException(String.format("No order with this %d", id)));
         OrderReadyViewModel orderReadyViewModel = modelMapper.map(order, OrderReadyViewModel.class);
         orderReadyViewModel.setBrand(order.getModel().getBrand().getBrandName());
         return orderReadyViewModel;
@@ -135,14 +135,14 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void pay(Long id) {
-        Order order = orderRepository.findById(id).orElseThrow(() ->new OrderIdNotFoundException(String.format("No order with this %d",id)));
-        order.setLeaveDate(LocalDateTime.now());
+        Order order = orderRepository.findById(id).orElseThrow(() -> new OrderIdNotFoundException(String.format("No order with this %d", id)));
+        order.setLeaveDate(LocalDate.now());
         orderRepository.save(order);
     }
 
     @Override
     public void makeNotFixed(Long id) {
-        Order order = orderRepository.findById(id).orElseThrow(() ->new OrderIdNotFoundException(String.format("No order with this %d",id)));
+        Order order = orderRepository.findById(id).orElseThrow(() -> new OrderIdNotFoundException(String.format("No order with this %d", id)));
         order.setTotalRepairPrice(null);
         order.setTotalSparePartsPrice(null);
         order.getSpareParts().clear();
@@ -164,11 +164,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<IncomePerPeriodViewModel> getByStartDateAndEndDate(String startDate, String endDate, String technician) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter formatterToString = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         if (technician.isEmpty()) {
-            List<IncomePerPeriodServiceModel> incomeList = orderRepository.findAllByLeaveDateBetween(LocalDateTime.parse(startDate + " 00:00:00", formatter),
-                    LocalDateTime.parse(endDate + " 23:59:59", formatter));
+            List<IncomePerPeriodServiceModel> incomeList = orderRepository.findAllByLeaveDateBetween(LocalDate.parse(startDate, formatter), LocalDate.parse(endDate, formatter));
 
             return incomeList.stream().map(o -> {
                 IncomePerPeriodViewModel viewModel = modelMapper.map(o, IncomePerPeriodViewModel.class);
@@ -176,8 +175,7 @@ public class OrderServiceImpl implements OrderService {
                 return viewModel;
             }).collect(Collectors.toList());
         }
-        List<IncomePerPeriodServiceModel> incomeList = orderRepository.findAllByLeaveDateBetweenAndTechnician(LocalDateTime.parse(startDate + " 00:00:00", formatter),
-                LocalDateTime.parse(endDate + " 23:59:59", formatter), technician);
+        List<IncomePerPeriodServiceModel> incomeList = orderRepository.findAllByLeaveDateBetweenAndTechnician(LocalDate.parse(startDate, formatter), LocalDate.parse(endDate, formatter), technician);
 
         return incomeList.stream().map(o -> {
             IncomePerPeriodViewModel viewModel = modelMapper.map(o, IncomePerPeriodViewModel.class);
@@ -188,16 +186,20 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderViewModel> getByDate(String date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         DateTimeFormatter formatterToString = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        LocalDateTime startDate = LocalDateTime.parse(date + " 00:00:00", formatter);
-        LocalDateTime endDate = LocalDateTime.parse(date + " 23:59:59", formatter);
-        List<Order> orders = orderRepository.getByDate(startDate, endDate);
-        return orders.stream().map(o -> {
+        List<Order> orders = orderRepository.getByDate(LocalDate.parse(date, formatter));
+        List<OrderViewModel> ordersView = orders.stream().map(o -> {
             OrderViewModel order = modelMapper.map(o, OrderViewModel.class);
             order.setBrandName(o.getModel().getBrand().getBrandName());
             return order;
         }).collect(Collectors.toList());
+        return ordersView;
+    }
+
+    @Override
+    public List<String> findTechnicians() {
+        return orderRepository.findTechnicians();
     }
 
     private List<OrderViewModel> getOrderViewModels(List<Order> ords) {

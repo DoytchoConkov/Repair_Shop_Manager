@@ -22,5 +22,4 @@ public interface UserService extends UserDetailsService {
 
     boolean isMoreOneAdmin();
 
-    List<String> findTechnician();
 }

@@ -9,10 +9,8 @@ import java.util.Set;
 @Table(name = "users")
 public class User extends BaseEntity {
     private String username;
-    private String imageUrl;
     private String password;
     private Set<UserRole> roles = new LinkedHashSet<>();
-    private List<Order> orders;
 
     public User() {
     }
@@ -24,15 +22,6 @@ public class User extends BaseEntity {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    @Column(name = "image_url")
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
     }
 
     @Column(name = "password", nullable = false)
@@ -51,14 +40,5 @@ public class User extends BaseEntity {
 
     public void setRoles(Set<UserRole> roles) {
         this.roles = roles;
-    }
-
-    @OneToMany(mappedBy = "user")
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Order> order) {
-        this.orders = order;
     }
 }

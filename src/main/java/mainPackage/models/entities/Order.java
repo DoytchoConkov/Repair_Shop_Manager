@@ -1,9 +1,9 @@
 package mainPackage.models.entities;
 
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,13 +16,13 @@ public class Order extends BaseEntity {
     private Damage damage;
     private String notes;
     private Client client;
-    private LocalDateTime receiveDate;
+    private LocalDate receiveDate;
     private String imageUrl;
     private List<SparePart> spareParts = new ArrayList<>();
     private BigDecimal totalSparePartsPrice;
     private BigDecimal totalRepairPrice;
     private User user;
-    private LocalDateTime leaveDate;
+    private LocalDate leaveDate;
 
     public Order() {
     }
@@ -46,20 +46,20 @@ public class Order extends BaseEntity {
     }
 
     @Column(name = "receive_date", nullable = false)
-    public LocalDateTime getReceiveDate() {
+    public LocalDate getReceiveDate() {
         return receiveDate;
     }
 
-    public void setReceiveDate(LocalDateTime receiveDate) {
+    public void setReceiveDate(LocalDate receiveDate) {
         this.receiveDate = receiveDate;
     }
 
     @Column(name = "leave_date")
-    public LocalDateTime getLeaveDate() {
+    public LocalDate getLeaveDate() {
         return leaveDate;
     }
 
-    public void setLeaveDate(LocalDateTime leaveDate) {
+    public void setLeaveDate(LocalDate leaveDate) {
         this.leaveDate = leaveDate;
     }
 

@@ -17,6 +17,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("select u from User as u order by u.username")
     List<User> findAll();
-    @Query("select u.username from User as u where u.orders is not empty")
-    List<String> findTechnician();
 }

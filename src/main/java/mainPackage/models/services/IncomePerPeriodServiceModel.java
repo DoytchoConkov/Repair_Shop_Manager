@@ -1,28 +1,27 @@
 package mainPackage.models.services;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class IncomePerPeriodServiceModel {
-    private LocalDateTime leaveDate;
+    private LocalDate leaveDate;
     private BigDecimal totalSparePartsPrice;
     private BigDecimal totalRepairPrice;
 
-    public IncomePerPeriodServiceModel(LocalDateTime leaveDate, BigDecimal totalSparePartsPrice, BigDecimal totalRepairPrice) {
+    public IncomePerPeriodServiceModel() {
+    }
+
+    public IncomePerPeriodServiceModel(LocalDate leaveDate, BigDecimal totalSparePartsPrice, BigDecimal totalRepairPrice) {
         this.leaveDate = leaveDate;
         this.totalSparePartsPrice = totalSparePartsPrice;
         this.totalRepairPrice = totalRepairPrice;
     }
 
-    public IncomePerPeriodServiceModel() {
-
-    }
-
-    public LocalDateTime getLeaveDate() {
+    public LocalDate getLeaveDate() {
         return leaveDate;
     }
 
-    public void setLeaveDate(LocalDateTime leaveDate) {
+    public void setLeaveDate(LocalDate leaveDate) {
         this.leaveDate = leaveDate;
     }
 
