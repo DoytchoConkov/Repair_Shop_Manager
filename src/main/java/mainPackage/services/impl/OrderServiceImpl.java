@@ -117,7 +117,7 @@ public class OrderServiceImpl implements OrderService {
         if (spareParts != null) {
             spareParts.remove("");
             sparePartsList = spareParts.stream().map(sp -> sparePartsService.findById(sp)).collect(Collectors.toList());
-            //TODO remove spare part from DB
+            sparePartsService.reduceSpareParts(sparePartsList.stream().map(s->s.getId()).collect(Collectors.toList()));
         }
         order.setTotalSparePartsPrice(orderServiceModel.getSparePartPrice());
         order.setTotalRepairPrice(orderServiceModel.getTotalPrice());

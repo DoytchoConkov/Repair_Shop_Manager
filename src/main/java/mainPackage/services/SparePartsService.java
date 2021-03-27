@@ -32,4 +32,6 @@ public interface SparePartsService {
     BigDecimal getTotalSparePartPrice(String[] sparePartsId);
 
     SparePartViewModel getByBrandModelName(String brandName, String modelName, String spName);
+
+    void reduceSpareParts(List<Long> sparePartsList);
 }

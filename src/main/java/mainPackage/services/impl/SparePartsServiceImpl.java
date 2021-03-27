@@ -113,7 +113,6 @@ public class SparePartsServiceImpl implements SparePartsService {
 
     @Override
     public BigDecimal getTotalSparePartPrice(String[] sparePartsId) {
-        //TODO make spare parts to set and remove ""
         return sparePartsRepository.getTotalPrice(Arrays.stream(sparePartsId).map(s -> Long.valueOf(s)).toArray(Long[]::new));
     }
 
@@ -123,5 +122,10 @@ public class SparePartsServiceImpl implements SparePartsService {
                 SparePartViewModel sparePartViewModel = modelMapper.map(sparePart, SparePartViewModel.class);
         sparePartViewModel.setBrand(sparePart.getModel().getBrand().getBrandName());
         return sparePartViewModel;
+    }
+
+    @Override
+    public void reduceSpareParts(List<Long> sparePartsList) {
+        sparePartsRepository.reduceSpareParts(sparePartsList);
     }
 }

@@ -4,6 +4,7 @@ import mainPackage.models.entities.Model;
 import mainPackage.models.entities.SparePart;
 import mainPackage.models.views.SparePartViewModel;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -32,4 +33,8 @@ public interface SparePartsRepository extends JpaRepository<SparePart, Long> {
 
     @Query("select sp from SparePart as sp where sp.model.brand.brandName=:brandName and sp.model.modelName=:modelName and sp.sparePartName=:spName")
     SparePart getByBrandModelName(String brandName, String modelName, String spName);
+
+    @Modifying
+    @Query("UPDATE SparePart  as sp set sp.pieces=sp.pieces-1 where sp.id in :sparePartsList")
+    void reduceSpareParts(List<Long> sparePartsList);
 }

@@ -315,4 +315,9 @@ class OrderServiceTest {
         assertEquals(order.getSerialNumber(), actual.get(0).getSerialNumber());
         assertEquals(order.getTotalRepairPrice(), actual.get(0).getTotalRepairPrice());
     }
+
+    @Test
+    void findTechnicians() {
+
+    }
 }
