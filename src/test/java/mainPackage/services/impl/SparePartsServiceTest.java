@@ -1,10 +1,14 @@
 package mainPackage.services.impl;
 
+import mainPackage.models.bindings.SparePartBindingModel;
 import mainPackage.models.entities.Brand;
 import mainPackage.models.entities.Model;
 import mainPackage.models.entities.SparePart;
+import mainPackage.models.services.SparePartServiceModel;
 import mainPackage.models.views.SparePartViewModel;
+import mainPackage.repositories.ModelRepository;
 import mainPackage.repositories.SparePartsRepository;
+import mainPackage.services.ModelService;
 import mainPackage.services.SparePartsService;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -26,9 +30,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class SparePartsServiceTest {
     @Autowired
     private SparePartsService sparePartsService;
+    @Autowired
+    private ModelService modelService;
     @MockBean
     private SparePartsRepository mockSparePartsRepository;
-
+    @MockBean
+    private ModelRepository mockModelRepository;
     @Test
     void getAll() {
         Brand brand = new Brand("Apple");
@@ -45,13 +52,21 @@ class SparePartsServiceTest {
 
     @Test
     void save() {
-//        SparePartServiceModel sparePartServiceModel = new SparePartServiceModel("Samsung","Galaxy S20",
-//                "Glass refurbish", BigDecimal.valueOf(250),2);
-//        Long expected= sPRepository.count()+1;
-//        sparePartsService.save(sparePartServiceModel);
-//        Long newSize =sPRepository.count();
-//        assertEquals(expected,newSize);
+        SparePartServiceModel sparePartServiceModel=new SparePartServiceModel();
+        sparePartServiceModel.setModel("P40");
+        sparePartServiceModel.setBrand("Huawei");
+        sparePartServiceModel.setSparePartName("LCD");
+        sparePartServiceModel.setPieces(1);
+        sparePartServiceModel.setPrice(BigDecimal.valueOf(100));
+        Brand brand = new Brand("Huawei");
+        Model model=new Model();
+        model.setBrand(brand);
+        model.setModelName("P40");
+        Mockito.when(mockModelRepository.findByModelName("Huawei","P40")).thenReturn(model);
+        sparePartsService.save(sparePartServiceModel);
     }
+
+    //TODO add whit existing spare part save
 
     @Test
     void getByBrandAndModel() {
@@ -69,7 +84,7 @@ class SparePartsServiceTest {
 
     @Test
     void deleteSparePart() {
-        //TODO
+        sparePartsService.deleteSparePart(1L);
     }
 
     @Test
@@ -83,16 +98,7 @@ class SparePartsServiceTest {
     }
     @Test
     void findByIdWithWrongId() {
-//        Mockito.when(mockSparePartsRepository.findById(10L)).thenReturn(Optional.empty());
-//        Exception exception = assertThrows(RuntimeException.class, () -> {
-//            SparePart actual = sparePartsService.findById(1L);
-//        });
-//
-//        String expectedMessage = "Invalid Id";
-//        String actualMessage = exception.getMessage();
-//
-//        assertTrue(actualMessage.contains(expectedMessage));
-
+  // TODO
     }
 
     @Test
@@ -144,12 +150,26 @@ class SparePartsServiceTest {
 
     @Test
     void edit() {
-
+        SparePartBindingModel sparePartBindingModel= new SparePartBindingModel();
+        sparePartBindingModel.setBrand("Nokia");
+        sparePartBindingModel.setModel("C3-01");
+        sparePartBindingModel.setSparePartName("Battery");
+        sparePartBindingModel.setPieces(2);
+        sparePartBindingModel.setPrice(BigDecimal.valueOf(15));
+        Brand brand = new Brand("Nokia");
+        Model model = new Model("C3-01", brand);
+        SparePart sparePart = new SparePart(model, "Battery");
+        Mockito.when(mockSparePartsRepository.findById(1L)).thenReturn(Optional.of(sparePart));
+        sparePartsService.edit(1L,sparePartBindingModel);
     }
 
     @Test
     void update() {
-
+        Brand brand = new Brand("Nokia");
+        Model model = new Model("C3-01", brand);
+        SparePart sparePart = new SparePart(model, "Back Cover");
+        Mockito.when(mockSparePartsRepository.findById(1L)).thenReturn(Optional.of(sparePart));
+        sparePartsService.update(1L,1);
     }
 
     @Test

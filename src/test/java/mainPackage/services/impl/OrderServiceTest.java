@@ -31,21 +31,6 @@ class OrderServiceTest {
     private OrderService orderService;
     @MockBean
     private OrderRepository mockOrderRepository;
-//    private Order order;
-//    @Before
-//    private void init(){
-//        Client client = new Client();
-//        client.setClientName("Gosho");
-//        client.setClientPhoneNumber("0888123456");
-//        Damage damage = new Damage("Broken LCD");
-//        Brand brand = new Brand("Huawei");
-//        Model model = new Model("P40 lite",brand);
-//        this.order.setClient(client);
-//        this.order.setDamage(damage);
-//        this.order.setModel(model);
-//        this.order.setSerialNumber("350101006543210");
-//        this.order.setReceiveDate(LocalDateTime.now());
-//    }
 
     @Test
     void add() {
@@ -136,6 +121,7 @@ class OrderServiceTest {
 
     @Test
     void deleteOrder() {
+       orderService.deleteOrder(1L);
     }
 
     @Test
@@ -177,6 +163,7 @@ class OrderServiceTest {
 
     @Test
     void fix() {
+
     }
 
     @Test
@@ -209,10 +196,16 @@ class OrderServiceTest {
 
     @Test
     void pay() {
+        Order order = new Order();
+        Mockito.when(mockOrderRepository.findById(1L)).thenReturn(java.util.Optional.of(order));
+        orderService.pay(1L);
     }
 
     @Test
     void makeNotFixed() {
+        Order order = new Order();
+        Mockito.when(mockOrderRepository.findById(1L)).thenReturn(java.util.Optional.of(order));
+        orderService.makeNotFixed(1L);
     }
 
     @Test
