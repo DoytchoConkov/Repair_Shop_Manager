@@ -51,7 +51,7 @@ class SeniorControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "Mitko", roles = {"ADMIN"})
+    @WithMockUser(username = "Gosho", roles = {"ADMIN"})
     void viewSpareParts() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(
                 SENIOR_CONTROLLER_PREFIX + "/edit-spare-parts"))
@@ -61,7 +61,7 @@ class SeniorControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "Mitko", roles = {"ADMIN"})
+    @WithMockUser(username = "Gosho", roles = {"ADMIN"})
     void editOrder() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(
                 SENIOR_CONTROLLER_PREFIX + "/edit-orders"))
@@ -71,7 +71,7 @@ class SeniorControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "Mitko", roles = {"ADMIN"})
+    @WithMockUser(username = "Gosho", roles = {"ADMIN"})
     void incomeInfo() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(
                 SENIOR_CONTROLLER_PREFIX + "/income-info"))
@@ -83,7 +83,7 @@ class SeniorControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "Mitko", roles = {"ADMIN"})
+    @WithMockUser(username = "Gosho", roles = {"ADMIN"})
     void editSparePart() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.put(
                 SENIOR_CONTROLLER_PREFIX + "/spare_part/edit/{id}", 1)
@@ -97,7 +97,7 @@ class SeniorControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "Mitko", roles = {"ADMIN"})
+    @WithMockUser(username = "Gosho", roles = {"ADMIN"})
     void deleteSparePart() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.delete(
                 SENIOR_CONTROLLER_PREFIX + "/spare_part/delete/{id}", 1)
@@ -106,7 +106,7 @@ class SeniorControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "Mitko", roles = {"ADMIN"})
+    @WithMockUser(username = "Gosho", roles = {"ADMIN"})
     void deleteOrder() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.delete(
                 SENIOR_CONTROLLER_PREFIX + "/order/delete/{id}", 1)
@@ -115,7 +115,7 @@ class SeniorControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "Mitko", roles = {"ADMIN"})
+    @WithMockUser(username = "Gosho", roles = {"ADMIN"})
     void makeOrderNotFixed() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post(
                 SENIOR_CONTROLLER_PREFIX + "/order/make-not-fixed/{id}", 1)
@@ -125,7 +125,7 @@ class SeniorControllerTest {
 
     private void init() {
         User user = new User();
-        user.setUsername("Mitko");
+        user.setUsername("Gosho");
         user.setPassword("$2a$10$Dr9P8sptTPVfPyE0ynbXJOd9BYAwMCPL3l.NIe29F4LnNyZhi0lSu");
         UserRole userRole = userRoleRepository.findByRole(RoleName.ADMIN).orElseThrow();
         user.setRoles(Set.of(userRole));

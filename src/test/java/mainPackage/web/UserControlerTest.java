@@ -52,7 +52,7 @@ class UserControlerTest {
     void registerConfirm() throws Exception {
         this.init();
         mockMvc.perform(MockMvcRequestBuilders.post(USER_CONTROLLER_PREFIX + "/register")
-                .param("username", "Gosho")
+                .param("username", "Valio")
                 .param("password", "12345")
                 .param("confirmPassword", "12345")
                 .with(csrf())).
@@ -62,7 +62,7 @@ class UserControlerTest {
     @Test
     void registerConfirmWithDifferentConfirmPassword() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post(USER_CONTROLLER_PREFIX + "/register")
-                .param("username", "Gosho")
+                .param("username", "Valio")
                 .param("password", "12345")
                 .param("confirmPassword", "11111")
                 .with(csrf())).
@@ -82,7 +82,7 @@ class UserControlerTest {
     @Test
     void registerConfirmWithExistUserName() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post(USER_CONTROLLER_PREFIX + "/register")
-                .param("username", "Mitko")
+                .param("username", "Valio")
                 .param("password", "11111")
                 .param("confirmPassword", "11111")
                 .with(csrf())).
@@ -100,7 +100,7 @@ class UserControlerTest {
     @Test
     void failedLogin() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post(USER_CONTROLLER_PREFIX + "/login")
-                .param("name","Mitko")
+                .param("name","Valio")
                 .param("password", "11111")
                 .with(csrf())).
                 andExpect(status().is2xxSuccessful());
@@ -109,7 +109,7 @@ class UserControlerTest {
     private void init() {
 
         User user = new User();
-        user.setUsername("Mitko");
+        user.setUsername("Valio");
         user.setPassword("$2a$10$Dr9P8sptTPVfPyE0ynbXJOd9BYAwMCPL3l.NIe29F4LnNyZhi0lSu");
         UserRole userRole = userRoleRepository.findByRole(RoleName.ADMIN).orElseThrow();
         user.setRoles(Set.of(userRole));
