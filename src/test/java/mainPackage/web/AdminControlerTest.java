@@ -29,8 +29,6 @@ class AdminControlerTest {
 
     private static final String ADMIN_CONTROLLER_PREFIX = "/admin";
 
-    private long userId;
-
     @Autowired
     private MockMvc mockMvc;
 

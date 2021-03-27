@@ -18,19 +18,14 @@ import java.util.List;
 @Controller
 @RequestMapping("/senior")
 public class SeniorController {
-    private final ModelMapper modelMapper;
     private final BrandService brandService;
     private final SparePartsService sparePartsService;
     private final OrderService orderService;
-    private final UserService userService;
 
-    public SeniorController(ModelMapper modelMapper, BrandService brandService, SparePartsService sparePartsService,
-                            OrderService orderService, UserService userService) {
-        this.modelMapper = modelMapper;
+    public SeniorController(BrandService brandService, SparePartsService sparePartsService, OrderService orderService) {
         this.brandService = brandService;
         this.sparePartsService = sparePartsService;
         this.orderService = orderService;
-        this.userService = userService;
     }
 
     @GetMapping("/edit-spare-parts")
@@ -83,13 +78,13 @@ public class SeniorController {
     }
 
     @DeleteMapping("/order/delete/{id}")
-    public String deleteOrder(@PathVariable Long id, Model model) {
+    public String deleteOrder(@PathVariable Long id) {
         orderService.deleteOrder(id);
         return "redirect:/home";
     }
 
     @PostMapping("/order/make-not-fixed/{id}")
-    public String makeOrderNotFixed(@PathVariable Long id, Model model) {
+    public String makeOrderNotFixed(@PathVariable Long id) {
         orderService.makeNotFixed(id);
         return "redirect:/home";
     }
