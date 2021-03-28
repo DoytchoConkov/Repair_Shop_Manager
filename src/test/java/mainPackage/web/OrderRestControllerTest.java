@@ -69,7 +69,7 @@ class OrderRestControllerTest {
         this.mockMvc.perform(get(ORDER_REST_CONTROLLER_PREFIX + "/find-clientById")
                 .param("clientId", "1"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(0)));
+                .andExpect(jsonPath("$", hasSize(1)));
 //                .andExpect(jsonPath("$.[0].clientName", is("Petko")));
     }
 

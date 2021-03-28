@@ -27,6 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureTestDatabase
 class SeniorControllerTest {
     private static final String SENIOR_CONTROLLER_PREFIX = "/senior";
+    private String id;
     @Autowired
     private MockMvc mockMvc;
     @Autowired
@@ -49,6 +50,16 @@ class SeniorControllerTest {
     @BeforeEach
     public void setup() {
         this.init();
+    }
+
+    @AfterEach
+    public void deleteSparePartRepository() {
+        orderRepository.deleteAll();
+        clientRepository.deleteAll();
+        sparePartsRepository.deleteAll();
+        modelRepository.deleteAll();
+        brandRepository.deleteAll();
+        userRepository.deleteAll();
     }
 
     @Test
@@ -87,7 +98,7 @@ class SeniorControllerTest {
     @WithMockUser(username = "Gosho", roles = {"ADMIN"})
     void editSparePart() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.put(
-                SENIOR_CONTROLLER_PREFIX + "/spare_part/edit/{id}", 1)
+                SENIOR_CONTROLLER_PREFIX + "/spare_part/edit/{id}", id)
                 .param("brand", "Samsung")
                 .param("model", "Galaxy S21")
                 .param("sparePartName", "LCD")
@@ -101,7 +112,7 @@ class SeniorControllerTest {
     @WithMockUser(username = "Gosho", roles = {"ADMIN"})
     void deleteSparePart() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.delete(
-                SENIOR_CONTROLLER_PREFIX + "/spare_part/delete/{id}", 1)
+                SENIOR_CONTROLLER_PREFIX + "/spare_part/delete/{id}", id)
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection());
     }
@@ -110,7 +121,7 @@ class SeniorControllerTest {
     @WithMockUser(username = "Gosho", roles = {"ADMIN"})
     void deleteOrder() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.delete(
-                SENIOR_CONTROLLER_PREFIX + "/order/delete/{id}", 1)
+                SENIOR_CONTROLLER_PREFIX + "/order/delete/{id}", id)
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection());
     }
@@ -119,7 +130,7 @@ class SeniorControllerTest {
     @WithMockUser(username = "Gosho", roles = {"ADMIN"})
     void makeOrderNotFixed() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post(
-                SENIOR_CONTROLLER_PREFIX + "/order/make-not-fixed/{id}", 1)
+                SENIOR_CONTROLLER_PREFIX + "/order/make-not-fixed/{id}", id)
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection());
     }
@@ -130,7 +141,8 @@ class SeniorControllerTest {
         user.setPassword("$2a$10$Dr9P8sptTPVfPyE0ynbXJOd9BYAwMCPL3l.NIe29F4LnNyZhi0lSu");
         UserRole userRole = userRoleRepository.findByRole(RoleName.ADMIN).orElseThrow();
         user.setRoles(Set.of(userRole));
-        userRepository.save(user);
+        user = userRepository.save(user);
+        Long userId=user.getId();
         Brand brand = new Brand("Samsung");
         brand = brandRepository.save(brand);
         Model model = new Model("Galaxy S21", brand);
@@ -138,7 +150,8 @@ class SeniorControllerTest {
         SparePart sparePart = new SparePart(model, "LCD");
         sparePart.setPieces(2);
         sparePart.setPrice(BigDecimal.valueOf(560));
-        sparePartsRepository.save(sparePart);
+        sparePart = sparePartsRepository.save(sparePart);
+        id = "" + sparePart.getId();
         Damage damage = new Damage("Bad Audio");
         damage = damageRepository.save(damage);
         Client client = new Client();
@@ -152,7 +165,7 @@ class SeniorControllerTest {
         order.setClient(client);
         order.setModel(model);
         order.setReceiveDate(LocalDate.now());
-        order.setUser(userRepository.getOne(1L));
+        order.setUser(userRepository.getOne(userId));
         order.setSerialNumber("350206013591245");
         orderRepository.save(order);
     }

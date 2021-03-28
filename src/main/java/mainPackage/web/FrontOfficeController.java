@@ -97,9 +97,6 @@ public class FrontOfficeController {
     @PreAuthorize("isAuthenticated()")
     public String clientInfo(Model model) {
         model.addAttribute("clients", clientService.getAllClientNames());
-//        if(!model.containsAttribute("clientName")){
-//            model.addAttribute("clientName", new ClientBindingModel());
-//        }
         return "/info/client-info";
     }
 

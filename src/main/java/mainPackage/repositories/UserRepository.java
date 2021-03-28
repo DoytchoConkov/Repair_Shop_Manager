@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+    @Query("select u from User as u where u.username=:username")
     Optional<User> findByUsername(String username);
 
     @Query("select count(u.id) from User as u JOIN u.roles as r WHERE r.role=1")

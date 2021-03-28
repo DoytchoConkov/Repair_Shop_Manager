@@ -1,42 +1,145 @@
 package mainPackage.web;
 
+import mainPackage.models.entities.*;
+import mainPackage.repositories.*;
+import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @AutoConfigureTestDatabase
 class FrontOfficeControllerTest {
+    private static final String FRONT_OFFICE_CONTROLLER_PREFIX = "/front-office";
+    @Autowired
+    private MockMvc mockMvc;
 
-    @Test
-    void payOrder() {
+    @Autowired
+    private BrandRepository brandRepository;
+    @Autowired
+    private ModelRepository modelRepository;
+    @Autowired
+    private DamageRepository damageRepository;
+    @Autowired
+    private ClientRepository clientRepository;
+    @Autowired
+    private OrderRepository orderRepository;
+    @Autowired
+    private SparePartsRepository sparePartsRepository;
+
+    @Before
+    public void setup() {
+        this.init();
     }
 
     @Test
-    void payOrderRedirect() {
+    @WithMockUser(username = "Doytcho", roles = {"BACK_OFFICE"})
+    void payOrder() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(
+                FRONT_OFFICE_CONTROLLER_PREFIX + "/fixed-orders"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("/orders/orders-ready"))
+                .andExpect(model().attributeExists("orderReadyViewModels"));
     }
 
     @Test
-    void payOrderNow() {
+    @WithMockUser(username = "Doytcho", roles = {"BACK_OFFICE"})
+    void payOrderRedirect() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(
+                FRONT_OFFICE_CONTROLLER_PREFIX + "/pay-order/{id}", 1))
+                .andExpect(status().isOk())
+                .andExpect(view().name("/orders/order-details"))
+                .andExpect(model().attributeExists("orderReadyViewModel"));
     }
 
     @Test
-    void orderReceive() {
+    @WithMockUser(username = "Doytcho", roles = {"BACK_OFFICE"})
+    void payOrderNow() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post(
+                FRONT_OFFICE_CONTROLLER_PREFIX + "/pay-order/{id}", 1))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/home"));
     }
 
     @Test
-    void orderReceiveConfirm() {
+    @WithMockUser(username = "Doytcho", roles = {"BACK_OFFICE"})
+    void orderReceive() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(
+                FRONT_OFFICE_CONTROLLER_PREFIX + "/receive", 1))
+                .andExpect(status().isOk())
+                .andExpect(view().name("/orders/orders-receive"))
+                .andExpect(model().attributeExists("OrderReceiveBindingModel"));
     }
 
     @Test
-    void clientInfo() {
+    @WithMockUser(username = "Doytcho", roles = {"BACK_OFFICE"})
+    void orderReceiveConfirm() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post(
+                FRONT_OFFICE_CONTROLLER_PREFIX + "/receive")
+                .param("serialNumber", "350103002637912")
+                .param("brand", "Siemens")
+                .param("model", "S35")
+                .param("damage", "Disassembled")
+                .param("clientName", "Pesho")
+                .param("clientPhoneNumber", "0888123456"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/home"));
     }
 
     @Test
-    void orderCheck() {
+    @WithMockUser(username = "Doytcho", roles = {"BACK_OFFICE"})
+    void clientInfo() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(
+                FRONT_OFFICE_CONTROLLER_PREFIX + "/client-info", 1))
+                .andExpect(status().isOk())
+                .andExpect(view().name("/info/client-info"))
+                .andExpect(model().attributeExists("clients"));
+    }
+
+    @Test
+    @WithMockUser(username = "Doytcho", roles = {"BACK_OFFICE"})
+    void orderCheck() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(
+                FRONT_OFFICE_CONTROLLER_PREFIX + "/order-info", 1))
+                .andExpect(status().isOk())
+                .andExpect(view().name("/info/orders-info"));
+    }
+
+    private void init() {
+        Brand brand = new Brand("Samsung");
+        brand = brandRepository.save(brand);
+        Model model = new Model("Galaxy S21", brand);
+        model = modelRepository.save(model);
+        SparePart sparePart = new SparePart(model, "LCD");
+        sparePart.setPieces(2);
+        sparePart.setPrice(BigDecimal.valueOf(560));
+        sparePartsRepository.save(sparePart);
+        Damage damage = new Damage("Bad Audio");
+        damage = damageRepository.save(damage);
+        Client client = new Client();
+        client.setClientName("Petko");
+        client.setClientPhoneNumber("033561248");
+        client = clientRepository.save(client);
+        Order order = new Order();
+        order.setTotalSparePartsPrice(BigDecimal.valueOf(0));
+        order.setTotalRepairPrice(BigDecimal.valueOf(20));
+        order.setDamage(damage);
+        order.setClient(client);
+        order.setModel(model);
+        order.setReceiveDate(LocalDate.now());
+        order.setSerialNumber("350206013591245");
+        orderRepository.save(order);
     }
 }

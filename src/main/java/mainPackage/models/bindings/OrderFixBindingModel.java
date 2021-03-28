@@ -5,6 +5,7 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 public class OrderFixBindingModel {
+    private Long id;
     private String[] sparePartIds;
     private String imageUrl;
     @NotNull(message = "Price can not be empty.")
@@ -15,6 +16,14 @@ public class OrderFixBindingModel {
     private BigDecimal totalPrice;
 
     public OrderFixBindingModel() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String[] getSparePartIds() {
