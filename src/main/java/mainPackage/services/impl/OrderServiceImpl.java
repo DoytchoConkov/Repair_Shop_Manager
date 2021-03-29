@@ -56,9 +56,6 @@ public class OrderServiceImpl implements OrderService {
         order.setClient(client);
         order.setReceiveDate(LocalDate.now());
         order.setDamage(damage);
-//        String username = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
-//        User user = userService.getUserByUserName(username);
-//        order.setUser(user);
         orderRepository.save(order);
     }
 
@@ -115,14 +112,18 @@ public class OrderServiceImpl implements OrderService {
                 .orElseThrow(() -> new OrderIdNotFoundException(String.format("No order with this %d", orderServiceModel.getId())));
         Set<Long> spareParts = orderServiceModel.getSparePartIds();
         List<SparePart> sparePartsList = new ArrayList<>();
-        if (!spareParts.isEmpty()) {
+        if (spareParts != null) {
             spareParts.remove("");
-            sparePartsList = spareParts.stream().map(sp -> sparePartsService.findById(sp)).collect(Collectors.toList());
-            sparePartsService.reduceSpareParts(sparePartsList.stream().map(s -> s.getId()).collect(Collectors.toList()));
+            if (!spareParts.isEmpty()) {
+                sparePartsList = spareParts.stream().map(sp -> sparePartsService.findById(sp)).collect(Collectors.toList());
+                sparePartsService.reduceSpareParts(sparePartsList.stream().map(s -> s.getId()).collect(Collectors.toList()));
+            }
         }
         order.setTotalSparePartsPrice(orderServiceModel.getSparePartPrice());
         order.setTotalRepairPrice(orderServiceModel.getTotalPrice());
         order.setSpareParts(sparePartsList);
+        String username = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        order.setUser(userService.getUserByUserName(username));
         orderRepository.save(order);
     }
 
@@ -201,6 +202,16 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<String> findTechnicians() {
         return orderRepository.findTechnicians();
+    }
+
+    @Override
+    public int countNotReadyOrders() {
+        return orderRepository.countNotReadyOrders();
+    }
+
+    @Override
+    public int countReadyOrders() {
+        return orderRepository.countReadyOrders();
     }
 
     private List<OrderViewModel> getOrderViewModels(List<Order> ords) {

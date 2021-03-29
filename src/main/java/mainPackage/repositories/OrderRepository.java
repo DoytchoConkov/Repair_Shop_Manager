@@ -41,4 +41,10 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query("select o.user.username from Order as o where o.user.username is not NULL group by o.user.username order by o.user.username")
     List<String> findTechnicians();
+
+    @Query("select count(o.id) from Order as o where o.totalRepairPrice is not null and o.leaveDate is null")
+    int countNotReadyOrders();
+
+    @Query("select count(o.id) from Order as o where o.totalRepairPrice is null")
+    int countReadyOrders();
 }

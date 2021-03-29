@@ -43,4 +43,8 @@ public interface OrderService {
     List<OrderViewModel> getByDate(String date);
 
     List<String> findTechnicians();
+
+    int countNotReadyOrders();
+
+    int countReadyOrders();
 }
