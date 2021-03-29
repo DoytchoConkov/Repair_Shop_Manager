@@ -3,6 +3,7 @@ package mainPackage.web;
 import mainPackage.models.entities.*;
 import mainPackage.repositories.*;
 import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,9 +44,13 @@ class BackOfficeControllerTest {
     @Autowired
     private UserRoleRepository userRoleRepository;
 
-    @Before
+    @BeforeEach
     public void setup() {
         this.init();
+    }
+    @AfterEach
+    public void clearDB(){
+
     }
 
     @Test

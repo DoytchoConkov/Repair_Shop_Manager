@@ -318,6 +318,16 @@ class OrderServiceTest {
 
     @Test
     void findTechnicians() {
+//TODO
+    }
 
+    @Test
+    void countNotReadyOrders() {
+        //TODO
+    }
+
+    @Test
+    void countReadyOrders() {
+        //TODO
     }
 }

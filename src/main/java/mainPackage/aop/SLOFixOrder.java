@@ -7,12 +7,14 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
+
 import java.io.FileWriter;
 import java.io.IOException;
 
 @Aspect
 @Component
-public class FixOrder {
+public class SLOFixOrder {
+
 
     @Pointcut("execution(* mainPackage.services.OrderService.fix(..))")
     public void trackSave() {}
@@ -21,9 +23,8 @@ public class FixOrder {
     public void loggingAfterReturning(JoinPoint joinPoint, Object orderFixModel) throws IOException {
         OrderFixServiceModel orderFixServiceModel = (OrderFixServiceModel) orderFixModel;
         FileWriter myWriter = new FileWriter("src/main/java/mainPackage/logs/orderFix.log", true);
-//        myWriter.write(String.format("User with email - %s - sent consultation to a doctor with email - %s%n",
-//                consultationDetails.getUser().getEmail(),
-//                consultationDetails.getDoctor().getEmail()));
+        //TODO
+        myWriter.write(orderFixServiceModel.toString());
         myWriter.close();
     }
 }
