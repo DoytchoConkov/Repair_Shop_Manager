@@ -1,30 +1,40 @@
 package mainPackage.aop;
 
-import mainPackage.models.services.OrderFixServiceModel;
-import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StopWatch;
 
 
 import java.io.FileWriter;
-import java.io.IOException;
 
 @Aspect
 @Component
 public class SLOFixOrder {
 
+    private final SLOsConfig configs;
 
-    @Pointcut("execution(* mainPackage.services.OrderService.fix(..))")
-    public void trackSave() {}
+    public SLOFixOrder(SLOsConfig configs) {
+        this.configs = configs;
+    }
 
-    @AfterReturning(pointcut = "trackSave()", returning = "orderFixModel")
-    public void loggingAfterReturning(JoinPoint joinPoint, Object orderFixModel) throws IOException {
-        OrderFixServiceModel orderFixServiceModel = (OrderFixServiceModel) orderFixModel;
+    @Around(value = "@annotation(TrackLatency)")
+    public void trackLatency(ProceedingJoinPoint pjp, TrackLatency TrackLatency) throws Throwable {
+        String latencyId = TrackLatency.latency();
+        SLOsConfig.SLOConfig config = configs.getSlos().
+                stream().
+                filter(s -> s.getId().equals(latencyId)).
+                findAny().orElseThrow(() -> new IllegalStateException(latencyId + " not found!"));
+
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        pjp.proceed();
+        stopWatch.stop();
+
+        long actualLatency = stopWatch.getLastTaskTimeMillis();
         FileWriter myWriter = new FileWriter("src/main/java/mainPackage/logs/orderFix.log", true);
-        //TODO
-      //  myWriter.write(orderFixServiceModel.toString());
+        myWriter.write(String.format("The latency is: %d", actualLatency));
         myWriter.close();
     }
 }

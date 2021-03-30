@@ -1,5 +1,6 @@
 package mainPackage.web;
 
+import mainPackage.aop.TrackLatency;
 import mainPackage.models.views.IncomePerPeriodViewModel;
 import mainPackage.models.views.OrderViewModel;
 import mainPackage.services.OrderService;
@@ -29,7 +30,7 @@ public class OrderRestController {
     public List<OrderViewModel> getAllByClientId(@RequestParam String clientId) {
         return orderService.findOrdersByClientId(Long.valueOf(clientId));
     }
-
+   //  @TrackLatency(latency = "income")
     @GetMapping("/income")
     public List<IncomePerPeriodViewModel> getOrderPerPeriod(@RequestParam String starDate, @RequestParam String endDate,
                                                             @RequestParam String technician) {
