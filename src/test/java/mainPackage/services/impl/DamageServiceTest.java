@@ -37,15 +37,16 @@ class DamageServiceTest {
         Mockito.when(mockDamageRepository.findByDamageName("Broken LCD")).thenReturn(null);
         Damage receivedBrand = damageService.getDamage("Broken LCD");
 //        assertEquals(damage.getDamageName(), receivedBrand.getDamageName());
+        //TODO
     }
 
     @Test
     void getAll() {
         List<Damage> brands = new ArrayList<>();
-        brands.add(new Damage());
+        Damage damage = new Damage("Broken Glass");
+        brands.add(damage);
         Mockito.when(mockDamageRepository.findAll()).thenReturn(brands);
         List<DamageViewModel> allBrands = damageService.getAll();
-        assertEquals(brands.size(), allBrands.size());
-
+        assertEquals(brands.get(0).getDamageName(), allBrands.get(0).getDamageName());
     }
 }

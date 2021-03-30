@@ -6,6 +6,7 @@ import mainPackage.models.entities.UserRole;
 import mainPackage.repositories.UserRepository;
 import mainPackage.repositories.UserRoleRepository;
 import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,11 +34,6 @@ class HomeControllerTest {
     @Autowired
     private UserRoleRepository userRoleRepository;
 
-    @Before
-    public void setup() {
-        this.init();
-    }
-
     @Test
     void index() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(
@@ -49,18 +45,16 @@ class HomeControllerTest {
     @Test
     @WithMockUser(username = "Mitko", roles = {"ADMIN"})
     void home() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(
-                HOME_CONTROLLER_PREFIX + "/home"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("/home"));
-    }
-
-    private void init() {
         User user = new User();
         user.setUsername("Mitko");
         user.setPassword("$2a$10$Dr9P8sptTPVfPyE0ynbXJOd9BYAwMCPL3l.NIe29F4LnNyZhi0lSu");
         UserRole userRole = userRoleRepository.findByRole(RoleName.ADMIN).orElseThrow();
         user.setRoles(Set.of(userRole));
         userRepository.save(user);
+        mockMvc.perform(MockMvcRequestBuilders.get(
+                HOME_CONTROLLER_PREFIX + "/home"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("/home"));
+        userRepository.deleteAll();
     }
 }

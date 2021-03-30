@@ -24,7 +24,7 @@ public class SLOFixOrder {
         OrderFixServiceModel orderFixServiceModel = (OrderFixServiceModel) orderFixModel;
         FileWriter myWriter = new FileWriter("src/main/java/mainPackage/logs/orderFix.log", true);
         //TODO
-        myWriter.write(orderFixServiceModel.toString());
+      //  myWriter.write(orderFixServiceModel.toString());
         myWriter.close();
     }
 }

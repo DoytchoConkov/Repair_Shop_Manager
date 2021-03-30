@@ -2,7 +2,7 @@ package mainPackage.web;
 
 import mainPackage.models.entities.*;
 import mainPackage.repositories.*;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +18,7 @@ import java.util.Set;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -29,6 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureTestDatabase
 class OrderRestControllerTest {
     private static final String ORDER_REST_CONTROLLER_PREFIX = "/orders";
+    private String clientId;
     @Autowired
     private MockMvc mockMvc;
     @Autowired
@@ -48,60 +47,73 @@ class OrderRestControllerTest {
     @Autowired
     private ClientRepository clientRepository;
 
-    @Before
+    @BeforeEach
     public void setup() {
         this.init();
     }
 
+    @AfterEach
+    public void clearDB() {
+        orderRepository.deleteAll();
+        clientRepository.deleteAll();
+        damageRepository.deleteAll();
+        sparePartsRepository.deleteAll();
+        modelRepository.deleteAll();
+        brandRepository.deleteAll();
+        userRepository.deleteAll();
+    }
+
     @Test
-    @WithMockUser(username = "Doytcho", roles = {"SENIOR"})
+    @WithMockUser(username = "Vasko", roles = {"BACK_OFFICE", "SENIOR"})
     void getAllModelsForBrand() throws Exception {
         this.mockMvc.perform(get(ORDER_REST_CONTROLLER_PREFIX + "/find-order")
-                .param("serialNumber", "020"))
+                .param("serialNumber", "02060"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$.[0].clientName", is("Petko")));
     }
 
     @Test
-    @WithMockUser(username = "Doytcho", roles = {"SENIOR"})
+    @WithMockUser(username = "Vasko", roles = {"BACK_OFFICE", "SENIOR"})
     void getAllByClientId() throws Exception {
         this.mockMvc.perform(get(ORDER_REST_CONTROLLER_PREFIX + "/find-clientById")
-                .param("clientId", "1"))
+                .param("clientId", clientId))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)));
-//                .andExpect(jsonPath("$.[0].clientName", is("Petko")));
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$.[0].clientName", is("Petko")));
     }
 
     @Test
-    @WithMockUser(username = "Doytcho", roles = {"SENIOR"})
+    @WithMockUser(username = "Vasko", roles = {"BACK_OFFICE", "SENIOR"})
     void getOrderPerPeriod() throws Exception {
         this.mockMvc.perform(get(ORDER_REST_CONTROLLER_PREFIX + "/income")
                 .param("starDate", "2021-03-01")
                 .param("endDate", "2021-03-31")
                 .param("technician", ""))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(0)));
-//                .andExpect(jsonPath("$.[0].clientName", is("Petko")));
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$.[0].totalRepairPrice", is(20.0)));
     }
 
     @Test
-    @WithMockUser(username = "Doytcho", roles = {"SENIOR"})
+    @WithMockUser(username = "Vasko", roles = {"BACK_OFFICE", "SENIOR"})
     void getOrdersPerDate() throws Exception {
         this.mockMvc.perform(get(ORDER_REST_CONTROLLER_PREFIX + "/orderByDate")
                 .param("date", "28-03-2021"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(0)));
-//                .andExpect(jsonPath("$.[0].clientName", is("Petko")));
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$.[0].clientName", is("Petko")));
     }
 
     private void init() {
         User user = new User();
-        user.setUsername("Gosho");
+        user.setUsername("Vasko");
         user.setPassword("$2a$10$Dr9P8sptTPVfPyE0ynbXJOd9BYAwMCPL3l.NIe29F4LnNyZhi0lSu");
-        UserRole userRole = userRoleRepository.findByRole(RoleName.ADMIN).orElseThrow();
-        user.setRoles(Set.of(userRole));
-        userRepository.save(user);
+        UserRole userRole = userRoleRepository.findByRole(RoleName.BACK_OFFICE).orElseThrow();
+        UserRole userRole2 = userRoleRepository.findByRole(RoleName.FRONT_OFFICE).orElseThrow();
+        UserRole userRole3 = userRoleRepository.findByRole(RoleName.SENIOR).orElseThrow();
+        user.setRoles(Set.of(userRole, userRole2,userRole3));
+        user = userRepository.save(user);
         Brand brand = new Brand("Samsung");
         brand = brandRepository.save(brand);
         Model model = new Model("Galaxy S21", brand);
@@ -116,14 +128,17 @@ class OrderRestControllerTest {
         client.setClientName("Petko");
         client.setClientPhoneNumber("033561248");
         client = clientRepository.save(client);
+        clientId = "" + client.getId();
         Order order = new Order();
+        order.setClient(client);
         order.setTotalSparePartsPrice(BigDecimal.valueOf(0));
         order.setTotalRepairPrice(BigDecimal.valueOf(20));
         order.setDamage(damage);
-        order.setClient(client);
         order.setModel(model);
-        order.setReceiveDate(LocalDate.now());
-        order.setUser(userRepository.getOne(1L));
+        order.setUser(user);
+        order.setReceiveDate(LocalDate.of(2021, 03, 28));
+        order.setLeaveDate(LocalDate.of(2021, 03, 28));
+        order.setUser(userRepository.getOne(user.getId()));
         order.setSerialNumber("350206013591245");
         orderRepository.save(order);
     }

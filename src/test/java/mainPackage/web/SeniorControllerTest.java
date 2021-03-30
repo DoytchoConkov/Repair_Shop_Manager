@@ -2,7 +2,6 @@ package mainPackage.web;
 
 import mainPackage.models.entities.*;
 import mainPackage.repositories.*;
-import org.junit.Before;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +17,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -27,7 +25,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureTestDatabase
 class SeniorControllerTest {
     private static final String SENIOR_CONTROLLER_PREFIX = "/senior";
-    private String id;
+    private String sparePartId;
+    private String orderId;
     @Autowired
     private MockMvc mockMvc;
     @Autowired
@@ -60,10 +59,11 @@ class SeniorControllerTest {
         modelRepository.deleteAll();
         brandRepository.deleteAll();
         userRepository.deleteAll();
+        damageRepository.deleteAll();
     }
 
     @Test
-    @WithMockUser(username = "Gosho", roles = {"ADMIN"})
+    @WithMockUser(username = "Gosho", roles = {"SENIOR"})
     void viewSpareParts() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(
                 SENIOR_CONTROLLER_PREFIX + "/edit-spare-parts"))
@@ -73,7 +73,7 @@ class SeniorControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "Gosho", roles = {"ADMIN"})
+    @WithMockUser(username = "Gosho", roles = {"SENIOR"})
     void editOrder() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(
                 SENIOR_CONTROLLER_PREFIX + "/edit-orders"))
@@ -83,7 +83,7 @@ class SeniorControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "Gosho", roles = {"ADMIN"})
+    @WithMockUser(username = "Gosho", roles = {"SENIOR"})
     void incomeInfo() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(
                 SENIOR_CONTROLLER_PREFIX + "/income-info"))
@@ -95,10 +95,10 @@ class SeniorControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "Gosho", roles = {"ADMIN"})
+    @WithMockUser(username = "Gosho", roles = {"SENIOR"})
     void editSparePart() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.put(
-                SENIOR_CONTROLLER_PREFIX + "/spare_part/edit/{id}", id)
+                SENIOR_CONTROLLER_PREFIX + "/spare_part/edit/{id}", sparePartId)
                 .param("brand", "Samsung")
                 .param("model", "Galaxy S21")
                 .param("sparePartName", "LCD")
@@ -109,28 +109,28 @@ class SeniorControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "Gosho", roles = {"ADMIN"})
+    @WithMockUser(username = "Gosho", roles = {"SENIOR"})
     void deleteSparePart() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.delete(
-                SENIOR_CONTROLLER_PREFIX + "/spare_part/delete/{id}", id)
+                SENIOR_CONTROLLER_PREFIX + "/spare_part/delete/{id}", sparePartId)
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection());
     }
 
     @Test
-    @WithMockUser(username = "Gosho", roles = {"ADMIN"})
+    @WithMockUser(username = "Gosho", roles = {"SENIOR"})
     void deleteOrder() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.delete(
-                SENIOR_CONTROLLER_PREFIX + "/order/delete/{id}", id)
+                SENIOR_CONTROLLER_PREFIX + "/order/delete/{id}", orderId)
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection());
     }
 
     @Test
-    @WithMockUser(username = "Gosho", roles = {"ADMIN"})
+    @WithMockUser(username = "Gosho", roles = {"SENIOR"})
     void makeOrderNotFixed() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post(
-                SENIOR_CONTROLLER_PREFIX + "/order/make-not-fixed/{id}", id)
+                SENIOR_CONTROLLER_PREFIX + "/order/make-not-fixed/{id}", orderId)
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection());
     }
@@ -140,9 +140,10 @@ class SeniorControllerTest {
         user.setUsername("Gosho");
         user.setPassword("$2a$10$Dr9P8sptTPVfPyE0ynbXJOd9BYAwMCPL3l.NIe29F4LnNyZhi0lSu");
         UserRole userRole = userRoleRepository.findByRole(RoleName.ADMIN).orElseThrow();
-        user.setRoles(Set.of(userRole));
+        UserRole userRole2 = userRoleRepository.findByRole(RoleName.SENIOR).orElseThrow();
+        user.setRoles(Set.of(userRole,userRole2));
         user = userRepository.save(user);
-        Long userId=user.getId();
+        Long userId = user.getId();
         Brand brand = new Brand("Samsung");
         brand = brandRepository.save(brand);
         Model model = new Model("Galaxy S21", brand);
@@ -151,7 +152,7 @@ class SeniorControllerTest {
         sparePart.setPieces(2);
         sparePart.setPrice(BigDecimal.valueOf(560));
         sparePart = sparePartsRepository.save(sparePart);
-        id = "" + sparePart.getId();
+        sparePartId = "" + sparePart.getId();
         Damage damage = new Damage("Bad Audio");
         damage = damageRepository.save(damage);
         Client client = new Client();
@@ -167,6 +168,7 @@ class SeniorControllerTest {
         order.setReceiveDate(LocalDate.now());
         order.setUser(userRepository.getOne(userId));
         order.setSerialNumber("350206013591245");
-        orderRepository.save(order);
+        order = orderRepository.save(order);
+        orderId = "" + order.getId();
     }
 }

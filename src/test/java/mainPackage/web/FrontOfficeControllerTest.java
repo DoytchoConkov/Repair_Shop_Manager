@@ -2,7 +2,7 @@ package mainPackage.web;
 
 import mainPackage.models.entities.*;
 import mainPackage.repositories.*;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +23,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureTestDatabase
 class FrontOfficeControllerTest {
     private static final String FRONT_OFFICE_CONTROLLER_PREFIX = "/front-office";
+    private String clientId;
+    private String orderId;
     @Autowired
     private MockMvc mockMvc;
-
     @Autowired
     private BrandRepository brandRepository;
     @Autowired
@@ -39,13 +40,24 @@ class FrontOfficeControllerTest {
     @Autowired
     private SparePartsRepository sparePartsRepository;
 
-    @Before
+    @BeforeEach
     public void setup() {
         this.init();
     }
 
+    @AfterEach
+    public void clearDB() {
+        orderRepository.deleteAll();
+        sparePartsRepository.deleteAll();
+        clientRepository.deleteAll();
+        damageRepository.deleteAll();
+        modelRepository.deleteAll();
+        brandRepository.deleteAll();
+        damageRepository.deleteAll();
+    }
+
     @Test
-    @WithMockUser(username = "Doytcho", roles = {"BACK_OFFICE"})
+    @WithMockUser(username = "Doytcho", roles = {"FRONT_OFFICE"})
     void payOrder() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(
                 FRONT_OFFICE_CONTROLLER_PREFIX + "/fixed-orders"))
@@ -55,36 +67,36 @@ class FrontOfficeControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "Doytcho", roles = {"BACK_OFFICE"})
+    @WithMockUser(username = "Doytcho", roles = {"FRONT_OFFICE"})
     void payOrderRedirect() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(
-                FRONT_OFFICE_CONTROLLER_PREFIX + "/pay-order/{id}", 1))
+                FRONT_OFFICE_CONTROLLER_PREFIX + "/pay-order/{id}", orderId))
                 .andExpect(status().isOk())
                 .andExpect(view().name("/orders/order-details"))
                 .andExpect(model().attributeExists("orderReadyViewModel"));
     }
 
     @Test
-    @WithMockUser(username = "Doytcho", roles = {"BACK_OFFICE"})
+    @WithMockUser(username = "Doytcho", roles = {"FRONT_OFFICE"})
     void payOrderNow() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post(
-                FRONT_OFFICE_CONTROLLER_PREFIX + "/pay-order/{id}", 1))
+                FRONT_OFFICE_CONTROLLER_PREFIX + "/pay-order/{id}", orderId))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/home"));
     }
 
     @Test
-    @WithMockUser(username = "Doytcho", roles = {"BACK_OFFICE"})
+    @WithMockUser(username = "Doytcho", roles = {"FRONT_OFFICE"})
     void orderReceive() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(
-                FRONT_OFFICE_CONTROLLER_PREFIX + "/receive", 1))
+                FRONT_OFFICE_CONTROLLER_PREFIX + "/receive", orderId))
                 .andExpect(status().isOk())
                 .andExpect(view().name("/orders/orders-receive"))
                 .andExpect(model().attributeExists("OrderReceiveBindingModel"));
     }
 
     @Test
-    @WithMockUser(username = "Doytcho", roles = {"BACK_OFFICE"})
+    @WithMockUser(username = "Doytcho", roles = {"FRONT_OFFICE"})
     void orderReceiveConfirm() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post(
                 FRONT_OFFICE_CONTROLLER_PREFIX + "/receive")
@@ -99,20 +111,20 @@ class FrontOfficeControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "Doytcho", roles = {"BACK_OFFICE"})
+    @WithMockUser(username = "Doytcho", roles = {"FRONT_OFFICE"})
     void clientInfo() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(
-                FRONT_OFFICE_CONTROLLER_PREFIX + "/client-info", 1))
+                FRONT_OFFICE_CONTROLLER_PREFIX + "/client-info", clientId))
                 .andExpect(status().isOk())
                 .andExpect(view().name("/info/client-info"))
                 .andExpect(model().attributeExists("clients"));
     }
 
     @Test
-    @WithMockUser(username = "Doytcho", roles = {"BACK_OFFICE"})
+    @WithMockUser(username = "Doytcho", roles = {"FRONT_OFFICE"})
     void orderCheck() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(
-                FRONT_OFFICE_CONTROLLER_PREFIX + "/order-info", 1))
+                FRONT_OFFICE_CONTROLLER_PREFIX + "/order-info", orderId))
                 .andExpect(status().isOk())
                 .andExpect(view().name("/info/orders-info"));
     }
@@ -132,6 +144,7 @@ class FrontOfficeControllerTest {
         client.setClientName("Petko");
         client.setClientPhoneNumber("033561248");
         client = clientRepository.save(client);
+        clientId = "" + client.getId();
         Order order = new Order();
         order.setTotalSparePartsPrice(BigDecimal.valueOf(0));
         order.setTotalRepairPrice(BigDecimal.valueOf(20));
@@ -140,6 +153,7 @@ class FrontOfficeControllerTest {
         order.setModel(model);
         order.setReceiveDate(LocalDate.now());
         order.setSerialNumber("350206013591245");
-        orderRepository.save(order);
+        order = orderRepository.save(order);
+        orderId = "" + order.getId();
     }
 }

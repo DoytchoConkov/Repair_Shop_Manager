@@ -35,9 +35,9 @@ class UserControlerTest {
     @Autowired
     private UserRoleRepository userRoleRepository;
 
-    @Before
-    public void setup() {
-        this.init();
+    @AfterEach
+    public void clear() {
+        userRepository.deleteAll();
     }
 
     @Test
@@ -50,9 +50,8 @@ class UserControlerTest {
 
     @Test
     void registerConfirm() throws Exception {
-        this.init();
         mockMvc.perform(MockMvcRequestBuilders.post(USER_CONTROLLER_PREFIX + "/register")
-                .param("username", "Valio")
+                .param("username", "Gosho")
                 .param("password", "12345")
                 .param("confirmPassword", "12345")
                 .with(csrf())).
@@ -61,8 +60,9 @@ class UserControlerTest {
 
     @Test
     void registerConfirmWithDifferentConfirmPassword() throws Exception {
+
         mockMvc.perform(MockMvcRequestBuilders.post(USER_CONTROLLER_PREFIX + "/register")
-                .param("username", "Valio")
+                .param("username", "Gosho")
                 .param("password", "12345")
                 .param("confirmPassword", "11111")
                 .with(csrf())).
@@ -81,8 +81,14 @@ class UserControlerTest {
 
     @Test
     void registerConfirmWithExistUserName() throws Exception {
+        User user = new User();
+        user.setUsername("Gosho");
+        user.setPassword("$2a$10$Dr9P8sptTPVfPyE0ynbXJOd9BYAwMCPL3l.NIe29F4LnNyZhi0lSu");
+        UserRole userRole = userRoleRepository.findByRole(RoleName.ADMIN).orElseThrow();
+        user.setRoles(Set.of(userRole));
+        userRepository.save(user);
         mockMvc.perform(MockMvcRequestBuilders.post(USER_CONTROLLER_PREFIX + "/register")
-                .param("username", "Valio")
+                .param("username", "Gosho")
                 .param("password", "11111")
                 .param("confirmPassword", "11111")
                 .with(csrf())).
@@ -100,19 +106,9 @@ class UserControlerTest {
     @Test
     void failedLogin() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post(USER_CONTROLLER_PREFIX + "/login")
-                .param("name","Valio")
+                .param("name", "Valio")
                 .param("password", "11111")
                 .with(csrf())).
                 andExpect(status().is2xxSuccessful());
-    }
-
-    private void init() {
-
-        User user = new User();
-        user.setUsername("Valio");
-        user.setPassword("$2a$10$Dr9P8sptTPVfPyE0ynbXJOd9BYAwMCPL3l.NIe29F4LnNyZhi0lSu");
-        UserRole userRole = userRoleRepository.findByRole(RoleName.ADMIN).orElseThrow();
-        user.setRoles(Set.of(userRole));
-        userRepository.save(user);
     }
 }

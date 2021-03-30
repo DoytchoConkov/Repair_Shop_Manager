@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class SparePartRestControlerTest {
 
     private static final String SPARE_PARTS_REST_CONTROLLER_PREFIX = "/spare-parts";
-    private Long id;
+    private String id;
     @Autowired
     private MockMvc mockMvc;
     @Autowired
@@ -44,6 +44,8 @@ class SparePartRestControlerTest {
     @AfterEach
     public void clearRepository() {
         sparePartsRepository.deleteAll();
+        modelRepository.deleteAll();
+        brandRepository.deleteAll();
     }
 
     @Test
@@ -90,9 +92,9 @@ class SparePartRestControlerTest {
     @WithMockUser(username = "Doytcho", roles = {"SENIOR"})
     void getTotalSparePartPrice() throws Exception {
         this.mockMvc.perform(get(SPARE_PARTS_REST_CONTROLLER_PREFIX + "/spare-parts-totalPrice")
-                .param("sparePartsId", "1"))
+                .param("sparePartsId", id))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", is(560.0)));
+                .andExpect(jsonPath("$", is(200.0)));
     }
 
     @Test
@@ -115,6 +117,6 @@ class SparePartRestControlerTest {
         sparePart.setPieces(1);
         sparePart.setPrice(BigDecimal.valueOf(200));
         sparePart = sparePartsRepository.save(sparePart);
-        this.id = sparePart.getId();
+        this.id = "" + sparePart.getId();
     }
 }
