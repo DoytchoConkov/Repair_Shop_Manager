@@ -1,11 +1,14 @@
 package mainPackage.models.services;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
 public class OrderFixServiceModel {
     private Long id;
+    private MultipartFile imageUrl;
     private Set<Long> sparePartIds;
     private BigDecimal sparePartPrice;
     private BigDecimal totalPrice;
@@ -19,6 +22,14 @@ public class OrderFixServiceModel {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public MultipartFile getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(MultipartFile imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public Set<Long> getSparePartIds() {

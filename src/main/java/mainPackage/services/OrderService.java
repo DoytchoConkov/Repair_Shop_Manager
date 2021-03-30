@@ -7,6 +7,7 @@ import mainPackage.models.services.OrderReceiveServiceModel;
 import mainPackage.models.views.OrderReadyViewModel;
 import mainPackage.models.views.OrderViewModel;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public interface OrderService {
 
     List<OrderReadyViewModel> getNotPayedOrders();
 
-    void fix(OrderFixServiceModel map);
+    void fix(OrderFixServiceModel map) throws IOException;
 
     OrderReadyViewModel getReadyById(Long id);
 

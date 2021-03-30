@@ -1,5 +1,7 @@
 package mainPackage.models.bindings;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -7,7 +9,7 @@ import java.math.BigDecimal;
 public class OrderFixBindingModel {
     private Long id;
     private String[] sparePartIds;
-    private String imageUrl;
+    private MultipartFile imageUrl;
     @NotNull(message = "Price can not be empty.")
     @DecimalMin(value = "0", message = "Price must be positive")
     private BigDecimal sparePartPrice;
@@ -34,11 +36,11 @@ public class OrderFixBindingModel {
         this.sparePartIds = sparePartIds;
     }
 
-    public String getImageUrl() {
+    public MultipartFile  getImageUrl() {
         return imageUrl;
     }
 
-    public void setImageUrl(String imageUrl) {
+    public void setImageUrl(MultipartFile  imageUrl) {
         this.imageUrl = imageUrl;
     }
 

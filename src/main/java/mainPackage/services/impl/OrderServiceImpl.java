@@ -17,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -33,10 +34,11 @@ public class OrderServiceImpl implements OrderService {
     private final ModelMapper modelMapper;
     private final UserService userService;
     private final SparePartsService sparePartsService;
+    private final CloudinaryService cloudinaryService;
 
     public OrderServiceImpl(OrderRepository orderRepository, ClientService clientService, ModelService modelService,
                             DamageService damageService, ModelMapper modelMapper, UserService userService,
-                            SparePartsService sparePartsService) {
+                            SparePartsService sparePartsService, CloudinaryService cloudinaryService) {
         this.orderRepository = orderRepository;
         this.clientService = clientService;
         this.modelService = modelService;
@@ -44,6 +46,7 @@ public class OrderServiceImpl implements OrderService {
         this.modelMapper = modelMapper;
         this.userService = userService;
         this.sparePartsService = sparePartsService;
+        this.cloudinaryService = cloudinaryService;
     }
 
     @Override
@@ -107,7 +110,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void fix(OrderFixServiceModel orderServiceModel) {
+    public void fix(OrderFixServiceModel orderServiceModel) throws IOException {
         Order order = orderRepository.findById(orderServiceModel.getId())
                 .orElseThrow(() -> new OrderIdNotFoundException(String.format("No order with this %d", orderServiceModel.getId())));
         Set<Long> spareParts = orderServiceModel.getSparePartIds();
@@ -119,6 +122,7 @@ public class OrderServiceImpl implements OrderService {
                 sparePartsService.reduceSpareParts(sparePartsList);
             }
         }
+        order.setImageUrl(cloudinaryService.uploadImage(orderServiceModel.getImageUrl()));
         order.setTotalSparePartsPrice(orderServiceModel.getSparePartPrice());
         order.setTotalRepairPrice(orderServiceModel.getTotalPrice());
         order.setSpareParts(sparePartsList);
