@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -45,10 +46,6 @@ public class BackOfficeController {
     public String OrdersToRepairAll(Model model) {
         List<OrderNotReadyViewModel> orderNotReadyViewModels = orderService.getNotReady();
         model.addAttribute("orderNotReadyViewModels", orderNotReadyViewModels);
-        if (!model.containsAttribute("orderFixBindingModel")) {
-            model.addAttribute("orderFixBindingModel", new SparePartBindingModel());
-        }
-
         return "/orders/orders-not-ready";
     }
 
@@ -67,8 +64,8 @@ public class BackOfficeController {
 
     @PostMapping("/fix/{id}")
     @PreAuthorize("hasRole('ROLE_BACK_OFFICE')")
-    public String fixOrderConfirm(@PathVariable Long id, @Valid @ModelAttribute OrderFixBindingModel orderFixBindingModel,
-                                  BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String fixOrderConfirm(@PathVariable Long id, @Valid @ModelAttribute("orderFixBindingModel") OrderFixBindingModel orderFixBindingModel,
+                                  BindingResult bindingResult, RedirectAttributes redirectAttributes) throws IOException {
         boolean compareResult = orderFixBindingModel.getSparePartPrice().compareTo(orderFixBindingModel.getTotalPrice()) > 0;
         if (bindingResult.hasErrors() || compareResult) {
             redirectAttributes.addFlashAttribute("orderFixBindingModel", orderFixBindingModel);

@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Map;
 
 @Service
 public class CloudinaryServiceImpl implements CloudinaryService {
@@ -24,11 +25,7 @@ public class CloudinaryServiceImpl implements CloudinaryService {
     public String uploadImage(MultipartFile multipartFile) throws IOException {
         File file = File.createTempFile(TEMP_FILE, multipartFile.getOriginalFilename());
         multipartFile.transferTo(file);
-
-        return this.cloudinary
-                .uploader()
-                .upload(file, Collections.emptyMap())
-                .get(URL)
-                .toString();
+        Map uploadResult =cloudinary.uploader().upload(file, Collections.emptyMap());
+        return uploadResult.get(URL).toString();
     }
 }

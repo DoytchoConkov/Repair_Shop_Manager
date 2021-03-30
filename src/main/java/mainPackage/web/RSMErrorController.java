@@ -15,7 +15,7 @@ public class RSMErrorController implements ErrorController {
         return "/error";
     }
 
-   @RequestMapping("/error")
+    @RequestMapping("/error")
     public String handleError(HttpServletRequest request) {
         Object status =
                 request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);

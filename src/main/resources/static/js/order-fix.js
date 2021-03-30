@@ -6,10 +6,9 @@ let sparePartsList = document.getElementById('spareParts');
 
 addBrandBtn.click(() => {
     let select = document.createElement("select")
-    select.setAttribute("name", "sparePartsList");
     sparePartsList.appendChild(select);
-    select.setAttribute("name", "sparePartName");
-    select.setAttribute("id", "sparePartIds[]");
+    select.setAttribute("name", "sparePartIds[]");
+    // select.setAttribute("id", "sparePartIds[]");
     select.classList.add("custom-select");
     let option1 = document.createElement("option");
     option1.setAttribute("value", 0);
@@ -29,10 +28,9 @@ addBrandBtn.click(() => {
 
 addBtn.click(() => {
     let select = document.createElement("select");
-    select.setAttribute("name", "sparePartsList");
     sparePartsList.appendChild(select);
-    select.setAttribute("name", "sparePartName");
-    select.setAttribute("id", "sparePartIds[]");
+    select.setAttribute("name", "sparePartIds[]");
+    // select.setAttribute("id", "sparePartIds[]");
     select.classList.add("custom-select");
     let option1 = document.createElement("option");
     option1.setAttribute("value", 0);
@@ -55,7 +53,7 @@ function calculateSparePartTotalPrice() {
     let sparePartsId = [];
     for (sp of spareParts) {
         if(sp.value!=0)
-        sparePartsId.push(sp.value);
+            sparePartsId.push(sp.value);
     }
     fetch('http://localhost:8080/spare-parts/spare-parts-totalPrice?sparePartsId=' + sparePartsId)
         .then((response) => response.json())

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -94,6 +95,7 @@ class BackOfficeControllerTest {
     @Test
     @WithMockUser(username = "Doytcho", roles = {"BACK_OFFICE", "SENIOR"})
     void fixOrderConfirm() throws Exception {
+        MockMultipartFile file = new MockMultipartFile("data", "filename.txt", "text/plain", "some xml".getBytes());
         mockMvc.perform(MockMvcRequestBuilders.post(
                 BACKOFFICE_CONTROLLER_PREFIX + "/fix/{id}", orderId)
                 .param("totalPrice", "100")
