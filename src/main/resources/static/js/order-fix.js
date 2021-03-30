@@ -6,12 +6,13 @@ let sparePartsList = document.getElementById('spareParts');
 
 addBrandBtn.click(() => {
     let select = document.createElement("select")
+    select.setAttribute("name", "sparePartsList");
     sparePartsList.appendChild(select);
     select.setAttribute("name", "sparePartName");
-    select.setAttribute("id", "sparePartName");
+    select.setAttribute("id", "sparePartIds[]");
     select.classList.add("custom-select");
     let option1 = document.createElement("option");
-    option1.setAttribute("value", "");
+    option1.setAttribute("value", 0);
     option1.text = "Select spare part";
     select.appendChild(option1);
     fetch('http://localhost:8080/spare-parts/spare-parts-for-brand?brandName=' + brand[0].innerText)
@@ -30,11 +31,11 @@ addBtn.click(() => {
     let select = document.createElement("select");
     select.setAttribute("name", "sparePartsList");
     sparePartsList.appendChild(select);
-    select.setAttribute("name", "sparePartIds");
-    select.setAttribute("id", "sparePartIds");
+    select.setAttribute("name", "sparePartName");
+    select.setAttribute("id", "sparePartIds[]");
     select.classList.add("custom-select");
     let option1 = document.createElement("option");
-    option1.setAttribute("value", "");
+    option1.setAttribute("value", 0);
     option1.text = "Select spare part";
     select.appendChild(option1);
     fetch('http://localhost:8080/spare-parts/spare-parts?brandName=' + brand[0].innerText + '&modelName=' + model[0].innerText)
@@ -53,7 +54,7 @@ function calculateSparePartTotalPrice() {
     let spareParts = $('select');
     let sparePartsId = [];
     for (sp of spareParts) {
-        if(sp.value!="")
+        if(sp.value!=0)
         sparePartsId.push(sp.value);
     }
     fetch('http://localhost:8080/spare-parts/spare-parts-totalPrice?sparePartsId=' + sparePartsId)

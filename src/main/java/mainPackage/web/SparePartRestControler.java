@@ -46,6 +46,9 @@ public class SparePartRestControler {
     }
     @GetMapping("/spare-parts-totalPrice")
     public BigDecimal getTotalSparePartPrice(@RequestParam String[] sparePartsId) {
+        if(sparePartsId.length==0){
+            return BigDecimal.valueOf(0);
+        }
         return sparePartsService.getTotalSparePartPrice(sparePartsId);
     }
     @GetMapping("/spare-parts-name")

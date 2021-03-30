@@ -69,7 +69,7 @@ public class SparePartsServiceImpl implements SparePartsService {
 
     @Override
     public SparePart findById(Long id) {
-        return sparePartsRepository.findById(id).orElseThrow(()-> new SparePartIdNotFoundException(String.format("No spare part with id:%d",id)));
+        return sparePartsRepository.findById(id).orElseThrow(() -> new SparePartIdNotFoundException(String.format("No spare part with id:%d", id)));
     }
 
 
@@ -98,7 +98,7 @@ public class SparePartsServiceImpl implements SparePartsService {
 
     @Override
     public void edit(Long id, SparePartBindingModel sparePartBindingModel) {
-        SparePart sparePart = sparePartsRepository.findById(id).orElseThrow(()-> new SparePartIdNotFoundException(String.format("No spare part with id:%d",id)));
+        SparePart sparePart = sparePartsRepository.findById(id).orElseThrow(() -> new SparePartIdNotFoundException(String.format("No spare part with id:%d", id)));
         sparePart.setPieces(sparePartBindingModel.getPieces());
         sparePart.setPrice(sparePartBindingModel.getPrice());
         sparePartsRepository.save(sparePart);
@@ -106,7 +106,7 @@ public class SparePartsServiceImpl implements SparePartsService {
 
     @Override
     public void update(Long id, int i) {
-        SparePart sparePart = sparePartsRepository.findById(id).orElseThrow(()-> new SparePartIdNotFoundException(String.format("No spare part with id:%d",id)));
+        SparePart sparePart = sparePartsRepository.findById(id).orElseThrow(() -> new SparePartIdNotFoundException(String.format("No spare part with id:%d", id)));
         sparePart.setPieces(0);
         sparePartsRepository.save(sparePart);
     }
@@ -119,13 +119,16 @@ public class SparePartsServiceImpl implements SparePartsService {
     @Override
     public SparePartViewModel getByBrandModelName(String brandName, String modelName, String spName) {
         SparePart sparePart = sparePartsRepository.getByBrandModelName(brandName, modelName, spName);
-                SparePartViewModel sparePartViewModel = modelMapper.map(sparePart, SparePartViewModel.class);
+        SparePartViewModel sparePartViewModel = modelMapper.map(sparePart, SparePartViewModel.class);
         sparePartViewModel.setBrand(sparePart.getModel().getBrand().getBrandName());
         return sparePartViewModel;
     }
 
     @Override
-    public void reduceSpareParts(List<Long> sparePartsList) {
-        sparePartsRepository.reduceSpareParts(sparePartsList);
+    public void reduceSpareParts(List<SparePart> sparePartsList) {
+        sparePartsList.forEach(sp -> {
+            sp.setPieces(sp.getPieces() - 1);
+            sparePartsRepository.save(sp);
+        });
     }
 }

@@ -4,6 +4,7 @@ import mainPackage.models.entities.Damage;
 import mainPackage.models.views.DamageViewModel;
 import mainPackage.repositories.DamageRepository;
 import mainPackage.services.DamageService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -30,14 +31,6 @@ class DamageServiceTest {
         Mockito.when(mockDamageRepository.findByDamageName("Broken LCD")).thenReturn(damage);
         Damage receivedBrand = damageService.getDamage("Broken LCD");
         assertEquals(damage.getDamageName(), receivedBrand.getDamageName());
-    }
-    @Test
-    void getDamageWhenNotExist() {
-        Damage damage = new Damage("Broken LCD");
-        Mockito.when(mockDamageRepository.findByDamageName("Broken LCD")).thenReturn(null);
-        Damage receivedBrand = damageService.getDamage("Broken LCD");
-//        assertEquals(damage.getDamageName(), receivedBrand.getDamageName());
-        //TODO
     }
 
     @Test

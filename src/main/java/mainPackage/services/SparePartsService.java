@@ -33,5 +33,5 @@ public interface SparePartsService {
 
     SparePartViewModel getByBrandModelName(String brandName, String modelName, String spName);
 
-    void reduceSpareParts(List<Long> sparePartsList);
+    void reduceSpareParts(List<SparePart> sparePartsList);
 }

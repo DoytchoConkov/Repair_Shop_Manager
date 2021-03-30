@@ -113,10 +113,10 @@ public class OrderServiceImpl implements OrderService {
         Set<Long> spareParts = orderServiceModel.getSparePartIds();
         List<SparePart> sparePartsList = new ArrayList<>();
         if (spareParts != null) {
-            spareParts.remove("");
+            spareParts.remove(0L);
             if (!spareParts.isEmpty()) {
                 sparePartsList = spareParts.stream().map(sp -> sparePartsService.findById(sp)).collect(Collectors.toList());
-                sparePartsService.reduceSpareParts(sparePartsList.stream().map(s -> s.getId()).collect(Collectors.toList()));
+                sparePartsService.reduceSpareParts(sparePartsList);
             }
         }
         order.setTotalSparePartsPrice(orderServiceModel.getSparePartPrice());

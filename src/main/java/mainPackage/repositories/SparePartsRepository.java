@@ -21,7 +21,7 @@ public interface SparePartsRepository extends JpaRepository<SparePart, Long> {
     @Query("select sp from SparePart as sp JOIN sp.model as m JOIN m.brand as b where b.brandName=:brand and m.modelName=:model")
     List<SparePart> findByBrandAndModel(@Param("brand") String brand, @Param("model") String model);
 
-    @Query("select sp from SparePart as sp join sp.model as m join m.brand as b where m.modelName=:modelName and b.brandName=:brandName")
+    @Query("select sp from SparePart as sp join sp.model as m join m.brand as b where m.modelName=:modelName and b.brandName=:brandName and sp.pieces>0")
     List<SparePart> getSparePartsByBrandNameAndModel(String brandName, String modelName);
 
 
@@ -33,8 +33,4 @@ public interface SparePartsRepository extends JpaRepository<SparePart, Long> {
 
     @Query("select sp from SparePart as sp where sp.model.brand.brandName=:brandName and sp.model.modelName=:modelName and sp.sparePartName=:spName")
     SparePart getByBrandModelName(String brandName, String modelName, String spName);
-
-    @Modifying
-    @Query("UPDATE SparePart  as sp set sp.pieces=sp.pieces-1 where sp.id in :sparePartsList")
-    void reduceSpareParts(List<Long> sparePartsList);
 }

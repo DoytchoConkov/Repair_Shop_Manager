@@ -1,5 +1,6 @@
 package mainPackage.services.impl;
 
+import mainPackage.errors.SparePartIdNotFoundException;
 import mainPackage.models.bindings.SparePartBindingModel;
 import mainPackage.models.entities.Brand;
 import mainPackage.models.entities.Model;
@@ -10,6 +11,7 @@ import mainPackage.repositories.ModelRepository;
 import mainPackage.repositories.SparePartsRepository;
 import mainPackage.services.ModelService;
 import mainPackage.services.SparePartsService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -66,8 +68,6 @@ class SparePartsServiceTest {
         sparePartsService.save(sparePartServiceModel);
     }
 
-    //TODO add whit existing spare part save
-
     @Test
     void getByBrandAndModel() {
         Brand brand = new Brand("Apple");
@@ -98,7 +98,7 @@ class SparePartsServiceTest {
     }
     @Test
     void findByIdWithWrongId() {
-  // TODO
+        Assertions.assertThrows(SparePartIdNotFoundException.class,()->sparePartsService.findById(15L));
     }
 
     @Test
