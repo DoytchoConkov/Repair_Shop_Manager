@@ -6,38 +6,39 @@
 <body>
 
 <th:block th:include="~{fragments/nav-bar}"></th:block>
-
-<div class="container">
-    <h2 class="text-center text-white">Find Orders by Serial Number</h2>
-    <div class="div-form mx-auto col-md-12 d-flex flex-column justify-content-center">
-        <div class="form-group">
-            <label class="text-white font-weight-bold" for="serialNumber">Enter Part of Serial Number</label>
-            <input type="text" name="serialNumber" id="serialNumber" class="custom-select"></input>
+<main>
+    <div class="container">
+        <h2 class="text-center text-white">Find Orders by Serial Number</h2>
+        <div class="div-form mx-auto col-md-12 d-flex flex-column justify-content-center">
+            <div class="form-group">
+                <label class="text-white font-weight-bold" for="serialNumber">Enter Part of Serial Number</label>
+                <input type="text" name="serialNumber" id="serialNumber" class="custom-select"></input>
+            </div>
+            <div id="errorNotFound" class="alert alert-danger" role="alert" style="display: none">
+                No results found.
+            </div>
+            <div id="errorTooMany" class="alert alert-danger" role="alert" style="display: none">
+                Too many results found.
+            </div>
+            <table class="striped text-white" id="table" style="display: none">
+                <thead>
+                <tr>
+                    <td>Brand</td>
+                    <td>Model</td>
+                    <td>Serial Number</td>
+                    <td>Damage</td>
+                    <td>Receive Date</td>
+                    <td>Leave Date</td>
+                    <td>TotalPrice</td>
+                    <td>Client</td>
+                </tr>
+                </thead>
+                <tbody id="tableBody">
+                </tbody>
+            </table>
         </div>
-        <div id="errorNotFound" class="alert alert-danger" role="alert" style="display: none">
-            No results found.
-        </div>
-        <div id="errorTooMany" class="alert alert-danger" role="alert" style="display: none">
-            Too many results found.
-        </div>
-        <table class="striped text-white" id="table" style="display: none">
-            <thead>
-            <tr>
-                <td>Brand</td>
-                <td>Model</td>
-                <td>Serial Number</td>
-                <td>Damage</td>
-                <td>Receive Date</td>
-                <td>Leave Date</td>
-                <td>TotalPrice</td>
-                <td>Client</td>
-            </tr>
-            </thead>
-            <tbody id="tableBody">
-            </tbody>
-        </table>
     </div>
-</div>
+</main>
 <th:block th:include=" ~{fragments/footer}"></th:block>
 
 </body>

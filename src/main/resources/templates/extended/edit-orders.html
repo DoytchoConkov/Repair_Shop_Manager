@@ -8,49 +8,49 @@
 <body>
 
 <th:block th:include="~{fragments/nav-bar}"></th:block>
-
-<div class="container">
-    <h2 class="text-center text-white m-3">Edit Orders</h2>
-    <div class='div-form mb-4 d-flex justify-content-around text-white'>
-        <table class="striped">
-            <thead>
-            <tr>
-                <th>Brand</th>
-                <th>Model</th>
-                <th>Serial Number</th>
-                <th>Damage</th>
-                <th>Total Spare Parts Price</th>
-                <th>Total Price</th>
-                <th>Client name</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="pr : ${orderReadyViewModels}">
-                <td th:text="${pr.brand}">Brand</td>
-                <td th:text="${pr.model}">Model</td>
-                <td th:text="${pr.serialNumber}">Serial Number</td>
-                <td th:text="${pr.damage}">Damage</td>
-                <td th:text="${pr.totalSparePartsPrice}">Total Spare Parts Price</td>
-                <td th:text="${pr.totalRepairPrice}">Total Price</td>
-                <td th:text="${pr.clientName}">Client</td>
-                <td th:if="${pr.totalRepairPrice}!=null">
-                    <form th:action="@{/senior/order/make-not-fixed/{id}(id=${pr.id})}" th:method="post">
-                        <button class="card-link" type="submit">Make Not Fixed</button>
-                    </form>
-                </td>
-                <td>
-                    <form th:action="@{/senior/order/delete/{id}(id=${pr.id})}"
-                          th:method="delete">
-                        <button class="card-link" type="submit">Delete</button>
-                    </form>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+<main>
+    <div class="container">
+        <h2 class="text-center text-white m-3">Edit Orders</h2>
+        <div class='div-form mb-4 d-flex justify-content-around text-white'>
+            <table class="striped">
+                <thead>
+                <tr>
+                    <th>Brand</th>
+                    <th>Model</th>
+                    <th>Serial Number</th>
+                    <th>Damage</th>
+                    <th>Total Spare Parts Price</th>
+                    <th>Total Price</th>
+                    <th>Client name</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="pr : ${orderReadyViewModels}">
+                    <td th:text="${pr.brand}">Brand</td>
+                    <td th:text="${pr.model}">Model</td>
+                    <td th:text="${pr.serialNumber}">Serial Number</td>
+                    <td th:text="${pr.damage}">Damage</td>
+                    <td th:text="${pr.totalSparePartsPrice}">Total Spare Parts Price</td>
+                    <td th:text="${pr.totalRepairPrice}">Total Price</td>
+                    <td th:text="${pr.clientName}">Client</td>
+                    <td th:if="${pr.totalRepairPrice}!=null">
+                        <form th:action="@{/senior/order/make-not-fixed/{id}(id=${pr.id})}" th:method="post">
+                            <button class="card-link" type="submit">Make Not Fixed</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form th:action="@{/senior/order/delete/{id}(id=${pr.id})}"
+                              th:method="delete">
+                            <button class="card-link" type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
-
+</main>
 <th:block th:include="~{fragments/footer}"></th:block>
 
 </body>

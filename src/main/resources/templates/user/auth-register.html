@@ -8,39 +8,43 @@
     <th:block th:include="~{fragments/nav-bar}"></th:block>
 </header>
 <main>
-<div class="container">
-    <h2 class="text-center text-white">Register User</h2>
-    <form th:object="${userRegisterBindingModel}" th:method="post" th:action="@{/users/register}"
-          class="main-form mx-auto col-md-4 d-flex flex-column justify-content-center">
-        <div class="form-group col-md-12 mb-4">
-            <label for="username" class="text-white font-weight-bold">Username</label>
-            <input th:value="*{username}" th:errorclass="alert-danger" id="username" type="text"
-                   class="form-control" placeholder="username" name="username" required minlength="3" maxlength="20"/>
-            <small th:each="e : ${#fields.errors('username')}" th:text="${e}" id="usernameError"
-                   class="text-light form-text bg-danger rounded">Username length must be between 3 and 20 characters</small>
-        </div>
-        <div class="form-group col-md-12 mb-4">
-            <label for="password" class="text-white font-weight-bold">Password</label>
-            <input th:errorclass="alert-danger" id="password" type="password" required minlength="4" maxlength="20"
-                   class="form-control" placeholder="password" name="password"/>
-            <small th:each="e : ${#fields.errors('password')}" th:text="${e}" id="passwordError"
-                   class="text-light form-text bg-danger rounded">Username length must be between 4 and 20 characters</small>
-        </div>
-        <div class="form-group col-md-12 mb-4">
-            <label for="confirmPassword" class="text-white font-weight-bold">ConfirmPassword</label>
-            <input th:errorclass="alert-danger" id="confirmPassword" type="password" required minlength="4" maxlength="20"
-                   class="form-control" placeholder="confirmPassword" name="confirmPassword"/>
-            <small th:if="${notEqual}" class="text-light form-text bg-danger rounded"
-                   th:text="|Passwords are not equals!|"></small>
-        </div>
-        <div th:if="${userExist}" class="alert alert-danger" role="alert">User already exist!</div>
-        <div class="col col-md-12">
-            <div class="button-holder d-flex">
-                <button type="submit" class="btn btn-info btn-sm">Register</button>
+    <div class="container">
+        <h2 class="text-center text-white">Register User</h2>
+        <form th:object="${userRegisterBindingModel}" th:method="post" th:action="@{/users/register}"
+              class="main-form mx-auto col-md-4 d-flex flex-column justify-content-center">
+            <div class="form-group col-md-12 mb-4">
+                <label for="username" class="text-white font-weight-bold">Username</label>
+                <input th:value="*{username}" th:errorclass="alert-danger" id="username" type="text"
+                       class="form-control" placeholder="username" name="username" required minlength="3"
+                       maxlength="20"/>
+                <small th:each="e : ${#fields.errors('username')}" th:text="${e}" id="usernameError"
+                       class="text-light form-text bg-danger rounded">Username length must be between 3 and 20
+                    characters</small>
             </div>
-        </div>
-    </form>
-</div>
+            <div class="form-group col-md-12 mb-4">
+                <label for="password" class="text-white font-weight-bold">Password</label>
+                <input th:errorclass="alert-danger" id="password" type="password" required minlength="4" maxlength="20"
+                       class="form-control" placeholder="password" name="password"/>
+                <small th:each="e : ${#fields.errors('password')}" th:text="${e}" id="passwordError"
+                       class="text-light form-text bg-danger rounded">Username length must be between 4 and 20
+                    characters</small>
+            </div>
+            <div class="form-group col-md-12 mb-4">
+                <label for="confirmPassword" class="text-white font-weight-bold">ConfirmPassword</label>
+                <input th:errorclass="alert-danger" id="confirmPassword" type="password" required minlength="4"
+                       maxlength="20"
+                       class="form-control" placeholder="confirmPassword" name="confirmPassword"/>
+                <small th:if="${notEqual}" class="text-light form-text bg-danger rounded"
+                       th:text="|Passwords are not equals!|"></small>
+            </div>
+            <div th:if="${userExist}" class="alert alert-danger" role="alert">User already exist!</div>
+            <div class="col col-md-12">
+                <div class="button-holder d-flex">
+                    <button type="submit" class="btn btn-info btn-sm">Register</button>
+                </div>
+            </div>
+        </form>
+    </div>
 </main>
 <th:block th:include="~{fragments/footer}"></th:block>
 

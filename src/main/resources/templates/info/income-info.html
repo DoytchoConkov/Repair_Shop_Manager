@@ -10,72 +10,73 @@
 <div>
     <th:block th:include="~{fragments/nav-bar}"></th:block>
 </div>
+<main>
+    <div class="container" id="info" style=" display:block">
+        <h2 class="text-center text-white">Income per Period</h2>
+        <div class="div-form mx-auto col-md-8 d-flex flex-column justify-content-center text-white">
+            <div class="form-group">
+                <div class="row">
+                    <label class="text-white" for="startDate">Start Date</label>
+                    <input type="date" name="startDate" id="startDate" th:value="${startDate}">
 
-<div class="container" id="info" style=" display:block">
-    <h2 class="text-center text-white">Income per Period</h2>
-    <div class="div-form mx-auto col-md-8 d-flex flex-column justify-content-center text-white">
-        <div class="form-group">
-            <div class="row">
-                <label class="text-white" for="startDate">Start Date</label>
-                <input type="date" name="startDate" id="startDate" th:value="${startDate}">
+                    <label class="text-white" for="endDate">End Date</label>
+                    <input type="date" name="endDate" id="endDate" th:value="${endDate}">
 
-                <label class="text-white" for="endDate">End Date</label>
-                <input type="date" name="endDate" id="endDate" th:value="${endDate}">
-
-                <select id="technician" type="text" class="form-control" list="technicianList" placeholder="Select technician here.">
-                    <option value="" selected>Select technician</option>
-                    <option th:each="technician : ${technicians}" th:value="${technician}" th:text="${technician}">
-                </select>
+                    <select id="technician" type="text" class="form-control" list="technicianList"
+                            placeholder="Select technician here.">
+                        <option value="" selected>Select technician</option>
+                        <option th:each="technician : ${technicians}" th:value="${technician}" th:text="${technician}">
+                    </select>
+                </div>
             </div>
+            <div id="error" class="alert alert-danger" role="alert" style="display: none">
+                Start date must be Before End date.
+            </div>
+            <table class="striped" id="tableInfo">
+                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Daily Spare Parts Price</th>
+                    <th>Daily Repair Price</th>
+                    <th>Daily Income</th>
+                    <th>Details</th>
+                </tr>
+                </thead>
+                <tbody id="tableBody">
+                </tbody>
+            </table>
+            <label></label>
+            <label></label>
+            <label class="text-white" for="totalSparePartPerPeriod" id="totalSparePartPerPeriod">
+            </label>
+            <label class="text-white" for="totalPerPeriod" id="totalPerPeriod">
+            </label>
+            <label class="text-white" for="incomePerPeriod" id="incomePerPeriod">
+            </label>
         </div>
-        <div id="error" class="alert alert-danger" role="alert" style="display: none">
-            Start date must be Before End date.
+    </div>
+
+    <div class="container" id="details" style="display:none">
+        <h2 class="text-center text-white" id="headTitle"></h2>
+        <div class="div-form mx-auto col-md-12 d-flex flex-column justify-content-center text-white">
+            <table class="striped">
+                <thead>
+                <tr>
+                    <td>Brand</td>
+                    <td>Model</td>
+                    <td>Serial Number</td>
+                    <td>Damage</td>
+                    <td>TotalPrice</td>
+                    <td>Client</td>
+                </tr>
+                </thead>
+                <tbody id="tableDetails">
+
+                </tbody>
+            </table>
         </div>
-        <table class="striped" id="tableInfo">
-            <thead>
-            <tr>
-                <th>Date</th>
-                <th>Daily Spare Parts Price</th>
-                <th>Daily Repair Price</th>
-                <th>Daily Income</th>
-                <th>Details</th>
-            </tr>
-            </thead>
-            <tbody id="tableBody">
-            </tbody>
-        </table>
-        <label></label>
-        <label></label>
-        <label class="text-white" for="totalSparePartPerPeriod" id="totalSparePartPerPeriod">
-        </label>
-        <label class="text-white" for="totalPerPeriod" id="totalPerPeriod">
-        </label>
-        <label class="text-white" for="incomePerPeriod" id="incomePerPeriod">
-        </label>
     </div>
-</div>
-
-<div class="container" id="details" style="display:none">
-    <h2 class="text-center text-white" id="headTitle"></h2>
-    <div class="div-form mx-auto col-md-12 d-flex flex-column justify-content-center text-white">
-        <table class="striped">
-            <thead>
-            <tr>
-                <td>Brand</td>
-                <td>Model</td>
-                <td>Serial Number</td>
-                <td>Damage</td>
-                <td>TotalPrice</td>
-                <td>Client</td>
-            </tr>
-            </thead>
-            <tbody id="tableDetails">
-
-            </tbody>
-        </table>
-    </div>
-</div>
-
+</main>
 
 <footer>
     <th:block th:include="~{fragments/footer}"></th:block>

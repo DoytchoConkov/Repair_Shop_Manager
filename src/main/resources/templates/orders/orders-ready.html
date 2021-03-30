@@ -8,35 +8,35 @@
 <body>
 
 <th:block th:include="~{fragments/nav-bar}"></th:block>
+<main>
+    <div class="container">
+        <h2 class="text-center text-white m-3">Repaired Orders</h2>
+        <div class="div-form mx-auto col-md-8 d-flex flex-column justify-content-center text-white">
 
-<div class="container">
-    <h2 class="text-center text-white m-3">Repaired Orders</h2>
-    <div class="div-form mx-auto col-md-8 d-flex flex-column justify-content-center text-white">
-
-        <table class="striped" th:if="${orderReadyViewModels.size()}>0">
-            <thead>
-            <tr>
-                <td>Brand</td>
-                <td>Model</td>
-                <td>Serial Number</td>
-                <td>Damage</td>
-                <td>Client</td>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="pr : ${orderReadyViewModels}">
-                <td th:text="${pr.brand}">Brand</td>
-                <td th:text="${pr.model}">Model</td>
-                <td th:text="${pr.serialNumber}">Serial Number</td>
-                <td th:text="${pr.damage}">Damage</td>
-                <td th:text="${pr.clientName}">Client</td>
-                <th><a class="nav-link" th:href="@{/front-office/pay-order/{id}(id=${pr.id})}">Pay Now</a></th>
-            </tr>
-            </tbody>
-        </table>
+            <table class="striped" th:if="${orderReadyViewModels.size()}>0">
+                <thead>
+                <tr>
+                    <td>Brand</td>
+                    <td>Model</td>
+                    <td>Serial Number</td>
+                    <td>Damage</td>
+                    <td>Client</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="pr : ${orderReadyViewModels}">
+                    <td th:text="${pr.brand}">Brand</td>
+                    <td th:text="${pr.model}">Model</td>
+                    <td th:text="${pr.serialNumber}">Serial Number</td>
+                    <td th:text="${pr.damage}">Damage</td>
+                    <td th:text="${pr.clientName}">Client</td>
+                    <th><a class="nav-link" th:href="@{/front-office/pay-order/{id}(id=${pr.id})}">Pay Now</a></th>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
-
+</main>
 <th:block th:include="~{fragments/footer}"></th:block>
 
 </body>
