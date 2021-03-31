@@ -3,9 +3,10 @@ package mainPackage.models.views;
 public class OrderNotReadyViewModel {
     private Long id;
     private String serialNumber;
-    private String notes;
+    private String note;
     private String damage;
     private String clientName;
+    private String clientNote;
     private String model;
     private String brand;
 
@@ -28,12 +29,12 @@ public class OrderNotReadyViewModel {
         this.serialNumber = serialNumber;
     }
 
-    public String getNotes() {
-        return notes;
+    public String getNote() {
+        return note;
     }
 
-    public void setNotes(String notes) {
-        this.notes = notes;
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public String getDamage() {
@@ -66,5 +67,13 @@ public class OrderNotReadyViewModel {
 
     public void setBrand(String brand) {
         this.brand = brand;
+    }
+
+    public String getClientNote() {
+        return clientNote;
+    }
+
+    public void setClientNote(String clientNote) {
+        this.clientNote = clientNote;
     }
 }

@@ -1,7 +1,6 @@
 package mainPackage.models.views;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 public class OrderViewModel {
     private Long id;
@@ -9,8 +8,9 @@ public class OrderViewModel {
     private String model;
     private String serialNumber;
     private String damage;
-    private String notes;
+    private String note;
     private String clientName;
+    private String clientNote;
     private BigDecimal totalRepairPrice;
     private String receiveDate;
     private String leaveDate;
@@ -58,12 +58,12 @@ public class OrderViewModel {
         this.damage = damage;
     }
 
-    public String getNotes() {
-        return notes;
+    public String getNote() {
+        return note;
     }
 
-    public void setNotes(String notes) {
-        this.notes = notes;
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public String getClientName() {
@@ -72,6 +72,14 @@ public class OrderViewModel {
 
     public void setClientName(String clientName) {
         this.clientName = clientName;
+    }
+
+    public String getClientNote() {
+        return clientNote;
+    }
+
+    public void setClientNote(String clientNote) {
+        this.clientNote = clientNote;
     }
 
     public BigDecimal getTotalRepairPrice() {

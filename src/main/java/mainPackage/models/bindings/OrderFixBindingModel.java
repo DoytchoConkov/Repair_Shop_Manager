@@ -16,6 +16,7 @@ public class OrderFixBindingModel {
     @NotNull(message = "Price can not be empty.")
     @DecimalMin(value = "0", message = "Price must be positive")
     private BigDecimal totalPrice;
+    private String note;
 
     public OrderFixBindingModel() {
     }
@@ -59,4 +60,13 @@ public class OrderFixBindingModel {
     public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
     }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
 }

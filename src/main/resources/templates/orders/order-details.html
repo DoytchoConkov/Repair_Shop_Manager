@@ -25,19 +25,16 @@
                 <div class=" form-group">
                     <label class="text-white float-left" th:text="|Damage: *{damage}|"></label>
                 </div>
-<!--                <div class=" form-group">-->
-<!--                    <label class="text-white float-left" th:text="|Spare parts price: *{totalSparePartsPrice}|"></label>-->
-<!--                </div>-->
                 <div class=" form-group">
                     <label class="text-white float-left" th:text="|Total price: *{totalRepairPrice}|"></label>
                 </div>
 
-                <div class=" form-group">
-                    <img th:if="*{imageUrl}" th:src="*{imageUrl}" height="300" id="image">
+                <div class="form-group">
+                    <img th:if="*{imageUrl}" th:src="*{imageUrl}" height="190" id="image">
                 </div>
 
                 <div class=" form-group">
-                    <label class="text-white float-left" th:text="*{notes} ?: ''"></label>
+                    <label class="text-white float-left" th:text="*{note} ?: ''"></label>
                 </div>
                 <div class=" form-group">
                     <label class="text-white float-left" th:text="|Client name: *{clientName}|"><br></label>

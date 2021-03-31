@@ -22,7 +22,7 @@ public class UserRegisterBindingModel {
     }
 
     @NotBlank(message = "Password can not be empty.")
-    @Size(min = 5, max = 20, message = "Password length must be between five and  twenty characters.")
+    @Size(min = 4, max = 20, message = "Password length must be between four and  twenty characters.")
     public String getPassword() {
         return password;
     }

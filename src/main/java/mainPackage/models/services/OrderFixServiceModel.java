@@ -3,7 +3,6 @@ package mainPackage.models.services;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Set;
 
 public class OrderFixServiceModel {
@@ -12,6 +11,7 @@ public class OrderFixServiceModel {
     private Set<Long> sparePartIds;
     private BigDecimal sparePartPrice;
     private BigDecimal totalPrice;
+    private String note;
 
     public OrderFixServiceModel() {
     }
@@ -54,5 +54,13 @@ public class OrderFixServiceModel {
 
     public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }

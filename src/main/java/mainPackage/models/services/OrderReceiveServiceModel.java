@@ -5,8 +5,9 @@ public class OrderReceiveServiceModel {
     private String brand;
     private String model;
     private String damage;
-    private String orderNote;
     private ClientServiceModel client;
+    private String note;
+    private String clientNote;
 
     public OrderReceiveServiceModel() {
     }
@@ -43,19 +44,27 @@ public class OrderReceiveServiceModel {
         this.damage = damage;
     }
 
-    public String getOrderNote() {
-        return orderNote;
-    }
-
-    public void setOrderNote(String orderNote) {
-        this.orderNote = orderNote;
-    }
-
     public ClientServiceModel getClient() {
         return client;
     }
 
     public void setClient(ClientServiceModel client) {
         this.client = client;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public String getClientNote() {
+        return clientNote;
+    }
+
+    public void setClientNote(String clientNote) {
+        this.clientNote = clientNote;
     }
 }

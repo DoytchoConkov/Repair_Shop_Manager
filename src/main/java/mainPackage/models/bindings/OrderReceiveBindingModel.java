@@ -8,7 +8,7 @@ public class OrderReceiveBindingModel {
     private String brand;
     private String model;
     private String damage;
-    private String orderNote;
+    private String note;
     private String clientName;
     private String clientEmail;
     private String clientPhoneNumber;
@@ -57,12 +57,12 @@ public class OrderReceiveBindingModel {
         this.damage = damage;
     }
 
-    public String getOrderNote() {
-        return orderNote;
+    public String getNote() {
+        return note;
     }
 
-    public void setOrderNote(String orderNote) {
-        this.orderNote = orderNote;
+    public void setNote(String note) {
+        this.note = note;
     }
 
     @NotBlank(message = "Client name can not be empty.")

@@ -1,6 +1,5 @@
 package mainPackage.web;
 
-import mainPackage.aop.TrackLatency;
 import mainPackage.models.views.IncomePerPeriodViewModel;
 import mainPackage.models.views.OrderViewModel;
 import mainPackage.services.OrderService;
@@ -9,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -31,7 +29,6 @@ public class OrderRestController {
         return orderService.findOrdersByClientId(Long.valueOf(clientId));
     }
 
-    //  @TrackLatency(latency = "income")
     @GetMapping("/income")
     public List<IncomePerPeriodViewModel> getOrderPerPeriod(@RequestParam String starDate, @RequestParam String endDate,
                                                             @RequestParam String technician) {

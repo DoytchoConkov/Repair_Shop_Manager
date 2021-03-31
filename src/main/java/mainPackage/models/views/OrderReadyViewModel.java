@@ -5,9 +5,10 @@ import java.math.BigDecimal;
 public class OrderReadyViewModel {
     private Long id;
     private String serialNumber;
-    private String notes;
+    private String note;
     private String damage;
     private String clientName;
+    private String clientNote;
     private String model;
     private String brand;
     private String imageUrl;
@@ -33,12 +34,12 @@ public class OrderReadyViewModel {
         this.serialNumber = serialNumber;
     }
 
-    public String getNotes() {
-        return notes;
+    public String getNote() {
+        return note;
     }
 
-    public void setNotes(String notes) {
-        this.notes = notes;
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public String getDamage() {
@@ -55,6 +56,14 @@ public class OrderReadyViewModel {
 
     public void setClientName(String clientName) {
         this.clientName = clientName;
+    }
+
+    public String getClientNote() {
+        return clientNote;
+    }
+
+    public void setClientNote(String clientNote) {
+        this.clientNote = clientNote;
     }
 
     public String getModel() {

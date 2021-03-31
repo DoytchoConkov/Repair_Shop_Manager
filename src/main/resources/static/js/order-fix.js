@@ -3,8 +3,10 @@ let model = $('#modelName');
 let addBtn = $('#addSpareParts');
 let addBrandBtn = $('#addAllSparePartsForBrand');
 let sparePartsList = document.getElementById('spareParts');
+let message=$('#noteMessage');
 
 addBrandBtn.click(() => {
+    message[0].style.display = "block";
     let select = document.createElement("select")
     sparePartsList.appendChild(select);
     select.setAttribute("name", "sparePartIds[]");
@@ -27,6 +29,7 @@ addBrandBtn.click(() => {
 
 
 addBtn.click(() => {
+    message[0].style.display = "block";
     let select = document.createElement("select");
     sparePartsList.appendChild(select);
     select.setAttribute("name", "sparePartIds[]");

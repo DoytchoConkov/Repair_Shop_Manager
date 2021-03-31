@@ -133,6 +133,7 @@ public class OrderServiceImpl implements OrderService {
         order.setTotalSparePartsPrice(orderServiceModel.getSparePartPrice());
         order.setTotalRepairPrice(orderServiceModel.getTotalPrice());
         order.setSpareParts(sparePartsList);
+        order.setNote(orderServiceModel.getNote());
         String username = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
         order.setUser(userService.getUserByUserName(username));
         orderRepository.save(order);

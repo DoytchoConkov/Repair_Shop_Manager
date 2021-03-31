@@ -48,7 +48,6 @@ public class BackOfficeController {
         model.addAttribute("orderNotReadyViewModels", orderNotReadyViewModels);
         return "/orders/orders-not-ready";
     }
-
     @GetMapping("/fix/{id}")
     @PreAuthorize("hasRole('ROLE_BACK_OFFICE')")
     public String fixOrder(@PathVariable Long id, Model model) {
@@ -73,7 +72,7 @@ public class BackOfficeController {
                 redirectAttributes.addFlashAttribute("totalPriceError", true);
             }
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.orderFixBindingModel", bindingResult);
-            return String.format("redirect:/back-office/fix/{%d}",id);
+            return String.format("redirect:/back-office/fix/{%d}", id);
         }
         OrderFixServiceModel orderFixServiceModel = modelMapper.map(orderFixBindingModel, OrderFixServiceModel.class);
         orderFixServiceModel.setId(id);

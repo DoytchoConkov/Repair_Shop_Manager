@@ -4,7 +4,6 @@ package mainPackage.models.entities;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +13,8 @@ public class Order extends BaseEntity {
     private Model model;
     private String serialNumber;
     private Damage damage;
-    private String notes;
+    private String note;
+    private String clientNote;
     private Client client;
     private LocalDate receiveDate;
     private String imageUrl;
@@ -37,12 +37,12 @@ public class Order extends BaseEntity {
     }
 
     @Column(name = "notes")
-    public String getNotes() {
-        return notes;
+    public String getNote() {
+        return note;
     }
 
-    public void setNotes(String notes) {
-        this.notes = notes;
+    public void setNote(String note) {
+        this.note = note;
     }
 
     @Column(name = "receive_date", nullable = false)
@@ -90,6 +90,14 @@ public class Order extends BaseEntity {
         this.spareParts = spareParts;
     }
 
+    @Column(name = "client_notes")
+    public String getClientNote() {
+        return clientNote;
+    }
+
+    public void setClientNote(String clientNote) {
+        this.clientNote = clientNote;
+    }
     @Column(name = "total_spare_parts_price")
     public BigDecimal getTotalSparePartsPrice() {
         return totalSparePartsPrice;
