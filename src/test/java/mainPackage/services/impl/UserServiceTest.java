@@ -17,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
@@ -24,6 +25,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -51,6 +55,7 @@ class UserServiceTest {
         Mockito.when(mockRoleRepository.count()).thenReturn(1L);
         Mockito.when(mockUserRepository.findByUsername("Ivan")).thenReturn(Optional.of(user));
         userService.registerUserAndLogin(userModel);
+        verify(mockUserRepository,times(1)).save(any());
     }
 
     @Test
@@ -63,16 +68,8 @@ class UserServiceTest {
 
     @Test
     void findUserByUserNameThrowError() {
-
-//        Exception exception = assertThrows(NumberFormatException.class, () -> {
-//            Integer.parseInt("1a");
-//        });
-//        String expectedMessage = "For input string";
-//        String actualMessage = exception.getMessage();
-//        assertTrue(actualMessage.contains(expectedMessage));
-//        TO:
-//        Mockito.when(mockUserRepository.findByUsername("Ivan")).thenReturn(Optional.empty());
-//        assertFalse(userService.findUserByUserName("Ivan"));
+        Mockito.when(mockUserRepository.findByUsername("Ivan")).thenReturn(null);
+        assertThrows(NullPointerException.class, () -> userService.findUserByUserName("Ivan"));
     }
 
     @Test
@@ -110,6 +107,7 @@ class UserServiceTest {
         Mockito.when(mockUserRepository.findByUsername("Ivan")).thenReturn(java.util.Optional.of(user));
         Mockito.when(mockRoleRepository.findByRole(RoleName.ADMIN)).thenReturn(Optional.of(userRole));
         userService.setRoles(userRolesBindingModel);
+        verify(mockUserRepository,times(1)).save(any());
     }
 
     @Test

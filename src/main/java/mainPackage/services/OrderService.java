@@ -1,5 +1,6 @@
 package mainPackage.services;
 
+import mainPackage.models.entities.Order;
 import mainPackage.models.services.OrderFixServiceModel;
 import mainPackage.models.views.IncomePerPeriodViewModel;
 import mainPackage.models.views.OrderNotReadyViewModel;

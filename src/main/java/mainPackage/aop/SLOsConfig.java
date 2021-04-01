@@ -9,6 +9,7 @@ import java.util.List;
 @Configuration
 @ConfigurationProperties(prefix = "slos-config")
 public class SLOsConfig {
+
     private List<SLOConfig> slos = new LinkedList<>();
 
     public List<SLOConfig> getSlos() {

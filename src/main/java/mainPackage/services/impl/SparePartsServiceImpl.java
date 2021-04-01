@@ -107,7 +107,7 @@ public class SparePartsServiceImpl implements SparePartsService {
     @Override
     public void update(Long id, int i) {
         SparePart sparePart = sparePartsRepository.findById(id).orElseThrow(() -> new SparePartIdNotFoundException(String.format("No spare part with id:%d", id)));
-        sparePart.setPieces(0);
+        sparePart.setPieces(i);
         sparePartsRepository.save(sparePart);
     }
 

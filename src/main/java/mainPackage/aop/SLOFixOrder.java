@@ -24,6 +24,10 @@ public class SLOFixOrder {
     @Around(value = "@annotation(TrackLatency)")
     public void trackLatency(ProceedingJoinPoint pjp, TrackLatency TrackLatency) throws Throwable {
         String latencyId = TrackLatency.latency();
+//        SLOsConfig.SLOConfig config = configs.getSlos().
+//                stream().
+//                filter(s -> s.getId().equals(latencyId)).
+//                findAny().orElseThrow(() -> new IllegalStateException("Configuration with id " + latencyId + " not found!"));
 
         DateTimeFormatter formatterToString = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 

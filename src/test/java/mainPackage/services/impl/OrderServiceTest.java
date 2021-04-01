@@ -15,6 +15,8 @@ import mainPackage.services.OrderService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,19 +24,19 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -58,9 +60,8 @@ class OrderServiceTest {
         orderReceiveServiceModel.setSerialNumber("350101002635912");
         orderReceiveServiceModel.setClient(clientServiceModel);
         orderService.add(orderReceiveServiceModel);
+        verify(mockOrderRepository,times(1)).save(any());
 
-
-        //TODO:
     }
 
     @Test
@@ -148,8 +149,8 @@ class OrderServiceTest {
 
     @Test
     void deleteOrder() {
-        //TODO
         orderService.deleteOrder(1L);
+        verify(mockOrderRepository, times(1)).deleteById(1L);
     }
 
     @Test
@@ -189,34 +190,33 @@ class OrderServiceTest {
         assertEquals(order.getTotalRepairPrice(), actual.get(0).getTotalRepairPrice());
     }
 
-//    @Test
-//    void fix() {
-//        OrderFixServiceModel orderFixServiceModel = new OrderFixServiceModel();
-//        orderFixServiceModel.setId(1L);
-//        orderFixServiceModel.setSparePartIds(null);
-//        orderFixServiceModel.setSparePartPrice(BigDecimal.valueOf(10));
-//        orderFixServiceModel.setTotalPrice(BigDecimal.valueOf(30));
-//        Order order = new Order();
-//        Client client = new Client();
-//        client.setClientName("Gosho");
-//        client.setClientPhoneNumber("0888123456");
-//        Damage damage = new Damage("Broken LCD");
-//        Brand brand = new Brand("Huawei");
-//        Model model = new Model("P40 lite", brand);
-//        User user = new User();
-//        user.setUsername("Ivan");
-//        order.setClient(client);
-//        order.setDamage(damage);
-//        order.setModel(model);
-//        order.setSerialNumber("350101006543210");
-//        order.setReceiveDate(LocalDate.now());
-//        Mockito.when(mockOrderRepository.findById(1L)).thenReturn(java.util.Optional.of(order));
-//        SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
-//        Mockito.when( SecurityContextHolder.getContext().getAuthentication()).thenReturn(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
-//        Mockito.when(mockUserRepository.findByUsername("Ivan")).thenReturn(java.util.Optional.of(user));
-//        orderService.fix(orderFixServiceModel);
-////TODO
-//    }
+    @Test
+    @WithMockUser(username = "Ivan")
+    void fix() throws IOException {
+        OrderFixServiceModel orderFixServiceModel = new OrderFixServiceModel();
+        orderFixServiceModel.setId(1L);
+        orderFixServiceModel.setSparePartIds(null);
+        orderFixServiceModel.setSparePartPrice(BigDecimal.valueOf(10));
+        orderFixServiceModel.setTotalPrice(BigDecimal.valueOf(30));
+        Order order = new Order();
+        Client client = new Client();
+        client.setClientName("Gosho");
+        client.setClientPhoneNumber("0888123456");
+        Damage damage = new Damage("Broken LCD");
+        Brand brand = new Brand("Huawei");
+        Model model = new Model("P40 lite", brand);
+        User user = new User();
+        user.setUsername("Ivan");
+        order.setClient(client);
+        order.setDamage(damage);
+        order.setModel(model);
+        order.setSerialNumber("350101006543210");
+        order.setReceiveDate(LocalDate.now());
+        Mockito.when(mockOrderRepository.findById(1L)).thenReturn(java.util.Optional.of(order));
+        Mockito.when(mockUserRepository.findByUsername("Ivan")).thenReturn(java.util.Optional.of(user));
+        orderService.fix(orderFixServiceModel);
+        verify(mockOrderRepository, times(1)).save(order);
+    }
 
     @Test
     void getReadyById() {
@@ -251,7 +251,7 @@ class OrderServiceTest {
         Order order = new Order();
         Mockito.when(mockOrderRepository.findById(1L)).thenReturn(java.util.Optional.of(order));
         orderService.pay(1L);
-        //TODO
+        verify(mockOrderRepository,times(1)).save(any());
     }
 
     @Test
@@ -259,7 +259,7 @@ class OrderServiceTest {
         Order order = new Order();
         Mockito.when(mockOrderRepository.findById(1L)).thenReturn(java.util.Optional.of(order));
         orderService.makeNotFixed(1L);
-        //TODO
+        verify(mockOrderRepository,times(1)).save(any());
     }
 
     @Test
