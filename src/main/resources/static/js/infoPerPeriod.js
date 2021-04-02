@@ -21,7 +21,6 @@ function getDetails(sDate, enDate, techic) {
                         totalSparePartsPrice += o.totalSparePartsPrice;
                         totalPrice += o.totalRepairPrice;
                         let row = document.createElement("tr");
-                        row.innerHTML=`<th scope="row">${r++}</th>`
                         let d1 = document.createElement("td")
                         d1.innerText = o.leaveDateString;
                         let d2 = document.createElement("td")

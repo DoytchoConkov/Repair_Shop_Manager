@@ -42,5 +42,8 @@ public class ClientServiceImpl implements ClientService {
         List<Client> clients = clientRepository.findByClientNameOrPhoneNumber("%"+clientName+"%");
         return clients.stream().map(cl -> modelMapper.map(cl, ClientViewModel.class)).collect(Collectors.toList());
     }
-
+    @Override
+    public List<ClientViewModel> getAll() {
+        return clientRepository.findAll().stream().map(cl->modelMapper.map(cl,ClientViewModel.class)).collect(Collectors.toList());
+    }
 }

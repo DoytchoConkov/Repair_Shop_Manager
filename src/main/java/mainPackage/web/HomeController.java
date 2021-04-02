@@ -24,11 +24,6 @@ public class HomeController {
     @GetMapping("/home")
     @PreAuthorize("isAuthenticated()")
     public String home(ModelAndView modelAndView) {
-//        boolean areFrontOffice = true;
-//        boolean areBackOffice = true;
-//
-//      modelAndView.addObject("areFrontOffice", areFrontOffice);
-//       modelAndView.addObject("areBackOffice", areBackOffice);
         return "/home";
     }
 }

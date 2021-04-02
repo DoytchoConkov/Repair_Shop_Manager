@@ -29,7 +29,7 @@ public class SeniorController {
     }
 
     @GetMapping("/edit-spare-parts")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ROLE_SENIOR')")
     public String viewSpareParts(Model model) {
         if (!model.containsAttribute("sparePartsReceiveBindingModel")) {
             model.addAttribute("sparePartsReceiveBindingModel", new SparePartBindingModel());
@@ -40,14 +40,14 @@ public class SeniorController {
     }
 
     @GetMapping("/edit-orders")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ROLE_SENIOR')")
     public String editOrder(Model model) {
         model.addAttribute("orderReadyViewModels", orderService.getNotPayedOrders());
         return "/extended/edit-orders";
     }
 
     @GetMapping("/income-info")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ROLE_SENIOR')")
     public String incomeInfo(Model model) {
         if (!model.containsAttribute("startDate")) {
             model.addAttribute("startDate", LocalDate.now());
@@ -62,12 +62,14 @@ public class SeniorController {
     }
 
     @PutMapping("/spare_part/edit/{id}")
+    @PreAuthorize("hasRole('ROLE_SENIOR')")
     public String editSparePart(@PathVariable Long id, @ModelAttribute SparePartBindingModel sparePartBindingModel) {
         sparePartsService.edit(id, sparePartBindingModel);
         return "redirect:/home";
     }
 
     @DeleteMapping("/spare_part/delete/{id}")
+    @PreAuthorize("hasRole('ROLE_SENIOR')")
     public String deleteSparePart(@PathVariable Long id) {
         if (orderService.isContainSparePart(id)) {
             sparePartsService.update(id, 0);
@@ -78,12 +80,14 @@ public class SeniorController {
     }
 
     @DeleteMapping("/order/delete/{id}")
+    @PreAuthorize("hasRole('ROLE_SENIOR')")
     public String deleteOrder(@PathVariable Long id) {
         orderService.deleteOrder(id);
         return "redirect:/home";
     }
 
     @PostMapping("/order/make-not-fixed/{id}")
+    @PreAuthorize("hasRole('ROLE_SENIOR')")
     public String makeOrderNotFixed(@PathVariable Long id) {
         orderService.makeNotFixed(id);
         return "redirect:/home";

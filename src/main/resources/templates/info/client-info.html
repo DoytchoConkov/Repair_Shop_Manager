@@ -14,11 +14,11 @@
             <div class="form-group">
                 <label class="text-white font-weight-bold" for="clientName">Enter Part of Client Name or Phone
                     Number</label>
-                <input type="text" name="clientName" id="clientName" class="custom-select"></input>
+                <input type="text" name="clientName" id="clientName" class="custom-select" style="width: 200px"></input>
             </div>
             <div class="form-group" id="select-group" style="display: none">
                 <label class="text-white font-weight-bold" for="clientName">Select Client Name</label>
-                <select name="clientNameSelect" id="clientNameSelect" class="custom-select"></select>
+                <select name="clientNameSelect" id="clientNameSelect" class="custom-select" style="width: 200px"></select>
             </div>
             <div id="errorNotFound" class="alert alert-danger" role="alert" style="display: none">
                 No results found.
@@ -26,7 +26,13 @@
             <div id="errorTooMany" class="alert alert-danger" role="alert" style="display: none">
                 Too many results found.
             </div>
-            <table class="striped text-white" id="table" style="display: none">
+
+
+<!--            <input id="clientNamesAndPhoneNumbers" type="text" name="clientNamesAndPhoneNumbers" placeholder="clientNamesAndPhoneNumbers">-->
+
+
+
+            <table class="table-striped table-dark" id="table" style="display: none">
                 <thead>
                 <tr>
                     <td>Brand</td>
@@ -47,4 +53,5 @@
 <th:block th:include=" ~{fragments/footer}"></th:block>
 </body>
 <script src="/js/findClient.js" type="text/javascript"></script>
+<!--<script>autocomplete(document.getElementById("clientNamesAndPhoneNumbers"));</script>-->
 </html>

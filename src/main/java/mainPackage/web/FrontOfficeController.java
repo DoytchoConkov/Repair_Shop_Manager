@@ -39,7 +39,7 @@ public class FrontOfficeController {
     }
 
     @GetMapping("/fixed-orders")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ROLE_FRONT_OFFICE')")
     public String payOrder(Model model) {
         List<OrderReadyViewModel> orderReadyViewModels = orderService.getReady();
         model.addAttribute("orderReadyViewModels", orderReadyViewModels);
@@ -47,7 +47,7 @@ public class FrontOfficeController {
     }
 
     @GetMapping("/pay-order/{id}")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ROLE_FRONT_OFFICE')")
     public String payOrderRedirect(@PathVariable Long id, Model model) {
         OrderReadyViewModel orderReadyViewModel = orderService.getReadyById(id);
         model.addAttribute("orderReadyViewModel", orderReadyViewModel);
@@ -55,14 +55,14 @@ public class FrontOfficeController {
     }
 
     @PostMapping("/pay-order/{id}")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ROLE_FRONT_OFFICE')")
     public String payOrderNow(@PathVariable Long id) {
         orderService.pay(id);
         return "redirect:/home";
     }
 
     @GetMapping("/receive")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ROLE_FRONT_OFFICE')")
     public String OrderReceive(Model model) {
         List<DamageViewModel> damages = damageService.getAll();
         model.addAttribute("damages", damages);
@@ -77,7 +77,7 @@ public class FrontOfficeController {
     }
 
     @PostMapping("/receive")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ROLE_FRONT_OFFICE')")
     public String OrderReceiveConfirm(@Valid @ModelAttribute("orderReceiveBindingModel") OrderReceiveBindingModel orderReceiveBindingModel,
                                       BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
@@ -94,14 +94,14 @@ public class FrontOfficeController {
     }
 
     @GetMapping("/client-info")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ROLE_FRONT_OFFICE')")
     public String clientInfo(Model model) {
         model.addAttribute("clients", clientService.getAllClientNames());
         return "/info/client-info";
     }
 
     @GetMapping("/order-info")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ROLE_FRONT_OFFICE')")
     public String OrderCheck() {
         return "/info/orders-info";
     }
