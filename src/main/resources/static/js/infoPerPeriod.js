@@ -24,11 +24,11 @@ function getDetails(sDate, enDate, techic) {
                         let d1 = document.createElement("td")
                         d1.innerText = o.leaveDateString;
                         let d2 = document.createElement("td")
-                        d2.innerText = o.totalSparePartsPrice;
+                        d2.innerText = o.totalSparePartsPrice.toFixed(2);
                         let d3 = document.createElement("td")
                         d3.innerText = o.totalRepairPrice;
                         let d4 = document.createElement("td")
-                        d4.innerText = o.totalRepairPrice - o.totalSparePartsPrice;
+                        d4.innerText = (o.totalRepairPrice - o.totalSparePartsPrice).toFixed(2);
                         let d5 = document.createElement("td");
                         let btn = document.createElement("button");
                         btn.value = o.leaveDateString;
