@@ -9,6 +9,6 @@ import java.io.File;
 public class ClearLogs {
     @Scheduled(cron = "0 0 0 1 */3 *")
     public void clearFixesInThreeMounts() {
-        new File("scr/main/java/logs/mainPackage/orderFix.log").delete();
+        new File("scr/main/java/logs/mainPackage/logFile.log").delete();
     }
 }

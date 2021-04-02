@@ -105,10 +105,10 @@ class UserControlerTest {
 
     @Test
     void failedLogin() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post(USER_CONTROLLER_PREFIX + "/login")
+        mockMvc.perform(MockMvcRequestBuilders.post(USER_CONTROLLER_PREFIX + "/login-error")
                 .param("name", "Valio")
                 .param("password", "11111")
                 .with(csrf())).
-                andExpect(status().is2xxSuccessful());
+                andExpect(status().is3xxRedirection());
     }
 }

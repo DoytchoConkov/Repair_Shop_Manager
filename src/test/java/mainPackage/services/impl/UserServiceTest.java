@@ -1,5 +1,6 @@
 package mainPackage.services.impl;
 
+import mainPackage.errors.SparePartIdNotFoundException;
 import mainPackage.models.bindings.UserRolesBindingModel;
 import mainPackage.models.entities.RoleName;
 import mainPackage.models.entities.User;
@@ -84,6 +85,11 @@ class UserServiceTest {
         user.setUsername("Ivan");
         Mockito.when(mockUserRepository.findByUsername("Ivan")).thenReturn(java.util.Optional.of(user));
         assertEquals(user, userService.getUserByUserName("Ivan"));
+    }
+
+    @Test
+    void getUserByUserNameWithWrongId() {
+        Assertions.assertThrows(UsernameNotFoundException.class, () -> userService.getUserByUserName("Petko"));
     }
 
     @Test

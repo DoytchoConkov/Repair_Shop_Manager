@@ -22,23 +22,19 @@ public class SLOFixOrder {
     }
 
     @Around(value = "@annotation(TrackLatency)")
-    public void trackLatency(ProceedingJoinPoint pjp, TrackLatency TrackLatency) throws Throwable {
+    public Object trackLatency(ProceedingJoinPoint pjp, TrackLatency TrackLatency) throws Throwable {
         String latencyId = TrackLatency.latency();
-//        SLOsConfig.SLOConfig config = configs.getSlos().
-//                stream().
-//                filter(s -> s.getId().equals(latencyId)).
-//                findAny().orElseThrow(() -> new IllegalStateException("Configuration with id " + latencyId + " not found!"));
-
         DateTimeFormatter formatterToString = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
-        pjp.proceed();
+        Object obj = pjp.proceed();
         stopWatch.stop();
 
         long actualLatency = stopWatch.getLastTaskTimeMillis();
-        FileWriter myWriter = new FileWriter("src/main/java/mainPackage/logs/orderFix.log", true);
-        myWriter.write(String.format("%s The latency for %s is: %d%n", LocalDateTime.now().format(formatterToString), latencyId, actualLatency));
+        FileWriter myWriter = new FileWriter("src/main/java/mainPackage/logs/logFile.log", true);
+        myWriter.write(String.format("%s The latency for %s is: %dms%n", LocalDateTime.now().format(formatterToString), latencyId, actualLatency));
         myWriter.close();
+        return obj;
     }
 }

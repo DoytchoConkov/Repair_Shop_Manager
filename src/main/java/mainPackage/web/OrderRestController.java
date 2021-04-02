@@ -30,6 +30,7 @@ public class OrderRestController {
         return orderService.findOrdersByClientId(Long.valueOf(clientId));
     }
 
+    @TrackLatency(latency = "income")
     @GetMapping("/income")
     public List<IncomePerPeriodViewModel> getOrderPerPeriod(@RequestParam String starDate, @RequestParam String endDate,
                                                             @RequestParam String technician) {

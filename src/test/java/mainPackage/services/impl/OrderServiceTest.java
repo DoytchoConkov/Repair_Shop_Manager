@@ -1,5 +1,6 @@
 package mainPackage.services.impl;
 
+import mainPackage.errors.OrderIdNotFoundException;
 import mainPackage.models.entities.*;
 import mainPackage.models.services.ClientServiceModel;
 import mainPackage.models.services.IncomePerPeriodServiceModel;
@@ -24,6 +25,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -145,6 +147,11 @@ class OrderServiceTest {
         assertEquals(order.getModel().getBrand().getBrandName(), actual.getBrand());
         assertEquals(order.getDamage().getDamageName(), actual.getDamage());
         assertEquals(order.getSerialNumber(), actual.getSerialNumber());
+    }
+
+    @Test
+    void getByIdWithWrongId() {
+        Assertions.assertThrows(OrderIdNotFoundException.class, () -> orderService.getById(23L));
     }
 
     @Test

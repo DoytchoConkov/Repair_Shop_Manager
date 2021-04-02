@@ -60,7 +60,7 @@ public class BackOfficeController {
         model.addAttribute("spareParts", sparePartViewModels);
         return "/orders/order-fixing";
     }
-
+    @TrackLatency(latency = "fix order")
     @PostMapping("/fix/{id}")
     @PreAuthorize("hasRole('ROLE_BACK_OFFICE')")
     public String fixOrderConfirm(@PathVariable Long id, @Valid @ModelAttribute("orderFixBindingModel") OrderFixBindingModel orderFixBindingModel,

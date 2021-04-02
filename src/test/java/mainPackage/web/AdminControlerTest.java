@@ -73,6 +73,23 @@ class AdminControlerTest {
                 andExpect(status().is2xxSuccessful());
     }
 
+    @Test
+    @WithMockUser(username = "Borko", roles = {"ADMIN"})
+    void addUserRoleConfirmWithNoName() throws Exception {
+        User user = new User();
+        user.setUsername("Valio");
+        user.setPassword("$2a$10$Dr9P8sptTPVfPyE0ynbXJOd9BYAwMCPL3l.NIe29F4LnNyZhi0lSu");
+        UserRole userRole = userRoleRepository.findByRole(RoleName.ADMIN).orElseThrow();
+        user.setRoles(Set.of(userRole));
+        userRepository.save(user);
+        mockMvc.perform(MockMvcRequestBuilders.post(ADMIN_CONTROLLER_PREFIX + "/set-user-role")
+                .param("username", "")
+                .param("roles", "USER")
+                .param("roles", "SENIOR")
+                .with(csrf())).
+                andExpect(status().is3xxRedirection());
+    }
+
     private void init() {
         User user = new User();
         user.setUsername("Borko");

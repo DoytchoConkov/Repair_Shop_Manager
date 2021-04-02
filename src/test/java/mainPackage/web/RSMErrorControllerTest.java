@@ -1,45 +1,51 @@
 package mainPackage.web;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.Mockito;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @AutoConfigureTestDatabase
 class RSMErrorControllerTest {
-    @Autowired
-    private MockMvc mockMvc;
-    @Mock
-    HttpServletRequest request;
+    HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
 
     @Test
-    @WithMockUser(username = "Ivan")
-    void handleError() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/abc"))
-                .andExpect(status().is4xxClientError());
+    public void returnsView404WhenPageIsNotFound() throws Exception {
+        RSMErrorController rsmErrorController = new RSMErrorController();
+        Mockito.when(request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE))
+                .thenReturn(404);
+        Assert.assertEquals(rsmErrorController.handleError(request), "errors/error-404");
+
+
+    }
+
+    @Test
+    public void returnsView403WhenThereIsAnError() throws Exception {
+        RSMErrorController rsmErrorController = new RSMErrorController();
+        Mockito.when(request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE))
+                .thenReturn(403);
+        Assert.assertEquals(rsmErrorController.handleError(request), "errors/error-page");
+
+
+    }
+
+    @Test
+    public void returnsView500ForAnyOtherError() throws Exception {
+        RSMErrorController rsmErrorController = new RSMErrorController();
+        Mockito.when(request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE)).thenReturn(400);
+        Assert.assertEquals(rsmErrorController.handleError(request), "errors/error-page");
     }
     @Test
-    @WithMockUser(username = "Ivan", roles = {"FRONT_OFFICE"})
-    void handleErrorWithInvalidId() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/front-office/pay-order/{id}",25L))
-                .andExpect(status().is4xxClientError());
-    }
-    @Test
-    @WithMockUser(username = "Ivan", roles = {"FRONT_OFFICE"})
-    void handleErrorNotAuthorized() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/back-office/not-fixed/{id}",1L))
-                .andExpect(status().is4xxClientError());
+    public void getErrorPath() throws Exception {
+        RSMErrorController rsmErrorController = new RSMErrorController();
+        Mockito.when(request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE)).thenReturn(400);
+        Assert.assertEquals(rsmErrorController.getErrorPath(), "/error");
     }
 }
