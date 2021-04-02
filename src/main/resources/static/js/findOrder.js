@@ -24,8 +24,11 @@ input.keyup(() => {
                     errorTooMany[0].style.display = "none";
                     errorNotFound[0].style.display = "none";
                     table[0].style.display = "block";
+                    let i = 1;
                     or.forEach((o) => {
-                        let row = `<tr><td>${o.brandName}</td>
+                        let row = `<tr>
+                                     <th scope="row">${i++}</th>
+                                     <td>${o.brandName}</td>
                                      <td>${o.model}</td>
                                      <td>${o.serialNumber}</td>
                                      <td>${o.damage}</td>
