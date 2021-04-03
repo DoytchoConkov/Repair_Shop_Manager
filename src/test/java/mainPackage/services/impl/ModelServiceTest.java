@@ -17,6 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -43,8 +46,8 @@ class ModelServiceTest {
         model.setModelName("Iphone 12 Pro Max");
         model.setBrand(brand);
         Mockito.when(mockModelRepository.findByModelName("Samsung", "Galaxy S21")).thenReturn(null);
-        Model receivedModel = modelService.getModel("Apple", "Iphone 12 Pro Max");
-//        assertEquals(model.getModelName(), receivedModel.getModelName());
+        modelService.getModel("Apple", "Iphone 12 Pro Max");
+        verify(mockModelRepository,times(1)).save(any());
     }
     @Test
     void getModelWhichNotExistBrand() {
@@ -53,8 +56,8 @@ class ModelServiceTest {
         model.setModelName("Iphone 12 Pro Max");
         model.setBrand(brand);
         Mockito.when(mockModelRepository.findByModelName("Samsung", "Galaxy S21")).thenReturn(model);
-        Model receivedModel = modelService.getModel("Apple", "Iphone 12 Pro Max");
-//        assertEquals(model.getModelName(), receivedModel.getModelName());
+        modelService.getModel("Apple", "Iphone 12 Pro Max");
+        verify(mockModelRepository,times(1)).save(any());
     }
 
     @Test

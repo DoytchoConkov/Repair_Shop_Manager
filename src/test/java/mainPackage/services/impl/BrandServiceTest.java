@@ -17,6 +17,9 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -40,9 +43,8 @@ class BrandServiceTest {
     void getByMissingBrand() {
         Brand brand = new Brand("Nokia");
         Mockito.when(mockBrandRepository.findByBrandName("Nokia")).thenReturn(null);
-        Mockito.when(mockBrandRepository.save(brand)).thenReturn(brand);
         Brand receivedBrand=brandService.getBrand("Nokia");
-     //   assertEquals(brand.getBrandName(),receivedBrand.getBrandName());
+        verify(mockBrandRepository,times(1)).save(any());
     }
 
     @Test

@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Set;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -39,6 +40,10 @@ class FrontOfficeControllerTest {
     private OrderRepository orderRepository;
     @Autowired
     private SparePartsRepository sparePartsRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private UserRoleRepository userRoleRepository;
 
     @BeforeEach
     public void setup() {
@@ -53,11 +58,11 @@ class FrontOfficeControllerTest {
         damageRepository.deleteAll();
         modelRepository.deleteAll();
         brandRepository.deleteAll();
-        damageRepository.deleteAll();
+        userRepository.deleteAll();
     }
 
     @Test
-    @WithMockUser(username = "Doytcho", roles = {"FRONT_OFFICE"})
+    @WithMockUser(username = "Plamen", roles = {"FRONT_OFFICE"})
     void payOrder() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(
                 FRONT_OFFICE_CONTROLLER_PREFIX + "/fixed-orders"))
@@ -67,7 +72,7 @@ class FrontOfficeControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "Doytcho", roles = {"FRONT_OFFICE"})
+    @WithMockUser(username = "Plamen", roles = {"FRONT_OFFICE"})
     void payOrderRedirect() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(
                 FRONT_OFFICE_CONTROLLER_PREFIX + "/pay-order/{id}", orderId))
@@ -77,7 +82,7 @@ class FrontOfficeControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "Doytcho", roles = {"FRONT_OFFICE"})
+    @WithMockUser(username = "Plamen", roles = {"FRONT_OFFICE"})
     void payOrderNow() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post(
                 FRONT_OFFICE_CONTROLLER_PREFIX + "/pay-order/{id}", orderId))
@@ -86,7 +91,7 @@ class FrontOfficeControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "Doytcho", roles = {"FRONT_OFFICE"})
+    @WithMockUser(username = "Plamen", roles = {"FRONT_OFFICE"})
     void orderReceive() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(
                 FRONT_OFFICE_CONTROLLER_PREFIX + "/receive", orderId))
@@ -96,7 +101,7 @@ class FrontOfficeControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "Doytcho", roles = {"FRONT_OFFICE"})
+    @WithMockUser(username = "Plamen", roles = {"FRONT_OFFICE"})
     void orderReceiveConfirm() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post(
                 FRONT_OFFICE_CONTROLLER_PREFIX + "/receive")
@@ -111,7 +116,7 @@ class FrontOfficeControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "Doytcho", roles = {"FRONT_OFFICE"})
+    @WithMockUser(username = "Plamen", roles = {"FRONT_OFFICE"})
     void clientInfo() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(
                 FRONT_OFFICE_CONTROLLER_PREFIX + "/client-info", clientId))
@@ -121,7 +126,7 @@ class FrontOfficeControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "Doytcho", roles = {"FRONT_OFFICE"})
+    @WithMockUser(username = "Plamen", roles = {"FRONT_OFFICE"})
     void orderCheck() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(
                 FRONT_OFFICE_CONTROLLER_PREFIX + "/order-info", orderId))
@@ -130,6 +135,13 @@ class FrontOfficeControllerTest {
     }
 
     private void init() {
+        User user = new User();
+        user.setUsername("Plamen");
+        user.setPassword("$2a$10$Dr9P8sptTPVfPyE0ynbXJOd9BYAwMCPL3l.NIe29F4LnNyZhi0lSu");
+        UserRole userRole = userRoleRepository.findByRole(RoleName.ADMIN).orElseThrow();
+        UserRole userRole2 = userRoleRepository.findByRole(RoleName.FRONT_OFFICE).orElseThrow();
+        user.setRoles(Set.of(userRole, userRole2));
+        user = userRepository.save(user);
         Brand brand = new Brand("Samsung");
         brand = brandRepository.save(brand);
         Model model = new Model("Galaxy S21", brand);

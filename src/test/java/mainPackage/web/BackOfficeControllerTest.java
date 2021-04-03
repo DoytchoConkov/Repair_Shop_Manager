@@ -134,7 +134,7 @@ class BackOfficeControllerTest {
         user.setUsername("Doytcho");
         user.setPassword("$2a$10$Dr9P8sptTPVfPyE0ynbXJOd9BYAwMCPL3l.NIe29F4LnNyZhi0lSu");
         UserRole userRole = userRoleRepository.findByRole(RoleName.ADMIN).orElseThrow();
-        UserRole userRole2 = userRoleRepository.findByRole(RoleName.SENIOR).orElseThrow();
+        UserRole userRole2 = userRoleRepository.findByRole(RoleName.BACK_OFFICE).orElseThrow();
         user.setRoles(Set.of(userRole, userRole2));
         user = userRepository.save(user);
         Long userId = user.getId();

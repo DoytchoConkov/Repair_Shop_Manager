@@ -41,9 +41,37 @@ class ClientRestControllerTest {
     @Autowired
     private UserRoleRepository userRoleRepository;
 
+    @BeforeEach
+    public void setup() {
+        this.init();
+    }
+
+    @AfterEach
+    public void clearDB() {
+        clientRepository.deleteAll();
+        userRepository.deleteAll();
+    }
+
     @Test
     @WithMockUser(username = "Doytcho", roles = {"FRONT_OFFICE"})
     void getAllModelsForBrand() throws Exception {
+
+        this.mockMvc.perform(get("/client/find-client").param("clientName", "vailo"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$.[0].clientName", is("Ivailo Boukliev")));
+    }
+
+    @Test
+    @WithMockUser(username = "Doytcho", roles = {"FRONT_OFFICE"})
+    void getAll() throws Exception {
+        this.mockMvc.perform(get("/client/all"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$.[0].clientName", is("Ivailo Boukliev")));
+    }
+
+    private void init() {
         Client client = new Client();
         client.setClientName("Ivailo Boukliev");
         client.setClientPhoneNumber("0888666646");
@@ -54,9 +82,5 @@ class ClientRestControllerTest {
         UserRole userRole = userRoleRepository.findByRole(RoleName.ADMIN).orElseThrow();
         user.setRoles(Set.of(userRole));
         userRepository.save(user);
-        this.mockMvc.perform(get("/client/find-client").param("clientName", "vailo"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$.[0].clientName", is("Ivailo Boukliev")));
     }
 }
