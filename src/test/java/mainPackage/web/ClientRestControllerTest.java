@@ -42,7 +42,7 @@ class ClientRestControllerTest {
     private UserRoleRepository userRoleRepository;
 
     @Test
-    @WithMockUser(username = "Doytcho", roles = {"SENIOR"})
+    @WithMockUser(username = "Doytcho", roles = {"FRONT_OFFICE"})
     void getAllModelsForBrand() throws Exception {
         Client client = new Client();
         client.setClientName("Ivailo Boukliev");

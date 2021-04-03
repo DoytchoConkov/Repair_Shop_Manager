@@ -9,6 +9,4 @@ public interface ModelService {
     Model getModel(String brand, String model);
 
     List<ModelViewModel> getAll();
-
-    List<String> getByBrandName(String brandName);
 }

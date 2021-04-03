@@ -65,24 +65,4 @@ class ModelServiceTest {
         List<ModelViewModel> allModels = modelService.getAll();
         assertEquals(models.size(), allModels.size());
     }
-
-    @Test
-    void getByBrandNameWithValidBrandName() {
-        List<Model> models = new ArrayList<>();
-        Model model = new Model();
-        Brand brand = new Brand("Apple");
-        model.setBrand(brand);
-        model.setModelName("Iphone 6s");
-        models.add(model);
-        Mockito.when(mockModelRepository.findByBrandName("Apple")).thenReturn(List.of("Apple"));
-        List<String> allModels = modelService.getByBrandName("Apple");
-        assertEquals(models.size(), allModels.size());
-    }
-
-    @Test
-    void getByBrandNameWithNotValidBrandName() {
-        Mockito.when(mockModelRepository.findByBrandName("Apple")).thenReturn(new ArrayList<>());
-        List<String> allModels = modelService.getByBrandName("Apple");
-        assertTrue(allModels.isEmpty());
-    }
 }

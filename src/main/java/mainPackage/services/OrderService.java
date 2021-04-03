@@ -7,6 +7,7 @@ import mainPackage.models.views.OrderNotReadyViewModel;
 import mainPackage.models.services.OrderReceiveServiceModel;
 import mainPackage.models.views.OrderReadyViewModel;
 import mainPackage.models.views.OrderViewModel;
+import org.springframework.data.jpa.repository.Query;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -49,4 +50,6 @@ public interface OrderService {
     int countNotReadyOrders();
 
     int countReadyOrders();
+
+    List<String> getByBrandName(String brandName);
 }

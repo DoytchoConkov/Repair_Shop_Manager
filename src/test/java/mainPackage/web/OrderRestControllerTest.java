@@ -64,7 +64,7 @@ class OrderRestControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "Vasko", roles = {"BACK_OFFICE", "SENIOR"})
+    @WithMockUser(username = "Vasko", roles = {"FRONT_OFFICE"})
     void getAllModelsForBrand() throws Exception {
         this.mockMvc.perform(get(ORDER_REST_CONTROLLER_PREFIX + "/find-order")
                 .param("serialNumber", "02060"))
@@ -74,7 +74,7 @@ class OrderRestControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "Vasko", roles = {"BACK_OFFICE", "SENIOR"})
+    @WithMockUser(username = "Vasko", roles = {"FRONT_OFFICE"})
     void getAllByClientId() throws Exception {
         this.mockMvc.perform(get(ORDER_REST_CONTROLLER_PREFIX + "/find-clientById")
                 .param("clientId", clientId))
@@ -104,6 +104,16 @@ class OrderRestControllerTest {
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$.[0].clientName", is("Petko")));
     }
+
+//    @Test
+//    @WithMockUser(username = "Doytcho", roles = {"BACK_OFFICE"})
+//    void getAllModelsForBrandREST() throws Exception {
+//        this.mockMvc.perform(get(ORDER_REST_CONTROLLER_PREFIX + "/models")
+//                .param("brandName", "Pocophone"))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$", hasSize(1)))
+//                .andExpect(jsonPath("$.[0]", is("F1")));
+//    }
 
     private void init() {
         User user = new User();

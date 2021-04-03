@@ -27,10 +27,10 @@
                     <li class="nav-item"  sec:authorize="hasAnyRole('ROLE_BACK_OFFICE')">
                             <a class="nav-link" href="/back-office/not-fixed">Fix Order</a>
                     </li>
-                    <li class="nav-item"   sec:authorize="hasAnyRole('ROLE_BACK_OFFICE','ROLE_SENIOR')">
+                    <li class="nav-item"   sec:authorize="hasAnyRole('ROLE_BACK_OFFICE')">
                             <a class="nav-link" href="/back-office/add-spare-part">Add Spare Part</a>
                     </li>
-                    <li class="nav-item dropdown" sec:authorize="hasAnyRole('ROLE_FRONT_OFFICE','ROLE_BACK_OFFICE','ROLE_SENIOR')">
+                    <li class="nav-item dropdown" sec:authorize="hasAnyRole('ROLE_FRONT_OFFICE')">
                             <a class="nav-link dropdown-toggle" href="/" id="navbarDropdownInfo" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Info</a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownInfo">

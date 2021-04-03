@@ -47,4 +47,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query("select count(o.id) from Order as o where o.totalRepairPrice is null")
     int countReadyOrders();
+
+    @Query("select m.modelName from Order as o join o.model as m where m.brand.brandName=:brandName order by m.modelName")
+    List<String> getByBrandName(String brandName);
 }

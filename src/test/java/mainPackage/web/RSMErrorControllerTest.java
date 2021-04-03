@@ -31,7 +31,7 @@ class RSMErrorControllerTest {
         RSMErrorController rsmErrorController = new RSMErrorController();
         Mockito.when(request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE))
                 .thenReturn(403);
-        Assert.assertEquals(rsmErrorController.handleError(request), "errors/error-page");
+        Assert.assertEquals(rsmErrorController.handleError(request), "errors/error-403");
 
 
     }

@@ -396,4 +396,24 @@ class OrderServiceTest {
         int readyOrders = orderService.countReadyOrders();
         assertEquals(1, readyOrders);
     }
+    @Test
+    void getByBrandNameWithValidBrandName() {
+        List<Model> models = new ArrayList<>();
+        Model model = new Model();
+        Brand brand = new Brand("Apple");
+        model.setBrand(brand);
+        model.setModelName("Iphone 6s");
+        models.add(model);
+        Mockito.when(mockOrderRepository.getByBrandName("Apple")).thenReturn(List.of("Apple"));
+        List<String> allModels = orderService.getByBrandName("Apple");
+        assertEquals(models.size(), allModels.size());
+    }
+
+    @Test
+    void getByBrandNameWithNotValidBrandName() {
+        Mockito.when(mockOrderRepository.getByBrandName("Apple")).thenReturn(new ArrayList<>());
+        List<String> allModels = orderService.getByBrandName("Apple");
+        assertTrue(allModels.isEmpty());
+    }
+
 }

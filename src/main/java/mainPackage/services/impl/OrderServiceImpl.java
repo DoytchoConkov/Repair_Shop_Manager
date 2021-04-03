@@ -226,6 +226,11 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.countReadyOrders();
     }
 
+    @Override
+    public List<String> getByBrandName(String brandName) {
+        return orderRepository.getByBrandName(brandName);
+    }
+
     private List<OrderViewModel> getOrderViewModels(List<Order> ords) {
         return ords.stream()
                 .map(ord -> {

@@ -21,13 +21,13 @@ public class ClientRestController {
     }
 
     @GetMapping("/find-client")
-    @PreAuthorize("hasRole('ROLE_SENIOR')")
+    @PreAuthorize("hasRole('ROLE_FRONT_OFFICE')")
     public List<ClientViewModel> getAllModelsForBrand(@RequestParam String clientName) {
         return clientService.findByNameOrPhoneNumber(clientName);
     }
 
     @GetMapping("/all")
-    @PreAuthorize("hasRole('ROLE_SENIOR')")
+    @PreAuthorize("hasRole('ROLE_FRONT_OFFICE')")
     public List<ClientViewModel> getAll() {
         return clientService.getAll();
     }

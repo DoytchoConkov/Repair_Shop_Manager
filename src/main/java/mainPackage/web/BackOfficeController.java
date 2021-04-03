@@ -3,14 +3,12 @@ package mainPackage.web;
 import mainPackage.aop.TrackLatency;
 import mainPackage.models.bindings.OrderFixBindingModel;
 import mainPackage.models.bindings.SparePartBindingModel;
-import mainPackage.models.bindings.UserRegisterBindingModel;
 import mainPackage.models.services.OrderFixServiceModel;
 import mainPackage.models.services.SparePartServiceModel;
 import mainPackage.models.views.BrandViewModel;
 import mainPackage.models.views.OrderNotReadyViewModel;
 import mainPackage.models.views.SparePartViewModel;
 import mainPackage.services.BrandService;
-import mainPackage.services.ModelService;
 import mainPackage.services.OrderService;
 import mainPackage.services.SparePartsService;
 import org.modelmapper.ModelMapper;
@@ -23,7 +21,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
@@ -106,8 +103,6 @@ public class BackOfficeController {
             return "redirect:/back-office/add-spare-part";
         }
         sparePartsService.save(modelMapper.map(sparePartsReceiveBindingModel, SparePartServiceModel.class));
-
-
         return "redirect:/home";
     }
 }

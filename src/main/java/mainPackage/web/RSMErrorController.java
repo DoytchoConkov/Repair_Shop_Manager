@@ -25,6 +25,8 @@ public class RSMErrorController implements ErrorController {
 
             if (statusCode == HttpStatus.NOT_FOUND.value()) {
                 return "errors/error-404";
+            } else if (statusCode == HttpStatus.FORBIDDEN.value()) {
+                return "errors/error-403";
             } else if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
                 return "errors/error-500";
             }

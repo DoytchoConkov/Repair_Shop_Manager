@@ -50,16 +50,6 @@ class SparePartRestControlerTest {
 
     @Test
     @WithMockUser(username = "Doytcho", roles = {"SENIOR"})
-    void getAllModelsForBrand() throws Exception {
-        this.mockMvc.perform(get(SPARE_PARTS_REST_CONTROLLER_PREFIX + "/models")
-                .param("brandName", "Pocophone"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$.[0]", is("F1")));
-    }
-
-    @Test
-    @WithMockUser(username = "Doytcho", roles = {"SENIOR"})
     void getSparePartsForBrandAndModel() throws Exception {
         this.mockMvc.perform(get(SPARE_PARTS_REST_CONTROLLER_PREFIX + "/spare-parts")
                 .param("brandName", "Pocophone")
