@@ -31,9 +31,8 @@ sp.change(() => {
         .then((response) => response.json())
         .then((sp) => {
             if (sp != null) {
-                console.log(sp)
-            } else {
-                console.log("Hello")
+                $('#currentPieces').text(sp.pieces);
+                $('#currentPrice').text(sp.price);
             }
         })
 })
@@ -46,8 +45,6 @@ sp.keyup(() => {
                 if (sp != null) {
                     $('#currentPieces').text(sp.pieces);
                     $('#currentPrice').text(sp.price);
-                } else {
-                    console.log("Hello")
                 }
             })
     }
