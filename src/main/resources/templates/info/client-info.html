@@ -12,25 +12,11 @@
         <h2 class="text-center text-white">Client orders info.</h2>
         <div class="div-form mx-auto col-md-8 d-flex flex-column justify-content-center">
             <div class="form-group">
-                <label class="text-white font-weight-bold" for="clientName">Enter Part of Client Name or Phone
-                    Number</label>
-                <input type="text" name="clientName" id="clientName" class="custom-select" style="width: 200px"></input>
+                <label class="text-white font-weight-bold" for="clientNamesAndPhoneNumbers">Enter Part of Client Name or Phone
+                    Number: </label>
+                <input id="clientNamesAndPhoneNumbers" type="text" name="clientNamesAndPhoneNumbers"
+                       style="width: 300px" placeholder="Enter name or phone number">
             </div>
-            <div class="form-group" id="select-group" style="display: none">
-                <label class="text-white font-weight-bold" for="clientName">Select Client Name</label>
-                <select name="clientNameSelect" id="clientNameSelect" class="custom-select" style="width: 200px"></select>
-            </div>
-            <div id="errorNotFound" class="alert alert-danger" role="alert" style="display: none">
-                No results found.
-            </div>
-            <div id="errorTooMany" class="alert alert-danger" role="alert" style="display: none">
-                Too many results found.
-            </div>
-
-
-<!--            <input id="clientNamesAndPhoneNumbers" type="text" name="clientNamesAndPhoneNumbers" placeholder="clientNamesAndPhoneNumbers">-->
-
-
 
             <table class="table-striped table-dark" id="table" style="display: none">
                 <thead>
