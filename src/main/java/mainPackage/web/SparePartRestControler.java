@@ -58,4 +58,10 @@ public class SparePartRestControler {
     public SparePartViewModel getByBrandModelAndName(@RequestParam String brandName, @RequestParam String modelName, @RequestParam String spName) {
         return sparePartsService.getByBrandModelName(brandName, modelName, spName);
     }
+    @GetMapping("/models")
+    @PreAuthorize("hasRole('ROLE_BACK_OFFICE') or hasRole('ROLE_SENIOR')")
+    public List<String> getSparePartsForBrand(@RequestParam String brandName) {
+        List<String> spareParts = sparePartsService.getSparePartsByBrandName(brandName);
+        return spareParts;
+    }
 }

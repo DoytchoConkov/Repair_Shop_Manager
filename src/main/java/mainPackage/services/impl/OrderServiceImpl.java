@@ -228,7 +228,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<String> getByBrandName(String brandName) {
-        return orderRepository.getByBrandName(brandName);
+        return modelService.getByBrandName(brandName);
     }
 
     private List<OrderViewModel> getOrderViewModels(List<Order> ords) {

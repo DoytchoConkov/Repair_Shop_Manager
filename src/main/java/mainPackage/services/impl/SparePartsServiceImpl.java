@@ -131,4 +131,9 @@ public class SparePartsServiceImpl implements SparePartsService {
             sparePartsRepository.save(sp);
         });
     }
+
+    @Override
+    public List<String> getSparePartsByBrandName(String brandName) {
+        return modelService.getByBrandName(brandName);
+    }
 }

@@ -25,7 +25,7 @@ model.change(() => {
             spareParts.append(spn);
         }))
 })
-
+//TODO
 sp.change(() => {
     fetch('http://localhost:8080/spare-parts/spare-parts-name?brandName=' + brand[0].value + '&modelName=' + model[0].value + '&spName=' + sp[0].value)
         .then((response) => response.json())

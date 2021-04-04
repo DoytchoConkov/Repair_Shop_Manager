@@ -38,4 +38,9 @@ public class ModelServiceImpl implements ModelService {
         return modelRepository.findAll().stream().map(m->modelMapper.map(m,ModelViewModel.class))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<String> getByBrandName(String brandName) {
+        return modelRepository.getByBrandName(brandName);
+    }
 }

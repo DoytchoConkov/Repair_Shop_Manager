@@ -10,6 +10,7 @@ import mainPackage.models.views.IncomePerPeriodViewModel;
 import mainPackage.models.views.OrderNotReadyViewModel;
 import mainPackage.models.views.OrderReadyViewModel;
 import mainPackage.models.views.OrderViewModel;
+import mainPackage.repositories.ModelRepository;
 import mainPackage.repositories.OrderRepository;
 import mainPackage.repositories.UserRepository;
 import mainPackage.services.OrderService;
@@ -47,6 +48,8 @@ class OrderServiceTest {
     private OrderService orderService;
     @MockBean
     private OrderRepository mockOrderRepository;
+    @MockBean
+    private ModelRepository mockModelRepository;
     @MockBean
     private UserRepository mockUserRepository;
 
@@ -404,14 +407,14 @@ class OrderServiceTest {
         model.setBrand(brand);
         model.setModelName("Iphone 6s");
         models.add(model);
-        Mockito.when(mockOrderRepository.getByBrandName("Apple")).thenReturn(List.of("Apple"));
+        Mockito.when(mockModelRepository.getByBrandName("Apple")).thenReturn(List.of("Apple"));
         List<String> allModels = orderService.getByBrandName("Apple");
         assertEquals(models.size(), allModels.size());
     }
 
     @Test
     void getByBrandNameWithNotValidBrandName() {
-        Mockito.when(mockOrderRepository.getByBrandName("Apple")).thenReturn(new ArrayList<>());
+        Mockito.when(mockModelRepository.getByBrandName("Apple")).thenReturn(new ArrayList<>());
         List<String> allModels = orderService.getByBrandName("Apple");
         assertTrue(allModels.isEmpty());
     }

@@ -48,7 +48,7 @@ public class OrderRestController {
     }
 
     @GetMapping("/models")
-    @PreAuthorize("hasRole('ROLE_BACK_OFFICE') or hasRole('ROLE_SENIOR')")
+    @PreAuthorize("hasRole('ROLE_BACK_OFFICE') or hasRole('ROLE_FRONT_OFFICE')")
     public List<String> getAllModelsForBrandREST(@RequestParam String brandName) {
         List<String> models = orderService.getByBrandName(brandName);
         return models;
