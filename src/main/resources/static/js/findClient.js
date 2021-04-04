@@ -26,7 +26,6 @@ function autocomplete(inp) {
                 a.setAttribute("id", this.id + "autocomplete-list");
                 a.setAttribute("class", "autocomplete-items");
                 /*append the DIV element as a child of the autocomplete container:*/
-                this.parentNode.appendChild(a);
                 /*for each item in the array...*/
                 for (i = 0; i < arr.length; i++) {
                     /*check if the item starts with the same letters as the text field value:*/
@@ -34,16 +33,16 @@ function autocomplete(inp) {
                         /*create a DIV element for each matching element:*/
                         b = document.createElement("DIV");
                         /*make the matching letters bold:*/
-                        b.innerHTML = "<strong>" + arr[i].clientName + ' ' + arr[i].clientPhoneNumber + "</strong>";
+                        b.innerHTML = "<p>" + arr[i].clientName + ' ' + arr[i].clientPhoneNumber + "</p>";
                         /*insert a input field that will hold the current array item's value:*/
                         b.innerHTML += "<input type='hidden' value='" + arr[i].id + "'>";
                         /*execute a function when someone clicks on the item value (DIV element):*/
                         b.addEventListener("click", function (e) {
                             /*insert the value for the autocomplete text field:*/
-                            inp.value = this.getElementsByTagName("input")[0].value;
+                            inp.value = this.getElementsByTagName("p")[0].innerText;
                             /*close the list of autocompleted values,
                             (or any other open lists of autocompleted values:*/
-                            fetch('http://localhost:8080/orders/find-clientById?clientId=' + inp.value)
+                            fetch('http://localhost:8080/orders/find-clientById?clientId=' + this.getElementsByTagName("input")[0].value)
                                 .then((response) => response.json())
                                 .then((or) => {
                                     tableBody.empty();
@@ -62,11 +61,10 @@ function autocomplete(inp) {
                                         tableBody.append(row);
                                     })
                                 })
-
-
                             closeAllLists();
                         });
                         a.appendChild(b);
+                        document.getElementById("clientNamesAndPhoneNumbers").parentElement.appendChild(a);
                     }
                 }
             });
