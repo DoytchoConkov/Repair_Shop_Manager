@@ -1,6 +1,7 @@
 package mainPackage.services.impl;
 
 import mainPackage.errors.SparePartIdNotFoundException;
+import mainPackage.errors.UsernamesNotFoundException;
 import mainPackage.models.bindings.UserRolesBindingModel;
 import mainPackage.models.entities.RoleName;
 import mainPackage.models.entities.User;
@@ -89,7 +90,7 @@ class UserServiceTest {
 
     @Test
     void getUserByUserNameWithWrongId() {
-        Assertions.assertThrows(UsernameNotFoundException.class, () -> userService.getUserByUserName("Petko"));
+        Assertions.assertThrows(UsernamesNotFoundException.class, () -> userService.getUserByUserName("Petko"));
     }
 
     @Test

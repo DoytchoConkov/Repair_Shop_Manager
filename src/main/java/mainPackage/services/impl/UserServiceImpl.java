@@ -1,6 +1,7 @@
 package mainPackage.services.impl;
 
 import mainPackage.constants.Constants;
+import mainPackage.errors.UsernamesNotFoundException;
 import mainPackage.models.bindings.UserRolesBindingModel;
 import mainPackage.models.entities.RoleName;
 import mainPackage.models.entities.User;
@@ -36,7 +37,8 @@ public class UserServiceImpl implements UserService {
     private final CloudinaryService cloudinaryService;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, UserRoleRepository userRoleRepository, ModelMapper modelMapper, BCryptPasswordEncoder bCryptPasswordEncoder, UserServiceDB userServiceDB, CloudinaryService cloudinaryService) {
+    public UserServiceImpl(UserRepository userRepository, UserRoleRepository userRoleRepository, ModelMapper modelMapper,
+                           BCryptPasswordEncoder bCryptPasswordEncoder, UserServiceDB userServiceDB, CloudinaryService cloudinaryService) {
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
         this.modelMapper = modelMapper;
@@ -51,8 +53,8 @@ public class UserServiceImpl implements UserService {
         user.setPassword(this.bCryptPasswordEncoder.encode(userServiceModel.getPassword()));
         if (userRepository.count() == 0) {
             UserRole userRole = userRoleRepository.
-                    findByRole(RoleName.ADMIN).orElseThrow(
-                    () -> new IllegalStateException("USER role not found. Please seed the roles."));
+                    findByRole(RoleName.ADMIN).orElseThrow(() ->
+                    new IllegalStateException("USER role not found. Please seed the roles."));
 
             user.getRoles().add(userRole);
         }
@@ -73,7 +75,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByUserName(String username) {
-        return this.userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(String.format("%s not exist.",username)));
+        return this.userRepository.findByUsername(username).orElseThrow(() ->
+                new UsernamesNotFoundException(String.format("%s not exist.", username)));
     }
 
     @Override

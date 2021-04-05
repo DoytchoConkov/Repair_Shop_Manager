@@ -98,6 +98,15 @@ class SparePartRestControlerTest {
                 .andExpect(jsonPath("$.sparePartName", is("LCD")));
     }
 
+    @Test
+    @WithMockUser(username = "Doytcho", roles = {"SENIOR"})
+    void getSparePartsForBrand() throws Exception {
+        this.mockMvc.perform(get(SPARE_PARTS_REST_CONTROLLER_PREFIX + "/models")
+                .param("brandName", "Pocophone"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.[0]", is("F1")));
+    }
+
     private void init() {
         Brand brand = new Brand("Pocophone");
         brand = brandRepository.save(brand);
