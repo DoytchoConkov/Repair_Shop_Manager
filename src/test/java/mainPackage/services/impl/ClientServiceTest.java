@@ -1,6 +1,6 @@
 package mainPackage.services.impl;
 
-import mainPackage.models.entities.Client;
+import mainPackage.models.entities.ClientEntity;
 import mainPackage.models.services.ClientServiceModel;
 import mainPackage.models.views.ClientViewModel;
 import mainPackage.repositories.ClientRepository;
@@ -32,21 +32,21 @@ class ClientServiceTest {
 
     @Test
     void findByNameAndPhoneNumber() {
-        Client client = new Client();
+        ClientEntity client = new ClientEntity();
         client.setClientName("Gosho");
         client.setClientPhoneNumber("0878263591");
         ClientServiceModel clientServiceModel =new ClientServiceModel();
         clientServiceModel.setClientName("Gosho");
         clientServiceModel.setClientPhoneNumber("0878263591");
         Mockito.when(mockClientRepository.findByClientNameAndClientPhoneNumber("Gosho", "0878263591")).thenReturn(client);
-        Client receivedClient = clientService.findByNameAndPhoneNumber(clientServiceModel);
+        ClientEntity receivedClient = clientService.findByNameAndPhoneNumber(clientServiceModel);
         assertEquals(client,receivedClient);
     }
 
     @Test
     void getAllClientNames() {
-        List<Client> clients = new ArrayList<>();
-        clients.add(new Client());
+        List<ClientEntity> clients = new ArrayList<>();
+        clients.add(new ClientEntity());
         Mockito.when(mockClientRepository.findAll()).thenReturn(clients);
         List<ClientViewModel> allBrands = clientService.getAllClientNames();
         assertEquals(clients.size(), allBrands.size());
@@ -54,11 +54,11 @@ class ClientServiceTest {
 
     @Test
     void findContainingInName() {
-        List<Client> clients = new ArrayList<>();
-        Client client = new Client();
+        List<ClientEntity> clients = new ArrayList<>();
+        ClientEntity client = new ClientEntity();
         client.setClientName("Gosho");
         client.setClientPhoneNumber("0878263591");
-        clients.add(new Client());
+        clients.add(new ClientEntity());
         Mockito.when(mockClientRepository.findByClientNameOrPhoneNumber("%osh%")).thenReturn(clients);
         List<ClientViewModel> allClients = clientService.findByNameOrPhoneNumber("osh");
         assertEquals(clients.size(), allClients.size());
@@ -66,11 +66,11 @@ class ClientServiceTest {
 
     @Test
     void findContainingInPhoneNumber() {
-        List<Client> clients = new ArrayList<>();
-        Client client = new Client();
+        List<ClientEntity> clients = new ArrayList<>();
+        ClientEntity client = new ClientEntity();
         client.setClientName("Gosho");
         client.setClientPhoneNumber("0878263591");
-        clients.add(new Client());
+        clients.add(new ClientEntity());
         Mockito.when(mockClientRepository.findByClientNameOrPhoneNumber("%087%")).thenReturn(clients);
         List<ClientViewModel> allClients = clientService.findByNameOrPhoneNumber("087");
         assertEquals(clients.size(), allClients.size());

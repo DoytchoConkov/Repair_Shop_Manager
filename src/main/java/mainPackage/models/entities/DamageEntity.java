@@ -8,14 +8,14 @@ import java.util.List;
 
 @Entity
 @Table(name = "damages")
-public class Damage extends BaseEntity{
+public class DamageEntity extends BaseEntity{
     private String damageName;
-    private List<Order> orders;
+    private List<OrderEntity> orders;
 
-    public Damage() {
+    public DamageEntity() {
     }
 
-    public Damage(String damageName) {
+    public DamageEntity(String damageName) {
         this.damageName = damageName;
     }
 
@@ -24,16 +24,16 @@ public class Damage extends BaseEntity{
         return damageName;
     }
 
-    public void setDamageName(String damagename) {
-        this.damageName = damagename;
+    public void setDamageName(String damage) {
+        this.damageName = damage;
     }
 
     @OneToMany(mappedBy = "damage")
-    public List<Order> getOrders() {
+    public List<OrderEntity> getOrders() {
         return orders;
     }
 
-    public void setOrders(List<Order> order) {
+    public void setOrders(List<OrderEntity> order) {
         this.orders = order;
     }
 }

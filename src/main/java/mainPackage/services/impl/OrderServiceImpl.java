@@ -52,10 +52,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void add(OrderReceiveServiceModel OrderReceiveServiceModel) {
-        Client client = clientService.findByNameAndPhoneNumber(modelMapper.map(OrderReceiveServiceModel, ClientServiceModel.class));
-        Order order = modelMapper.map(OrderReceiveServiceModel, Order.class);
-        Model model = modelService.getModel(OrderReceiveServiceModel.getBrand(), OrderReceiveServiceModel.getModel());
-        Damage damage = damageService.getDamage(OrderReceiveServiceModel.getDamage());
+        ClientEntity client = clientService.findByNameAndPhoneNumber(modelMapper.map(OrderReceiveServiceModel, ClientServiceModel.class));
+        OrderEntity order = modelMapper.map(OrderReceiveServiceModel, OrderEntity.class);
+        ModelEntity model = modelService.getModel(OrderReceiveServiceModel.getBrand(), OrderReceiveServiceModel.getModel());
+        DamageEntity damage = damageService.getDamage(OrderReceiveServiceModel.getDamage());
         order.setModel(model);
         order.setClient(client);
         order.setReceiveDate(LocalDate.now());
@@ -83,7 +83,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderNotReadyViewModel getById(Long id) {
-        Order order = orderRepository.findById(id).orElseThrow(() -> new OrderIdNotFoundException(String.format("No order with this %d", id)));
+        OrderEntity order = orderRepository.findById(id).orElseThrow(() -> new OrderIdNotFoundException(String.format("No order with this %d", id)));
         OrderNotReadyViewModel OrderNotReadyViewModel = modelMapper.map(order, OrderNotReadyViewModel.class);
         OrderNotReadyViewModel.setBrand(order.getModel().getBrand().getBrandName());
         return OrderNotReadyViewModel;
@@ -110,12 +110,13 @@ public class OrderServiceImpl implements OrderService {
 
     }
 
+    //TODO
     @Override
     public void fix(OrderFixServiceModel orderServiceModel) throws IOException {
-        Order order = orderRepository.findById(orderServiceModel.getId())
+        OrderEntity order = orderRepository.findById(orderServiceModel.getId())
                 .orElseThrow(() -> new OrderIdNotFoundException(String.format("No order with this %d", orderServiceModel.getId())));
         Set<Long> spareParts = orderServiceModel.getSparePartIds();
-        List<SparePart> sparePartsList = new ArrayList<>();
+        List<SparePartEntity> sparePartsList = new ArrayList<>();
         if (spareParts != null) {
             spareParts.remove(0L);
             if (!spareParts.isEmpty()) {
@@ -141,7 +142,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderReadyViewModel getReadyById(Long id) {
-        Order order = orderRepository.findById(id).orElseThrow(() -> new OrderIdNotFoundException(String.format("No order with this %d", id)));
+        OrderEntity order = orderRepository.findById(id).orElseThrow(() -> new OrderIdNotFoundException(String.format("No order with this %d", id)));
         OrderReadyViewModel orderReadyViewModel = modelMapper.map(order, OrderReadyViewModel.class);
         orderReadyViewModel.setBrand(order.getModel().getBrand().getBrandName());
         return orderReadyViewModel;
@@ -149,14 +150,14 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void pay(Long id) {
-        Order order = orderRepository.findById(id).orElseThrow(() -> new OrderIdNotFoundException(String.format("No order with this %d", id)));
+        OrderEntity order = orderRepository.findById(id).orElseThrow(() -> new OrderIdNotFoundException(String.format("No order with this %d", id)));
         order.setLeaveDate(LocalDate.now());
         orderRepository.save(order);
     }
 
     @Override
     public void makeNotFixed(Long id) {
-        Order order = orderRepository.findById(id).orElseThrow(() -> new OrderIdNotFoundException(String.format("No order with this %d", id)));
+        OrderEntity order = orderRepository.findById(id).orElseThrow(() -> new OrderIdNotFoundException(String.format("No order with this %d", id)));
         order.setTotalRepairPrice(null);
         order.setTotalSparePartsPrice(null);
         order.getSpareParts().clear();
@@ -165,14 +166,14 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderViewModel> findOrders(String serialNumber) {
-        List<Order> ords = orderRepository.findAllBySerialNumber("%" + serialNumber + "%");
+        List<OrderEntity> ords = orderRepository.findAllBySerialNumber("%" + serialNumber + "%");
         return getOrderViewModels(ords);
     }
 
 
     @Override
     public List<OrderViewModel> findOrdersByClientId(Long id) {
-        List<Order> ords = orderRepository.findAllByClientId(id);
+        List<OrderEntity> ords = orderRepository.findAllByClientId(id);
         return getOrderViewModels(ords);
     }
 
@@ -202,7 +203,7 @@ public class OrderServiceImpl implements OrderService {
     public List<OrderViewModel> getByDate(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         DateTimeFormatter formatterToString = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        List<Order> orders = orderRepository.getByDate(LocalDate.parse(date, formatter));
+        List<OrderEntity> orders = orderRepository.getByDate(LocalDate.parse(date, formatter));
         List<OrderViewModel> ordersView = orders.stream().map(o -> {
             OrderViewModel order = modelMapper.map(o, OrderViewModel.class);
             order.setBrandName(o.getModel().getBrand().getBrandName());
@@ -231,7 +232,7 @@ public class OrderServiceImpl implements OrderService {
         return modelService.getByBrandName(brandName);
     }
 
-    private List<OrderViewModel> getOrderViewModels(List<Order> ords) {
+    private List<OrderViewModel> getOrderViewModels(List<OrderEntity> ords) {
         return ords.stream()
                 .map(ord -> {
                     OrderViewModel orderViewModel = modelMapper.map(ord, OrderViewModel.class);

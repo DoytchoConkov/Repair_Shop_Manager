@@ -88,7 +88,7 @@ public class BackOfficeController {
         if (!model.containsAttribute("sparePartsReceiveBindingModel")) {
             model.addAttribute("sparePartsReceiveBindingModel", new SparePartBindingModel());
         }
-        return "/extended/add-spare-part";
+        return "/spare-parts/add-spare-part";
     }
 
     @PostMapping("/add-spare-part")

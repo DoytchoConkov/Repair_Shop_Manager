@@ -4,13 +4,11 @@ import mainPackage.models.entities.RoleName;
 import mainPackage.models.entities.User;
 import mainPackage.models.entities.UserRole;
 import mainPackage.repositories.UserRepository;
-import mainPackage.services.impl.UserServiceDB;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,7 +20,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 class UserServiceDBTest {

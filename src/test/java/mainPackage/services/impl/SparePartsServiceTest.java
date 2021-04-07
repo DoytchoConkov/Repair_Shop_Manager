@@ -2,14 +2,13 @@ package mainPackage.services.impl;
 
 import mainPackage.errors.SparePartIdNotFoundException;
 import mainPackage.models.bindings.SparePartBindingModel;
-import mainPackage.models.entities.Brand;
-import mainPackage.models.entities.Model;
-import mainPackage.models.entities.SparePart;
+import mainPackage.models.entities.BrandEntity;
+import mainPackage.models.entities.ModelEntity;
+import mainPackage.models.entities.SparePartEntity;
 import mainPackage.models.services.SparePartServiceModel;
 import mainPackage.models.views.SparePartViewModel;
 import mainPackage.repositories.ModelRepository;
 import mainPackage.repositories.SparePartsRepository;
-import mainPackage.services.ModelService;
 import mainPackage.services.SparePartsService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -42,10 +41,10 @@ class SparePartsServiceTest {
 
     @Test
     void getAll() {
-        Brand brand = new Brand("Apple");
-        Model model = new Model("Iphone Xs", brand);
-        SparePart sparePart = new SparePart(model, "LCD");
-        List<SparePart> spareParts = List.of(sparePart);
+        BrandEntity brand = new BrandEntity("Apple");
+        ModelEntity model = new ModelEntity("Iphone Xs", brand);
+        SparePartEntity sparePart = new SparePartEntity(model, "LCD");
+        List<SparePartEntity> spareParts = List.of(sparePart);
         SparePartViewModel sparePartViewModel = new SparePartViewModel("Apple", "Iphone Xs", "LCD");
         List<SparePartViewModel> expected = new ArrayList<>();
         expected.add(sparePartViewModel);
@@ -62,8 +61,8 @@ class SparePartsServiceTest {
         sparePartServiceModel.setSparePartName("LCD");
         sparePartServiceModel.setPieces(1);
         sparePartServiceModel.setPrice(BigDecimal.valueOf(100));
-        Brand brand = new Brand("Huawei");
-        Model model = new Model();
+        BrandEntity brand = new BrandEntity("Huawei");
+        ModelEntity model = new ModelEntity();
         model.setBrand(brand);
         model.setModelName("P40");
         Mockito.when(mockModelRepository.findByModelName("Huawei", "P40")).thenReturn(model);
@@ -73,10 +72,10 @@ class SparePartsServiceTest {
 
     @Test
     void getByBrandAndModel() {
-        Brand brand = new Brand("Apple");
-        Model model = new Model("Iphone Xs", brand);
-        SparePart sparePart = new SparePart(model, "LCD");
-        List<SparePart> spareParts = List.of(sparePart);
+        BrandEntity brand = new BrandEntity("Apple");
+        ModelEntity model = new ModelEntity("Iphone Xs", brand);
+        SparePartEntity sparePart = new SparePartEntity(model, "LCD");
+        List<SparePartEntity> spareParts = List.of(sparePart);
         SparePartViewModel sparePartViewModel = new SparePartViewModel("Apple", "Iphone Xs", "LCD");
         List<SparePartViewModel> expected = new ArrayList<>();
         expected.add(sparePartViewModel);
@@ -93,11 +92,11 @@ class SparePartsServiceTest {
 
     @Test
     void findById() {
-        Brand brand = new Brand("Apple");
-        Model model = new Model("Iphone Xs", brand);
-        SparePart expected = new SparePart(model, "LCD");
+        BrandEntity brand = new BrandEntity("Apple");
+        ModelEntity model = new ModelEntity("Iphone Xs", brand);
+        SparePartEntity expected = new SparePartEntity(model, "LCD");
         Mockito.when(mockSparePartsRepository.findById(1L)).thenReturn(Optional.of(expected));
-        SparePart actual = sparePartsService.findById(1L);
+        SparePartEntity actual = sparePartsService.findById(1L);
         assertEquals(expected, actual);
     }
 
@@ -108,10 +107,10 @@ class SparePartsServiceTest {
 
     @Test
     void getSparePartsByBrandNameAndModel() {
-        Brand brand = new Brand("Apple");
-        Model model = new Model("Iphone Xs", brand);
-        SparePart sparePart = new SparePart(model, "LCD");
-        List<SparePart> spareParts = List.of(sparePart);
+        BrandEntity brand = new BrandEntity("Apple");
+        ModelEntity model = new ModelEntity("Iphone Xs", brand);
+        SparePartEntity sparePart = new SparePartEntity(model, "LCD");
+        List<SparePartEntity> spareParts = List.of(sparePart);
         SparePartViewModel sparePartViewModel = new SparePartViewModel("Apple", "Iphone Xs", "LCD");
         List<SparePartViewModel> expected = new ArrayList<>();
         expected.add(sparePartViewModel);
@@ -122,10 +121,10 @@ class SparePartsServiceTest {
 
     @Test
     void getSparePartsByBrandNameForAdd() {
-        Brand brand = new Brand("Apple");
-        Model model = new Model("Iphone Xs", brand);
-        SparePart sparePart = new SparePart(model, "LCD");
-        List<SparePart> spareParts = List.of(sparePart);
+        BrandEntity brand = new BrandEntity("Apple");
+        ModelEntity model = new ModelEntity("Iphone Xs", brand);
+        SparePartEntity sparePart = new SparePartEntity(model, "LCD");
+        List<SparePartEntity> spareParts = List.of(sparePart);
         SparePartViewModel sparePartViewModel = new SparePartViewModel("Apple", "Iphone Xs", "LCD");
         List<SparePartViewModel> expected = new ArrayList<>();
         expected.add(sparePartViewModel);
@@ -143,9 +142,9 @@ class SparePartsServiceTest {
 
     @Test
     void getSparePartById() {
-        Brand brand = new Brand("Apple");
-        Model model = new Model("Iphone Xs", brand);
-        SparePart expected = new SparePart(model, "LCD");
+        BrandEntity brand = new BrandEntity("Apple");
+        ModelEntity model = new ModelEntity("Iphone Xs", brand);
+        SparePartEntity expected = new SparePartEntity(model, "LCD");
         Mockito.when(mockSparePartsRepository.findById(1L)).thenReturn(Optional.of(expected));
         SparePartViewModel actual = sparePartsService.getSparePartById(1L);
         assertEquals(expected.getModel().getBrand().getBrandName(), actual.getBrand());
@@ -161,9 +160,9 @@ class SparePartsServiceTest {
         sparePartBindingModel.setSparePartName("Battery");
         sparePartBindingModel.setPieces(2);
         sparePartBindingModel.setPrice(BigDecimal.valueOf(15));
-        Brand brand = new Brand("Nokia");
-        Model model = new Model("C3-01", brand);
-        SparePart sparePart = new SparePart(model, "Battery");
+        BrandEntity brand = new BrandEntity("Nokia");
+        ModelEntity model = new ModelEntity("C3-01", brand);
+        SparePartEntity sparePart = new SparePartEntity(model, "Battery");
         Mockito.when(mockSparePartsRepository.findById(1L)).thenReturn(Optional.of(sparePart));
         sparePartsService.edit(1L,sparePartBindingModel);
         verify(mockSparePartsRepository,times(1)).save(any());
@@ -171,9 +170,9 @@ class SparePartsServiceTest {
 
     @Test
     void update() {
-        Brand brand = new Brand("Nokia");
-        Model model = new Model("C3-01", brand);
-        SparePart sparePart = new SparePart(model, "Back Cover");
+        BrandEntity brand = new BrandEntity("Nokia");
+        ModelEntity model = new ModelEntity("C3-01", brand);
+        SparePartEntity sparePart = new SparePartEntity(model, "Back Cover");
         Mockito.when(mockSparePartsRepository.findById(1L)).thenReturn(Optional.of(sparePart));
         sparePartsService.update(1L, 1);
         verify(mockSparePartsRepository,times(1)).save(any());
@@ -189,9 +188,9 @@ class SparePartsServiceTest {
 
     @Test
     void getByBrandModelName() {
-        Brand brand = new Brand("Apple");
-        Model model = new Model("Iphone Xs", brand);
-        SparePart expected = new SparePart(model, "LCD");
+        BrandEntity brand = new BrandEntity("Apple");
+        ModelEntity model = new ModelEntity("Iphone Xs", brand);
+        SparePartEntity expected = new SparePartEntity(model, "LCD");
         Mockito.when(mockSparePartsRepository.getByBrandModelName("Apple", "Iphone Xs", "LCD")).thenReturn(expected);
         SparePartViewModel actual = sparePartsService.getByBrandModelName("Apple", "Iphone Xs", "LCD");
         assertEquals(expected.getModel().getBrand().getBrandName(), actual.getBrand());

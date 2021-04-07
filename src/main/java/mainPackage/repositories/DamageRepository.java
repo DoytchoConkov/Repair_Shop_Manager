@@ -1,11 +1,9 @@
 package mainPackage.repositories;
 
-import mainPackage.models.entities.Damage;
+import mainPackage.models.entities.DamageEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Optional;
+public interface DamageRepository extends JpaRepository<DamageEntity,Long> {
 
-public interface DamageRepository extends JpaRepository<Damage,Long> {
-
-    Damage findByDamageName(String damage);
+    DamageEntity findByDamageName(String damage);
 }

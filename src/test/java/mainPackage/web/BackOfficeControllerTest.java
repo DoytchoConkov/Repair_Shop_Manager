@@ -2,7 +2,6 @@ package mainPackage.web;
 
 import mainPackage.models.entities.*;
 import mainPackage.repositories.*;
-import org.junit.Before;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,7 +18,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -111,7 +109,7 @@ class BackOfficeControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get(
                 BACKOFFICE_CONTROLLER_PREFIX + "/add-spare-part"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("/extended/add-spare-part"))
+                .andExpect(view().name("/spare-parts/add-spare-part"))
                 .andExpect(model().attributeExists("spareParts"));
     }
 
@@ -138,21 +136,21 @@ class BackOfficeControllerTest {
         user.setRoles(Set.of(userRole, userRole2));
         user = userRepository.save(user);
         Long userId = user.getId();
-        Brand brand = new Brand("Samsung");
+        BrandEntity brand = new BrandEntity("Samsung");
         brand = brandRepository.save(brand);
-        Model model = new Model("Galaxy S21", brand);
+        ModelEntity model = new ModelEntity("Galaxy S21", brand);
         model = modelRepository.save(model);
-        SparePart sparePart = new SparePart(model, "LCD");
+        SparePartEntity sparePart = new SparePartEntity(model, "LCD");
         sparePart.setPieces(2);
         sparePart.setPrice(BigDecimal.valueOf(560));
         sparePartsRepository.save(sparePart);
-        Damage damage = new Damage("Bad Audio");
+        DamageEntity damage = new DamageEntity("Bad Audio");
         damage = damageRepository.save(damage);
-        Client client = new Client();
+        ClientEntity client = new ClientEntity();
         client.setClientName("Petko");
         client.setClientPhoneNumber("033561248");
         client = clientRepository.save(client);
-        Order order = new Order();
+        OrderEntity order = new OrderEntity();
         order.setTotalSparePartsPrice(BigDecimal.valueOf(0));
         order.setTotalRepairPrice(BigDecimal.valueOf(20));
         order.setDamage(damage);

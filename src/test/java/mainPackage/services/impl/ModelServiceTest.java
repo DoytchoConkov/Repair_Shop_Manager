@@ -1,7 +1,7 @@
 package mainPackage.services.impl;
 
-import mainPackage.models.entities.Brand;
-import mainPackage.models.entities.Model;
+import mainPackage.models.entities.BrandEntity;
+import mainPackage.models.entities.ModelEntity;
 import mainPackage.models.views.ModelViewModel;
 import mainPackage.repositories.ModelRepository;
 import mainPackage.services.ModelService;
@@ -31,18 +31,18 @@ class ModelServiceTest {
 
     @Test
     void getModel() {
-        Model model = new Model();
-        Brand brand = new Brand("Apple");
+        ModelEntity model = new ModelEntity();
+        BrandEntity brand = new BrandEntity("Apple");
         model.setModelName("Iphone 12 Pro Max");
         model.setBrand(brand);
         Mockito.when(mockModelRepository.findByModelName("Apple", "Iphone 12 Pro Max")).thenReturn(model);
-        Model receivedModel = modelService.getModel("Apple", "Iphone 12 Pro Max");
+        ModelEntity receivedModel = modelService.getModel("Apple", "Iphone 12 Pro Max");
         assertEquals(model.getModelName(), receivedModel.getModelName());
     }
     @Test
     void getModelWhichNotExistName() {
-        Model model = new Model();
-        Brand brand = new Brand("Apple");
+        ModelEntity model = new ModelEntity();
+        BrandEntity brand = new BrandEntity("Apple");
         model.setModelName("Iphone 12 Pro Max");
         model.setBrand(brand);
         Mockito.when(mockModelRepository.findByModelName("Samsung", "Galaxy S21")).thenReturn(null);
@@ -51,8 +51,8 @@ class ModelServiceTest {
     }
     @Test
     void getModelWhichNotExistBrand() {
-        Model model = new Model();
-        Brand brand = new Brand("Apple");
+        ModelEntity model = new ModelEntity();
+        BrandEntity brand = new BrandEntity("Apple");
         model.setModelName("Iphone 12 Pro Max");
         model.setBrand(brand);
         Mockito.when(mockModelRepository.findByModelName("Samsung", "Galaxy S21")).thenReturn(model);
@@ -62,8 +62,8 @@ class ModelServiceTest {
 
     @Test
     void getAll() {
-        List<Model> models = new ArrayList<>();
-        models.add(new Model());
+        List<ModelEntity> models = new ArrayList<>();
+        models.add(new ModelEntity());
         Mockito.when(mockModelRepository.findAll()).thenReturn(models);
         List<ModelViewModel> allModels = modelService.getAll();
         assertEquals(models.size(), allModels.size());

@@ -1,6 +1,5 @@
 package mainPackage.services.impl;
 
-import mainPackage.errors.SparePartIdNotFoundException;
 import mainPackage.errors.UsernamesNotFoundException;
 import mainPackage.models.bindings.UserRolesBindingModel;
 import mainPackage.models.entities.RoleName;
@@ -17,14 +16,10 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;

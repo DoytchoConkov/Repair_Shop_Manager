@@ -1,12 +1,12 @@
 package mainPackage.services;
 
-import mainPackage.models.entities.Model;
+import mainPackage.models.entities.ModelEntity;
 import mainPackage.models.views.ModelViewModel;
 
 import java.util.List;
 
 public interface ModelService {
-    Model getModel(String brand, String model);
+    ModelEntity getModel(String brand, String model);
 
     List<ModelViewModel> getAll();
 

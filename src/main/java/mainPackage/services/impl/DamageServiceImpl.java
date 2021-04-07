@@ -1,6 +1,6 @@
 package mainPackage.services.impl;
 
-import mainPackage.models.entities.Damage;
+import mainPackage.models.entities.DamageEntity;
 import mainPackage.models.views.DamageViewModel;
 import mainPackage.repositories.DamageRepository;
 import mainPackage.services.DamageService;
@@ -8,7 +8,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,10 +21,10 @@ public class DamageServiceImpl implements DamageService {
     }
 
     @Override
-    public Damage getDamage(String damage) {
-        Damage damageEntity = damageRepository.findByDamageName(damage);
+    public DamageEntity getDamage(String damage) {
+        DamageEntity damageEntity = damageRepository.findByDamageName(damage);
         if (damageEntity==null) {
-            damageEntity = new Damage(damage);
+            damageEntity = new DamageEntity(damage);
             damageEntity = damageRepository.save(damageEntity);
         }
         return damageEntity;

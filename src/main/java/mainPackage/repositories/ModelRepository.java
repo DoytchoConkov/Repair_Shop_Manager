@@ -1,19 +1,17 @@
 package mainPackage.repositories;
 
-import mainPackage.models.entities.Model;
+import mainPackage.models.entities.ModelEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
-public interface ModelRepository extends JpaRepository<Model, Long> {
-    @Query("select m from Model as m where m.modelName=:model and m.brand.brandName=:brand")
-    Model findByModelName(String brand, String model);
+public interface ModelRepository extends JpaRepository<ModelEntity, Long> {
+    @Query("select m from ModelEntity as m where m.modelName=:model and m.brand.brandName=:brand")
+    ModelEntity findByModelName(String brand, String model);
 
-    @Query("select m.modelName from Model as m where m.brand.brandName=:brandName group by m.modelName order by m.modelName")
+    @Query("select m.modelName from ModelEntity as m where m.brand.brandName=:brandName group by m.modelName order by m.modelName")
     List<String> getByBrandName(String brandName);
 }

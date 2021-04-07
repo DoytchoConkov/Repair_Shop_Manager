@@ -68,7 +68,7 @@ class SeniorControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get(
                 SENIOR_CONTROLLER_PREFIX + "/edit-spare-parts"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("/extended/edit-spare-parts"))
+                .andExpect(view().name("/spare-parts/edit-spare-parts"))
                 .andExpect(model().attributeExists("brands"));
     }
 
@@ -78,7 +78,7 @@ class SeniorControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get(
                 SENIOR_CONTROLLER_PREFIX + "/edit-orders"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("/extended/edit-orders"))
+                .andExpect(view().name("/orders/edit-orders"))
                 .andExpect(model().attributeExists("orderReadyViewModels"));
     }
 
@@ -144,22 +144,22 @@ class SeniorControllerTest {
         user.setRoles(Set.of(userRole,userRole2));
         user = userRepository.save(user);
         Long userId = user.getId();
-        Brand brand = new Brand("Samsung");
+        BrandEntity brand = new BrandEntity("Samsung");
         brand = brandRepository.save(brand);
-        Model model = new Model("Galaxy S21", brand);
+        ModelEntity model = new ModelEntity("Galaxy S21", brand);
         model = modelRepository.save(model);
-        SparePart sparePart = new SparePart(model, "LCD");
+        SparePartEntity sparePart = new SparePartEntity(model, "LCD");
         sparePart.setPieces(2);
         sparePart.setPrice(BigDecimal.valueOf(560));
         sparePart = sparePartsRepository.save(sparePart);
         sparePartId = "" + sparePart.getId();
-        Damage damage = new Damage("Bad Audio");
+        DamageEntity damage = new DamageEntity("Bad Audio");
         damage = damageRepository.save(damage);
-        Client client = new Client();
+        ClientEntity client = new ClientEntity();
         client.setClientName("Petko");
         client.setClientPhoneNumber("033561248");
         client = clientRepository.save(client);
-        Order order = new Order();
+        OrderEntity order = new OrderEntity();
         order.setTotalSparePartsPrice(BigDecimal.valueOf(0));
         order.setTotalRepairPrice(BigDecimal.valueOf(20));
         order.setDamage(damage);

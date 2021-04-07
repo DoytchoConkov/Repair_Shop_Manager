@@ -7,17 +7,17 @@ import java.util.List;
 
 @Entity
 @Table(name = "spare_parts")
-public class SparePart extends BaseEntity{
-    private Model model;
+public class SparePartEntity extends BaseEntity{
+    private ModelEntity model;
     private String sparePartName;
     private BigDecimal price;
     private int pieces;
-    private List<Order> orders;
+    private List<OrderEntity> orders;
 
-    public SparePart() {
+    public SparePartEntity() {
     }
 
-    public SparePart(Model model, String sparePartName) {
+    public SparePartEntity(ModelEntity model, String sparePartName) {
         this.model = model;
         this.sparePartName = sparePartName;
         this.price = BigDecimal.valueOf(0);
@@ -27,11 +27,11 @@ public class SparePart extends BaseEntity{
 
 
     @ManyToOne
-    public Model getModel() {
+    public ModelEntity getModel() {
         return model;
     }
 
-    public void setModel(Model model) {
+    public void setModel(ModelEntity model) {
         this.model = model;
     }
 
@@ -64,11 +64,11 @@ public class SparePart extends BaseEntity{
     }
 
     @ManyToMany(mappedBy = "spareParts")
-    public List<Order> getOrders() {
+    public List<OrderEntity> getOrders() {
         return orders;
     }
 
-    public void setOrders(List<Order> orders) {
+    public void setOrders(List<OrderEntity> orders) {
         this.orders = orders;
     }
 }

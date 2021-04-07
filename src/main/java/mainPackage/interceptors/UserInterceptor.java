@@ -3,7 +3,6 @@ package mainPackage.interceptors;
 import mainPackage.models.entities.RoleName;
 import mainPackage.models.entities.UserRole;
 import mainPackage.services.UserService;
-import org.apache.tomcat.util.http.fileupload.RequestContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -12,7 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.security.Principal;
 import java.util.Set;
 
 @Component

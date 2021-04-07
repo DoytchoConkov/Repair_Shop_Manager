@@ -5,8 +5,6 @@ import mainPackage.models.views.BrandViewModel;
 import mainPackage.services.BrandService;
 import mainPackage.services.OrderService;
 import mainPackage.services.SparePartsService;
-import mainPackage.services.UserService;
-import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,14 +34,14 @@ public class SeniorController {
         }
         List<BrandViewModel> brands = brandService.getAll();
         model.addAttribute("brands", brands);
-        return "/extended/edit-spare-parts";
+        return "/spare-parts/edit-spare-parts";
     }
 
     @GetMapping("/edit-orders")
     @PreAuthorize("hasRole('ROLE_SENIOR')")
     public String editOrder(Model model) {
         model.addAttribute("orderReadyViewModels", orderService.getNotPayedOrders());
-        return "/extended/edit-orders";
+        return "/orders/edit-orders";
     }
 
     @GetMapping("/income-info")

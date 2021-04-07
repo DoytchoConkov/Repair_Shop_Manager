@@ -1,69 +1,32 @@
-02-04-2021 17:44:45 The latency for fix order is: 140ms
-02-04-2021 17:45:18 The latency for income is: 134ms
-02-04-2021 18:01:28 The latency for fix order is: 178ms
-02-04-2021 18:01:49 The latency for income is: 14ms
-02-04-2021 18:23:53 The latency for income is: 32ms
-02-04-2021 18:23:58 The latency for income is: 4ms
-02-04-2021 18:24:01 The latency for income is: 6ms
-02-04-2021 18:35:12 The latency for income is: 15ms
-02-04-2021 18:35:26 The latency for income is: 26ms
-02-04-2021 18:35:35 The latency for income is: 4ms
-02-04-2021 18:35:43 The latency for income is: 10ms
-02-04-2021 18:35:48 The latency for income is: 3ms
-02-04-2021 18:37:48 The latency for income is: 4ms
-02-04-2021 18:37:56 The latency for income is: 7ms
-02-04-2021 18:39:28 The latency for income is: 103ms
-02-04-2021 20:44:20 The latency for fix order is: 150ms
-02-04-2021 20:44:27 The latency for income is: 55ms
-02-04-2021 20:46:32 The latency for income is: 85ms
-02-04-2021 21:04:46 The latency for fix order is: 268ms
-02-04-2021 21:05:14 The latency for income is: 24ms
-03-04-2021 11:22:26 The latency for fix order is: 275ms
-03-04-2021 11:22:49 The latency for income is: 30ms
-03-04-2021 11:26:38 The latency for fix order is: 122ms
-03-04-2021 11:26:58 The latency for income is: 13ms
-03-04-2021 11:31:58 The latency for fix order is: 192ms
-03-04-2021 11:32:21 The latency for income is: 32ms
-03-04-2021 11:35:06 The latency for fix order is: 124ms
-03-04-2021 11:35:25 The latency for income is: 11ms
-03-04-2021 11:39:30 The latency for fix order is: 138ms
-03-04-2021 11:39:53 The latency for income is: 17ms
-03-04-2021 11:43:31 The latency for fix order is: 131ms
-03-04-2021 11:43:51 The latency for income is: 21ms
-03-04-2021 11:48:52 The latency for fix order is: 126ms
-03-04-2021 11:49:13 The latency for income is: 31ms
-03-04-2021 11:51:37 The latency for fix order is: 124ms
-03-04-2021 11:51:58 The latency for income is: 13ms
-03-04-2021 11:54:13 The latency for fix order is: 125ms
-03-04-2021 11:54:34 The latency for income is: 17ms
-03-04-2021 12:02:57 The latency for fix order is: 158ms
-03-04-2021 12:03:23 The latency for income is: 86ms
-03-04-2021 20:01:40 The latency for fix order is: 163ms
-03-04-2021 20:02:04 The latency for income is: 18ms
-03-04-2021 20:06:10 The latency for fix order is: 132ms
-03-04-2021 20:06:31 The latency for income is: 41ms
-03-04-2021 20:11:46 The latency for fix order is: 140ms
-03-04-2021 20:12:09 The latency for income is: 73ms
-04-04-2021 10:19:36 The latency for fix order is: 104ms
-04-04-2021 10:19:56 The latency for fix order is: 1761ms
-05-04-2021 19:45:38 The latency for fix order is: 166ms
-05-04-2021 19:46:01 The latency for income is: 13ms
-05-04-2021 19:59:52 The latency for income is: 16ms
-05-04-2021 19:59:55 The latency for income is: 27ms
-05-04-2021 20:00:04 The latency for income is: 3ms
-05-04-2021 20:00:28 The latency for income is: 5ms
-05-04-2021 20:02:27 The latency for fix order is: 108ms
-05-04-2021 20:02:35 The latency for income is: 3ms
-05-04-2021 20:02:41 The latency for income is: 6ms
-05-04-2021 20:14:17 The latency for fix order is: 624ms
-05-04-2021 20:14:38 The latency for income is: 12ms
-05-04-2021 20:16:29 The latency for fix order is: 177ms
-05-04-2021 20:16:50 The latency for income is: 14ms
-05-04-2021 20:19:18 The latency for fix order is: 125ms
-05-04-2021 20:19:37 The latency for income is: 9ms
-05-04-2021 20:25:41 The latency for fix order is: 125ms
-05-04-2021 20:26:01 The latency for income is: 9ms
-05-04-2021 20:27:55 The latency for fix order is: 129ms
-05-04-2021 20:28:16 The latency for income is: 10ms
-05-04-2021 20:29:45 The latency for fix order is: 148ms
-05-04-2021 20:30:07 The latency for income is: 12ms
+07-04-2021 20:37:19 The latency for fix order is: 173ms
+07-04-2021 20:38:04 The latency for income is: 104ms
+07-04-2021 20:41:43 The latency for fix order is: 158ms
+07-04-2021 20:42:21 The latency for income is: 19ms
+07-04-2021 20:44:26 The latency for fix order is: 173ms
+07-04-2021 20:44:59 The latency for income is: 14ms
+07-04-2021 21:07:54 The latency for income is: 12ms
+07-04-2021 21:13:43 The latency for income is: 11ms
+07-04-2021 21:17:46 The latency for income is: 11ms
+07-04-2021 21:21:22 The latency for income is: 18ms
+07-04-2021 21:29:52 The latency for fix order is: 262ms
+07-04-2021 21:30:16 The latency for income is: 13ms
+07-04-2021 21:35:35 The latency for fix order is: 275ms
+07-04-2021 21:39:53 The latency for fix order is: 190ms
+07-04-2021 21:41:26 The latency for income is: 32ms
+07-04-2021 21:45:57 The latency for fix order is: 141ms
+07-04-2021 21:46:22 The latency for income is: 11ms
+07-04-2021 21:49:06 The latency for fix order is: 144ms
+07-04-2021 21:49:31 The latency for income is: 9ms
+07-04-2021 22:01:41 The latency for fix order is: 181ms
+07-04-2021 22:02:03 The latency for income is: 12ms
+07-04-2021 22:06:11 The latency for fix order is: 141ms
+07-04-2021 22:06:31 The latency for income is: 18ms
+07-04-2021 22:10:21 The latency for fix order is: 128ms
+07-04-2021 22:10:40 The latency for income is: 10ms
+07-04-2021 22:13:18 The latency for fix order is: 234ms
+07-04-2021 22:14:41 The latency for fix order is: 156ms
+07-04-2021 22:15:06 The latency for income is: 15ms
+07-04-2021 22:22:38 The latency for fix order is: 131ms
+07-04-2021 22:22:44 The latency for income is: 15ms
+07-04-2021 22:22:46 The latency for income is: 3ms
+07-04-2021 22:22:49 The latency for income is: 3ms

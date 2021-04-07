@@ -108,11 +108,11 @@ class SparePartRestControlerTest {
     }
 
     private void init() {
-        Brand brand = new Brand("Pocophone");
+        BrandEntity brand = new BrandEntity("Pocophone");
         brand = brandRepository.save(brand);
-        Model model = new Model("F1", brand);
+        ModelEntity model = new ModelEntity("F1", brand);
         model = modelRepository.save(model);
-        SparePart sparePart = new SparePart(model, "LCD");
+        SparePartEntity sparePart = new SparePartEntity(model, "LCD");
         sparePart.setPieces(1);
         sparePart.setPrice(BigDecimal.valueOf(200));
         sparePart = sparePartsRepository.save(sparePart);

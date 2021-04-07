@@ -33,7 +33,7 @@ public class AdminControler {
         if (!model.containsAttribute("userRolesBindingModel")) {
             model.addAttribute("userRolesBindingModel", new UserRolesBindingModel());
         }
-        return "/extended/add-or-edit-user-role";
+        return "/user/add-or-edit-user-role";
     }
 
     @PostMapping("/set-user-role")

@@ -1,6 +1,6 @@
 package mainPackage.services.impl;
 
-import mainPackage.models.entities.Brand;
+import mainPackage.models.entities.BrandEntity;
 import mainPackage.models.views.BrandViewModel;
 import mainPackage.repositories.BrandRepository;
 import mainPackage.services.BrandService;
@@ -14,7 +14,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -33,24 +32,24 @@ class BrandServiceTest {
 
     @Test
     void getBrand() {
-        Brand brand = new Brand("Apple");
+        BrandEntity brand = new BrandEntity("Apple");
         Mockito.when(mockBrandRepository.findByBrandName("Apple")).thenReturn(brand);
-        Brand receivedBrand=brandService.getBrand("Apple");
+        BrandEntity receivedBrand=brandService.getBrand("Apple");
         assertEquals(brand.getBrandName(),receivedBrand.getBrandName());
     }
 
     @Test
     void getByMissingBrand() {
-        Brand brand = new Brand("Nokia");
+        BrandEntity brand = new BrandEntity("Nokia");
         Mockito.when(mockBrandRepository.findByBrandName("Nokia")).thenReturn(null);
-        Brand receivedBrand=brandService.getBrand("Nokia");
+        BrandEntity receivedBrand=brandService.getBrand("Nokia");
         verify(mockBrandRepository,times(1)).save(any());
     }
 
     @Test
     void getAll() {
-        List<Brand> brands = new ArrayList<>();
-        brands.add(new Brand());
+        List<BrandEntity> brands = new ArrayList<>();
+        brands.add(new BrandEntity());
         Mockito.when(mockBrandRepository.findAll()).thenReturn(brands);
         List<BrandViewModel> allBrands = brandService.getAll();
         assertEquals(brands.size(),allBrands.size());

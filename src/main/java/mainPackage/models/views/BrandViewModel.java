@@ -1,12 +1,12 @@
 package mainPackage.models.views;
 
-import mainPackage.models.entities.Model;
+import mainPackage.models.entities.ModelEntity;
 
 import java.util.List;
 
 public class BrandViewModel {
     private String brandName;
-    private List<Model> models;
+    private List<ModelEntity> models;
 
     public BrandViewModel() {
     }
@@ -19,11 +19,11 @@ public class BrandViewModel {
         this.brandName = brandName;
     }
 
-    public List<Model> getModels() {
+    public List<ModelEntity> getModels() {
         return models;
     }
 
-    public void setModels(List<Model> models) {
+    public void setModels(List<ModelEntity> models) {
         this.models = models;
     }
 }

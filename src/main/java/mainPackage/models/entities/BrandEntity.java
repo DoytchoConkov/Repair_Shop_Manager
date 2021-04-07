@@ -8,13 +8,13 @@ import java.util.List;
 
 @Entity
 @Table(name = "brands")
-public class Brand extends BaseEntity {
+public class BrandEntity extends BaseEntity {
     private String brandName;
 
-    public Brand() {
+    public BrandEntity() {
     }
 
-    public Brand(String brandName) {
+    public BrandEntity(String brandName) {
         this.brandName = brandName;
     }
 

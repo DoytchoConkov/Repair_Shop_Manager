@@ -5,9 +5,7 @@ import mainPackage.models.entities.User;
 import mainPackage.models.entities.UserRole;
 import mainPackage.repositories.UserRepository;
 import mainPackage.repositories.UserRoleRepository;
-import org.junit.Before;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -18,7 +16,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;

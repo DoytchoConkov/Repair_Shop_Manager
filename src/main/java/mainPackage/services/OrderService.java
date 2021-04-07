@@ -1,16 +1,13 @@
 package mainPackage.services;
 
-import mainPackage.models.entities.Order;
 import mainPackage.models.services.OrderFixServiceModel;
 import mainPackage.models.views.IncomePerPeriodViewModel;
 import mainPackage.models.views.OrderNotReadyViewModel;
 import mainPackage.models.services.OrderReceiveServiceModel;
 import mainPackage.models.views.OrderReadyViewModel;
 import mainPackage.models.views.OrderViewModel;
-import org.springframework.data.jpa.repository.Query;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.List;
 
 public interface OrderService {

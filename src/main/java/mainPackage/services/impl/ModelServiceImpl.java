@@ -1,6 +1,6 @@
 package mainPackage.services.impl;
 
-import mainPackage.models.entities.Model;
+import mainPackage.models.entities.ModelEntity;
 import mainPackage.models.views.ModelViewModel;
 import mainPackage.repositories.ModelRepository;
 import mainPackage.services.BrandService;
@@ -24,10 +24,10 @@ public class ModelServiceImpl implements ModelService {
     }
 
     @Override
-    public Model getModel(String brand, String model) {
-        Model modelEntity = modelRepository.findByModelName(brand,model);
+    public ModelEntity getModel(String brand, String model) {
+        ModelEntity modelEntity = modelRepository.findByModelName(brand,model);
         if (modelEntity == null) {
-            modelEntity = new Model(model, brandService.getBrand(brand));
+            modelEntity = new ModelEntity(model, brandService.getBrand(brand));
             modelEntity = modelRepository.save(modelEntity);
         }
         return modelEntity;

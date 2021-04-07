@@ -1,6 +1,6 @@
 package mainPackage.services.impl;
 
-import mainPackage.models.entities.Brand;
+import mainPackage.models.entities.BrandEntity;
 import mainPackage.models.views.BrandViewModel;
 import mainPackage.repositories.BrandRepository;
 import mainPackage.services.BrandService;
@@ -21,10 +21,10 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public Brand getBrand(String brand) {
-        Brand brandEntity =brandRepository.findByBrandName(brand);
+    public BrandEntity getBrand(String brand) {
+        BrandEntity brandEntity =brandRepository.findByBrandName(brand);
         if(brandEntity==null){
-            brandEntity=new Brand(brand);
+            brandEntity=new BrandEntity(brand);
             brandEntity=  brandRepository.save(brandEntity);
         }
         return brandEntity;

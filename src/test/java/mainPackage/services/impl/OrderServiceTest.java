@@ -17,24 +17,16 @@ import mainPackage.services.OrderService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.security.Principal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -71,19 +63,19 @@ class OrderServiceTest {
 
     @Test
     void getNotReady() {
-        Order order = new Order();
-        Client client = new Client();
+        OrderEntity order = new OrderEntity();
+        ClientEntity client = new ClientEntity();
         client.setClientName("Gosho");
         client.setClientPhoneNumber("0888123456");
-        Damage damage = new Damage("Broken LCD");
-        Brand brand = new Brand("Huawei");
-        Model model = new Model("P40 lite", brand);
+        DamageEntity damage = new DamageEntity("Broken LCD");
+        BrandEntity brand = new BrandEntity("Huawei");
+        ModelEntity model = new ModelEntity("P40 lite", brand);
         order.setClient(client);
         order.setDamage(damage);
         order.setModel(model);
         order.setSerialNumber("350101006543210");
         order.setReceiveDate(LocalDate.now());
-        List<Order> orders = List.of(order);
+        List<OrderEntity> orders = List.of(order);
         Mockito.when(mockOrderRepository.findNotReadyOrders()).thenReturn(orders);
         List<OrderNotReadyViewModel> actual = orderService.getNotReady();
         assertEquals(order.getClient().getClientName(), actual.get(0).getClientName());
@@ -95,13 +87,13 @@ class OrderServiceTest {
 
     @Test
     void getReady() {
-        Order order = new Order();
-        Client client = new Client();
+        OrderEntity order = new OrderEntity();
+        ClientEntity client = new ClientEntity();
         client.setClientName("Gosho");
         client.setClientPhoneNumber("0888123456");
-        Damage damage = new Damage("Broken LCD");
-        Brand brand = new Brand("Huawei");
-        Model model = new Model("P40 lite", brand);
+        DamageEntity damage = new DamageEntity("Broken LCD");
+        BrandEntity brand = new BrandEntity("Huawei");
+        ModelEntity model = new ModelEntity("P40 lite", brand);
         User user = new User();
         user.setUsername("Ivan");
         order.setClient(client);
@@ -112,7 +104,7 @@ class OrderServiceTest {
         order.setTotalSparePartsPrice(BigDecimal.valueOf(50));
         order.setUser(user);
         order.setReceiveDate(LocalDate.now());
-        List<Order> orders = List.of(order);
+        List<OrderEntity> orders = List.of(order);
         Mockito.when(mockOrderRepository.findReadyOrders()).thenReturn(orders);
         List<OrderReadyViewModel> actual = orderService.getReady();
         assertEquals(order.getClient().getClientName(), actual.get(0).getClientName());
@@ -126,13 +118,13 @@ class OrderServiceTest {
 
     @Test
     void getById() {
-        Order order = new Order();
-        Client client = new Client();
+        OrderEntity order = new OrderEntity();
+        ClientEntity client = new ClientEntity();
         client.setClientName("Gosho");
         client.setClientPhoneNumber("0888123456");
-        Damage damage = new Damage("Broken LCD");
-        Brand brand = new Brand("Huawei");
-        Model model = new Model("P40 lite", brand);
+        DamageEntity damage = new DamageEntity("Broken LCD");
+        BrandEntity brand = new BrandEntity("Huawei");
+        ModelEntity model = new ModelEntity("P40 lite", brand);
         User user = new User();
         user.setUsername("Ivan");
         order.setClient(client);
@@ -171,13 +163,13 @@ class OrderServiceTest {
 
     @Test
     void getNotPayedOrders() {
-        Order order = new Order();
-        Client client = new Client();
+        OrderEntity order = new OrderEntity();
+        ClientEntity client = new ClientEntity();
         client.setClientName("Gosho");
         client.setClientPhoneNumber("0888123456");
-        Damage damage = new Damage("Broken LCD");
-        Brand brand = new Brand("Huawei");
-        Model model = new Model("P40 lite", brand);
+        DamageEntity damage = new DamageEntity("Broken LCD");
+        BrandEntity brand = new BrandEntity("Huawei");
+        ModelEntity model = new ModelEntity("P40 lite", brand);
         User user = new User();
         user.setUsername("Ivan");
         order.setClient(client);
@@ -188,7 +180,7 @@ class OrderServiceTest {
         order.setTotalSparePartsPrice(BigDecimal.valueOf(50));
         order.setUser(user);
         order.setReceiveDate(LocalDate.now());
-        List<Order> orders = List.of(order);
+        List<OrderEntity> orders = List.of(order);
         Mockito.when(mockOrderRepository.findAllByLeaveDateIsNull()).thenReturn(orders);
         List<OrderReadyViewModel> actual = orderService.getNotPayedOrders();
         assertEquals(order.getClient().getClientName(), actual.get(0).getClientName());
@@ -208,13 +200,13 @@ class OrderServiceTest {
         orderFixServiceModel.setSparePartIds(null);
         orderFixServiceModel.setSparePartPrice(BigDecimal.valueOf(10));
         orderFixServiceModel.setTotalPrice(BigDecimal.valueOf(30));
-        Order order = new Order();
-        Client client = new Client();
+        OrderEntity order = new OrderEntity();
+        ClientEntity client = new ClientEntity();
         client.setClientName("Gosho");
         client.setClientPhoneNumber("0888123456");
-        Damage damage = new Damage("Broken LCD");
-        Brand brand = new Brand("Huawei");
-        Model model = new Model("P40 lite", brand);
+        DamageEntity damage = new DamageEntity("Broken LCD");
+        BrandEntity brand = new BrandEntity("Huawei");
+        ModelEntity model = new ModelEntity("P40 lite", brand);
         User user = new User();
         user.setUsername("Ivan");
         order.setClient(client);
@@ -230,13 +222,13 @@ class OrderServiceTest {
 
     @Test
     void getReadyById() {
-        Order order = new Order();
-        Client client = new Client();
+        OrderEntity order = new OrderEntity();
+        ClientEntity client = new ClientEntity();
         client.setClientName("Gosho");
         client.setClientPhoneNumber("0888123456");
-        Damage damage = new Damage("Broken LCD");
-        Brand brand = new Brand("Huawei");
-        Model model = new Model("P40 lite", brand);
+        DamageEntity damage = new DamageEntity("Broken LCD");
+        BrandEntity brand = new BrandEntity("Huawei");
+        ModelEntity model = new ModelEntity("P40 lite", brand);
         User user = new User();
         user.setUsername("Ivan");
         order.setClient(client);
@@ -258,7 +250,7 @@ class OrderServiceTest {
 
     @Test
     void pay() {
-        Order order = new Order();
+        OrderEntity order = new OrderEntity();
         Mockito.when(mockOrderRepository.findById(1L)).thenReturn(java.util.Optional.of(order));
         orderService.pay(1L);
         verify(mockOrderRepository,times(1)).save(any());
@@ -266,7 +258,7 @@ class OrderServiceTest {
 
     @Test
     void makeNotFixed() {
-        Order order = new Order();
+        OrderEntity order = new OrderEntity();
         Mockito.when(mockOrderRepository.findById(1L)).thenReturn(java.util.Optional.of(order));
         orderService.makeNotFixed(1L);
         verify(mockOrderRepository,times(1)).save(any());
@@ -274,13 +266,13 @@ class OrderServiceTest {
 
     @Test
     void findOrders() {
-        Order order = new Order();
-        Client client = new Client();
+        OrderEntity order = new OrderEntity();
+        ClientEntity client = new ClientEntity();
         client.setClientName("Gosho");
         client.setClientPhoneNumber("0888123456");
-        Damage damage = new Damage("Broken LCD");
-        Brand brand = new Brand("Huawei");
-        Model model = new Model("P40 lite", brand);
+        DamageEntity damage = new DamageEntity("Broken LCD");
+        BrandEntity brand = new BrandEntity("Huawei");
+        ModelEntity model = new ModelEntity("P40 lite", brand);
         User user = new User();
         user.setUsername("Ivan");
         order.setClient(client);
@@ -291,7 +283,7 @@ class OrderServiceTest {
         order.setTotalSparePartsPrice(BigDecimal.valueOf(50));
         order.setUser(user);
         order.setReceiveDate(LocalDate.now());
-        List<Order> orders = new ArrayList<>();
+        List<OrderEntity> orders = new ArrayList<>();
         orders.add(order);
         Mockito.when(mockOrderRepository.findAllBySerialNumber("%350%")).thenReturn(orders);
         List<OrderViewModel> actual = orderService.findOrders("350");
@@ -305,13 +297,13 @@ class OrderServiceTest {
 
     @Test
     void findOrdersByClientId() {
-        Order order = new Order();
-        Client client = new Client();
+        OrderEntity order = new OrderEntity();
+        ClientEntity client = new ClientEntity();
         client.setClientName("Gosho");
         client.setClientPhoneNumber("0888123456");
-        Damage damage = new Damage("Broken LCD");
-        Brand brand = new Brand("Huawei");
-        Model model = new Model("P40 lite", brand);
+        DamageEntity damage = new DamageEntity("Broken LCD");
+        BrandEntity brand = new BrandEntity("Huawei");
+        ModelEntity model = new ModelEntity("P40 lite", brand);
         User user = new User();
         user.setUsername("Ivan");
         order.setClient(client);
@@ -322,7 +314,7 @@ class OrderServiceTest {
         order.setTotalSparePartsPrice(BigDecimal.valueOf(50));
         order.setUser(user);
         order.setReceiveDate(LocalDate.now());
-        List<Order> orders = List.of(order);
+        List<OrderEntity> orders = List.of(order);
         Mockito.when(mockOrderRepository.findAllByClientId(1L)).thenReturn(orders);
         List<OrderViewModel> actual = orderService.findOrdersByClientId(1L);
         assertEquals(order.getClient().getClientName(), actual.get(0).getClientName());
@@ -350,13 +342,13 @@ class OrderServiceTest {
     @Test
     void getByDate() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        Order order = new Order();
-        Client client = new Client();
+        OrderEntity order = new OrderEntity();
+        ClientEntity client = new ClientEntity();
         client.setClientName("Gosho");
         client.setClientPhoneNumber("0888123456");
-        Damage damage = new Damage("Broken LCD");
-        Brand brand = new Brand("Huawei");
-        Model model = new Model("P40 lite", brand);
+        DamageEntity damage = new DamageEntity("Broken LCD");
+        BrandEntity brand = new BrandEntity("Huawei");
+        ModelEntity model = new ModelEntity("P40 lite", brand);
         User user = new User();
         user.setUsername("Ivan");
         order.setClient(client);
@@ -367,7 +359,7 @@ class OrderServiceTest {
         order.setTotalSparePartsPrice(BigDecimal.valueOf(50));
         order.setUser(user);
         order.setReceiveDate(LocalDate.now());
-        List<Order> orders = List.of(order);
+        List<OrderEntity> orders = List.of(order);
         Mockito.when(mockOrderRepository.getByDate(LocalDate.parse("01-03-2021", formatter))).thenReturn(orders);
         List<OrderViewModel> actual = orderService.getByDate("01-03-2021");
         assertEquals(order.getClient().getClientName(), actual.get(0).getClientName());
@@ -401,9 +393,9 @@ class OrderServiceTest {
     }
     @Test
     void getByBrandNameWithValidBrandName() {
-        List<Model> models = new ArrayList<>();
-        Model model = new Model();
-        Brand brand = new Brand("Apple");
+        List<ModelEntity> models = new ArrayList<>();
+        ModelEntity model = new ModelEntity();
+        BrandEntity brand = new BrandEntity("Apple");
         model.setBrand(brand);
         model.setModelName("Iphone 6s");
         models.add(model);

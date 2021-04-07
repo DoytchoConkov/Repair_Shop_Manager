@@ -4,14 +4,14 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "models")
-public class Model extends BaseEntity{
-    private Brand brand;
+public class ModelEntity extends BaseEntity{
+    private BrandEntity brand;
     private String modelName;
 
-    public Model() {
+    public ModelEntity() {
     }
 
-    public Model(String modelName, Brand brand) {
+    public ModelEntity(String modelName, BrandEntity brand) {
         this.modelName = modelName;
         this.brand = brand;
     }
@@ -26,11 +26,11 @@ public class Model extends BaseEntity{
     }
 
     @ManyToOne
-    public Brand getBrand() {
+    public BrandEntity getBrand() {
         return brand;
     }
 
-    public void setBrand(Brand brand) {
+    public void setBrand(BrandEntity brand) {
         this.brand = brand;
     }
 }

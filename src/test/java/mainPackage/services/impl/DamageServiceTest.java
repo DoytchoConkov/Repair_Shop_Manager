@@ -1,10 +1,9 @@
 package mainPackage.services.impl;
 
-import mainPackage.models.entities.Damage;
+import mainPackage.models.entities.DamageEntity;
 import mainPackage.models.views.DamageViewModel;
 import mainPackage.repositories.DamageRepository;
 import mainPackage.services.DamageService;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -27,16 +26,16 @@ class DamageServiceTest {
 
     @Test
     void getDamage() {
-        Damage damage = new Damage("Broken LCD");
+        DamageEntity damage = new DamageEntity("Broken LCD");
         Mockito.when(mockDamageRepository.findByDamageName("Broken LCD")).thenReturn(damage);
-        Damage receivedBrand = damageService.getDamage("Broken LCD");
+        DamageEntity receivedBrand = damageService.getDamage("Broken LCD");
         assertEquals(damage.getDamageName(), receivedBrand.getDamageName());
     }
 
     @Test
     void getAll() {
-        List<Damage> brands = new ArrayList<>();
-        Damage damage = new Damage("Broken Glass");
+        List<DamageEntity> brands = new ArrayList<>();
+        DamageEntity damage = new DamageEntity("Broken Glass");
         brands.add(damage);
         Mockito.when(mockDamageRepository.findAll()).thenReturn(brands);
         List<DamageViewModel> allBrands = damageService.getAll();

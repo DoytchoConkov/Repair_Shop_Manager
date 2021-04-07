@@ -51,7 +51,7 @@ class AdminControlerTest {
         mockMvc.perform(MockMvcRequestBuilders.get(
                 ADMIN_CONTROLLER_PREFIX + "/set-user-role"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("/extended/add-or-edit-user-role"))
+                .andExpect(view().name("/user/add-or-edit-user-role"))
                 .andExpect(model().attributeExists("userRolesBindingModel"));
     }
 

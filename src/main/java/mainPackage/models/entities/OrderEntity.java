@@ -9,22 +9,22 @@ import java.util.List;
 
 @Entity
 @Table(name = "orders")
-public class Order extends BaseEntity {
-    private Model model;
+public class OrderEntity extends BaseEntity {
+    private ModelEntity model;
     private String serialNumber;
-    private Damage damage;
+    private DamageEntity damage;
     private String note;
     private String clientNote;
-    private Client client;
+    private ClientEntity client;
     private LocalDate receiveDate;
     private String imageUrl;
-    private List<SparePart> spareParts = new ArrayList<>();
+    private List<SparePartEntity> spareParts = new ArrayList<>();
     private BigDecimal totalSparePartsPrice;
     private BigDecimal totalRepairPrice;
     private User user;
     private LocalDate leaveDate;
 
-    public Order() {
+    public OrderEntity() {
     }
 
     @Column(name = "serial_number", nullable = false, length = 20)
@@ -64,11 +64,11 @@ public class Order extends BaseEntity {
     }
 
     @ManyToOne
-    public Damage getDamage() {
+    public DamageEntity getDamage() {
         return damage;
     }
 
-    public void setDamage(Damage damage) {
+    public void setDamage(DamageEntity damage) {
         this.damage = damage;
     }
 
@@ -82,11 +82,11 @@ public class Order extends BaseEntity {
     }
 
     @ManyToMany
-    public List<SparePart> getSpareParts() {
+    public List<SparePartEntity> getSpareParts() {
         return spareParts;
     }
 
-    public void setSpareParts(List<SparePart> spareParts) {
+    public void setSpareParts(List<SparePartEntity> spareParts) {
         this.spareParts = spareParts;
     }
 
@@ -117,20 +117,20 @@ public class Order extends BaseEntity {
     }
 
     @ManyToOne
-    public Client getClient() {
+    public ClientEntity getClient() {
         return client;
     }
 
-    public void setClient(Client client) {
+    public void setClient(ClientEntity client) {
         this.client = client;
     }
 
     @ManyToOne
-    public Model getModel() {
+    public ModelEntity getModel() {
         return model;
     }
 
-    public void setModel(Model model) {
+    public void setModel(ModelEntity model) {
         this.model = model;
     }
 

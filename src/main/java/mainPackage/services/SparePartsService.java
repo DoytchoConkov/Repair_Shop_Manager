@@ -1,7 +1,7 @@
 package mainPackage.services;
 
 import mainPackage.models.bindings.SparePartBindingModel;
-import mainPackage.models.entities.SparePart;
+import mainPackage.models.entities.SparePartEntity;
 import mainPackage.models.services.SparePartServiceModel;
 import mainPackage.models.views.SparePartViewModel;
 
@@ -17,7 +17,7 @@ public interface SparePartsService {
 
     void deleteSparePart(Long id);
 
-    SparePart findById(Long id);
+    SparePartEntity findById(Long id);
 
     List<SparePartViewModel> getSparePartsByBrandNameAndModel(String brandName, String modelName);
 
@@ -33,7 +33,7 @@ public interface SparePartsService {
 
     SparePartViewModel getByBrandModelName(String brandName, String modelName, String spName);
 
-    void reduceSpareParts(List<SparePart> sparePartsList);
+    void reduceSpareParts(List<SparePartEntity> sparePartsList);
 
     List<String> getSparePartsByBrandName(String brandName);
 }

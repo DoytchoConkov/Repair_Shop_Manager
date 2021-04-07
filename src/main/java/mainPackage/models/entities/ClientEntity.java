@@ -8,14 +8,14 @@ import java.util.List;
 
 @Entity
 @Table(name = "clients")
-public class Client extends BaseEntity {
+public class ClientEntity extends BaseEntity {
     private String clientName;
     private String clientEmail;
     private String clientPhoneNumber;
     private String clientNote;
-    private List<Order> orders;
+    private List<OrderEntity> orders;
 
-    public Client() {
+    public ClientEntity() {
     }
 
     @Column(name = "full_name", length = 40)
@@ -55,11 +55,11 @@ public class Client extends BaseEntity {
     }
 
     @OneToMany(mappedBy = "client")
-    public List<Order> getOrders() {
+    public List<OrderEntity> getOrders() {
         return orders;
     }
 
-    public void setOrders(List<Order> order) {
+    public void setOrders(List<OrderEntity> order) {
         this.orders = order;
     }
 }

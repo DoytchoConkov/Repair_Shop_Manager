@@ -1,6 +1,6 @@
 package mainPackage.services.impl;
 
-import mainPackage.models.entities.Client;
+import mainPackage.models.entities.ClientEntity;
 import mainPackage.models.services.ClientServiceModel;
 import mainPackage.models.views.ClientViewModel;
 import mainPackage.repositories.ClientRepository;
@@ -22,11 +22,11 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Client findByNameAndPhoneNumber(ClientServiceModel clientServiceModel) {
-        Client client = clientRepository.findByClientNameAndClientPhoneNumber(clientServiceModel.getClientName(),
+    public ClientEntity findByNameAndPhoneNumber(ClientServiceModel clientServiceModel) {
+        ClientEntity client = clientRepository.findByClientNameAndClientPhoneNumber(clientServiceModel.getClientName(),
                 clientServiceModel.getClientPhoneNumber());
         if (client == null) {
-            client = modelMapper.map(clientServiceModel, Client.class);
+            client = modelMapper.map(clientServiceModel, ClientEntity.class);
             client = clientRepository.save(client);
         }
         return client;
@@ -39,7 +39,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public List<ClientViewModel> findByNameOrPhoneNumber(String clientName) {
-        List<Client> clients = clientRepository.findByClientNameOrPhoneNumber("%"+clientName+"%");
+        List<ClientEntity> clients = clientRepository.findByClientNameOrPhoneNumber("%"+clientName+"%");
         return clients.stream().map(cl -> modelMapper.map(cl, ClientViewModel.class)).collect(Collectors.toList());
     }
     @Override

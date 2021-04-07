@@ -2,13 +2,12 @@ package mainPackage.services.impl;
 
 import mainPackage.errors.SparePartIdNotFoundException;
 import mainPackage.models.bindings.SparePartBindingModel;
-import mainPackage.models.entities.Model;
-import mainPackage.models.entities.SparePart;
+import mainPackage.models.entities.ModelEntity;
+import mainPackage.models.entities.SparePartEntity;
 import mainPackage.models.services.SparePartServiceModel;
 import mainPackage.models.views.SparePartViewModel;
 import mainPackage.repositories.SparePartsRepository;
 import mainPackage.services.ModelService;
-import mainPackage.services.OrderService;
 import mainPackage.services.SparePartsService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -41,11 +40,11 @@ public class SparePartsServiceImpl implements SparePartsService {
 
     @Override
     public void save(SparePartServiceModel sparePart) {
-        Model model = modelService.getModel(sparePart.getBrand(), sparePart.getModel());
-        SparePart sparePartEntity = sparePartsRepository.findBySparePartNameAndModel(sparePart.getSparePartName(),
+        ModelEntity model = modelService.getModel(sparePart.getBrand(), sparePart.getModel());
+        SparePartEntity sparePartEntity = sparePartsRepository.findBySparePartNameAndModel(sparePart.getSparePartName(),
                 model).orElse(null);
         if (sparePartEntity == null) {
-            sparePartEntity = new SparePart(model, sparePart.getSparePartName());
+            sparePartEntity = new SparePartEntity(model, sparePart.getSparePartName());
         }
         sparePartEntity.setModel(model);
         int totalPieces = sparePart.getPieces() + sparePartEntity.getPieces();
@@ -58,7 +57,7 @@ public class SparePartsServiceImpl implements SparePartsService {
 
     @Override
     public List<SparePartViewModel> getByBrandAndModel(String brandName, String modelName) {
-        List<SparePart> spareParts = sparePartsRepository.findByBrandAndModel(brandName, modelName);
+        List<SparePartEntity> spareParts = sparePartsRepository.findByBrandAndModel(brandName, modelName);
         return spareParts.stream().map(sp -> modelMapper.map(sp, SparePartViewModel.class)).collect(Collectors.toList());
     }
 
@@ -68,7 +67,7 @@ public class SparePartsServiceImpl implements SparePartsService {
     }
 
     @Override
-    public SparePart findById(Long id) {
+    public SparePartEntity findById(Long id) {
         return sparePartsRepository.findById(id).orElseThrow(() -> new SparePartIdNotFoundException(String.format("No spare part with id:%d", id)));
     }
 
@@ -90,7 +89,7 @@ public class SparePartsServiceImpl implements SparePartsService {
 
     @Override
     public SparePartViewModel getSparePartById(Long id) {
-        SparePart sparePart = sparePartsRepository.findById(id).orElseThrow();
+        SparePartEntity sparePart = sparePartsRepository.findById(id).orElseThrow();
         SparePartViewModel sparePartViewModel = modelMapper.map(sparePart, SparePartViewModel.class);
         sparePartViewModel.setBrand(sparePart.getModel().getBrand().getBrandName());
         return sparePartViewModel;
@@ -98,7 +97,7 @@ public class SparePartsServiceImpl implements SparePartsService {
 
     @Override
     public void edit(Long id, SparePartBindingModel sparePartBindingModel) {
-        SparePart sparePart = sparePartsRepository.findById(id).orElseThrow(() -> new SparePartIdNotFoundException(String.format("No spare part with id:%d", id)));
+        SparePartEntity sparePart = sparePartsRepository.findById(id).orElseThrow(() -> new SparePartIdNotFoundException(String.format("No spare part with id:%d", id)));
         sparePart.setPieces(sparePartBindingModel.getPieces());
         sparePart.setPrice(sparePartBindingModel.getPrice());
         sparePartsRepository.save(sparePart);
@@ -106,7 +105,7 @@ public class SparePartsServiceImpl implements SparePartsService {
 
     @Override
     public void update(Long id, int i) {
-        SparePart sparePart = sparePartsRepository.findById(id).orElseThrow(() -> new SparePartIdNotFoundException(String.format("No spare part with id:%d", id)));
+        SparePartEntity sparePart = sparePartsRepository.findById(id).orElseThrow(() -> new SparePartIdNotFoundException(String.format("No spare part with id:%d", id)));
         sparePart.setPieces(i);
         sparePartsRepository.save(sparePart);
     }
@@ -118,14 +117,14 @@ public class SparePartsServiceImpl implements SparePartsService {
 
     @Override
     public SparePartViewModel getByBrandModelName(String brandName, String modelName, String spName) {
-        SparePart sparePart = sparePartsRepository.getByBrandModelName(brandName, modelName, spName);
+        SparePartEntity sparePart = sparePartsRepository.getByBrandModelName(brandName, modelName, spName);
         SparePartViewModel sparePartViewModel = modelMapper.map(sparePart, SparePartViewModel.class);
         sparePartViewModel.setBrand(sparePart.getModel().getBrand().getBrandName());
         return sparePartViewModel;
     }
 
     @Override
-    public void reduceSpareParts(List<SparePart> sparePartsList) {
+    public void reduceSpareParts(List<SparePartEntity> sparePartsList) {
         sparePartsList.forEach(sp -> {
             sp.setPieces(sp.getPieces() - 1);
             sparePartsRepository.save(sp);

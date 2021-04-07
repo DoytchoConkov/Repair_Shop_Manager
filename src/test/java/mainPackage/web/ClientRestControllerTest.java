@@ -1,6 +1,6 @@
 package mainPackage.web;
 
-import mainPackage.models.entities.Client;
+import mainPackage.models.entities.ClientEntity;
 import mainPackage.models.entities.RoleName;
 import mainPackage.models.entities.User;
 import mainPackage.models.entities.UserRole;
@@ -72,7 +72,7 @@ class ClientRestControllerTest {
     }
 
     private void init() {
-        Client client = new Client();
+        ClientEntity client = new ClientEntity();
         client.setClientName("Ivailo Boukliev");
         client.setClientPhoneNumber("0888666646");
         clientRepository.save(client);

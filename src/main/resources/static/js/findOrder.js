@@ -27,7 +27,6 @@ input.keyup(() => {
                     let i = 1;
                     or.forEach((o) => {
                         let row = `<tr>
-                                     <th scope="row">${i++}</th>
                                      <td>${o.brandName}</td>
                                      <td>${o.model}</td>
                                      <td>${o.serialNumber}</td>
