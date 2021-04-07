@@ -1,6 +1,7 @@
 package mainPackage.web;
 
 import mainPackage.models.views.SparePartViewModel;
+import mainPackage.services.ModelService;
 import mainPackage.services.SparePartsService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;

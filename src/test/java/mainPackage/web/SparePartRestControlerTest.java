@@ -13,6 +13,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -35,6 +36,10 @@ class SparePartRestControlerTest {
     private BrandRepository brandRepository;
     @Autowired
     private ModelRepository modelRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private UserRoleRepository userRoleRepository;
 
     @BeforeEach
     public void setup() {
@@ -46,6 +51,7 @@ class SparePartRestControlerTest {
         sparePartsRepository.deleteAll();
         modelRepository.deleteAll();
         brandRepository.deleteAll();
+        userRepository.deleteAll();
     }
 
     @Test
@@ -108,6 +114,14 @@ class SparePartRestControlerTest {
     }
 
     private void init() {
+        User user = new User();
+        user.setUsername("Doytcho");
+        user.setPassword("$2a$10$Dr9P8sptTPVfPyE0ynbXJOd9BYAwMCPL3l.NIe29F4LnNyZhi0lSu");
+        UserRole userRole = userRoleRepository.findByRole(RoleName.BACK_OFFICE).orElseThrow();
+        UserRole userRole2 = userRoleRepository.findByRole(RoleName.FRONT_OFFICE).orElseThrow();
+        UserRole userRole3 = userRoleRepository.findByRole(RoleName.SENIOR).orElseThrow();
+        user.setRoles(Set.of(userRole, userRole2, userRole3));
+        user = userRepository.save(user);
         BrandEntity brand = new BrandEntity("Pocophone");
         brand = brandRepository.save(brand);
         ModelEntity model = new ModelEntity("F1", brand);

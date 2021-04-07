@@ -106,7 +106,7 @@ class OrderRestControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "Doytcho", roles = {"BACK_OFFICE"})
+    @WithMockUser(username = "Vasko", roles = {"BACK_OFFICE"})
     void getAllModelsForBrandREST() throws Exception {
         this.mockMvc.perform(get(ORDER_REST_CONTROLLER_PREFIX + "/models")
                 .param("brandName", "Samsung"))
