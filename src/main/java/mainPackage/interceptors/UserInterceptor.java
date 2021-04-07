@@ -22,20 +22,18 @@ public class UserInterceptor implements HandlerInterceptor {
     }
 
     @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
         if (modelAndView == null) {
             modelAndView = new ModelAndView();
-        } else {
-            modelAndView.addObject("haveOnlyUser", false);
-            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            if (!"anonymousUser".equals(principal)) {
-                String username = ((UserDetails) principal).getUsername();
-                Set<UserRole> roles = userService.getUserByUserName(username).getRoles();
-                if (roles.size() == 0 || (roles.size() == 1 && roles.contains(RoleName.USER))) {
-                    modelAndView.addObject("haveOnlyUser", true);
-                }
+        }
+        modelAndView.addObject("haveOnlyUser", false);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (!"anonymousUser".equals(principal)) {
+            String username = ((UserDetails) principal).getUsername();
+            Set<UserRole> roles = userService.getUserByUserName(username).getRoles();
+            if (roles.size() == 0 || (roles.size() == 1 && roles.contains(RoleName.USER))) {
+                modelAndView.addObject("haveOnlyUser", true);
             }
         }
-
     }
 }

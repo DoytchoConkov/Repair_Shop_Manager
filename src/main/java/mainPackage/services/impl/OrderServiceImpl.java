@@ -109,7 +109,7 @@ public class OrderServiceImpl implements OrderService {
         }).collect(Collectors.toList());
 
     }
-    
+
     @Override
     public void fix(OrderFixServiceModel orderServiceModel) throws IOException {
         OrderEntity order = orderRepository.findById(orderServiceModel.getId())
@@ -119,7 +119,7 @@ public class OrderServiceImpl implements OrderService {
         if (spareParts != null) {
             spareParts.remove(0L);
             if (!spareParts.isEmpty()) {
-                sparePartsList = spareParts.stream().map(sp -> sparePartsService.findById(sp)).collect(Collectors.toList());
+                sparePartsList = spareParts.stream().map(sparePartsService::findById).collect(Collectors.toList());
                 sparePartsService.reduceSpareParts(sparePartsList);
             }
         }
@@ -201,14 +201,12 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<OrderViewModel> getByDate(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        DateTimeFormatter formatterToString = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         List<OrderEntity> orders = orderRepository.getByDate(LocalDate.parse(date, formatter));
-        List<OrderViewModel> ordersView = orders.stream().map(o -> {
+        return orders.stream().map(o -> {
             OrderViewModel order = modelMapper.map(o, OrderViewModel.class);
             order.setBrandName(o.getModel().getBrand().getBrandName());
             return order;
         }).collect(Collectors.toList());
-        return ordersView;
     }
 
     @Override
@@ -236,7 +234,7 @@ public class OrderServiceImpl implements OrderService {
                 .map(ord -> {
                     OrderViewModel orderViewModel = modelMapper.map(ord, OrderViewModel.class);
                     orderViewModel.setBrandName(ord.getModel().getBrand().getBrandName());
-                    DateTimeFormatter formatterToString = DateTimeFormatter.ofPattern("dd-MM-YYYY");
+                    DateTimeFormatter formatterToString = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                     if (ord.getLeaveDate() != null) {
                         orderViewModel.setLeaveDate(ord.getLeaveDate().format(formatterToString));
                     } else {

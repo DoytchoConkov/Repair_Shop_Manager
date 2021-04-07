@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface ClientRepository extends JpaRepository<ClientEntity, Long> {
-    @Query("select c from ClientEntity  as c order by c.clientName , c.clientPhoneNumber")
+    @Query("select c from ClientEntity as c order by c.clientName , c.clientPhoneNumber")
     List<ClientEntity> findAll();
 
     ClientEntity findByClientNameAndClientPhoneNumber(String name, String phoneNumber);

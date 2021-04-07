@@ -5,5 +5,5 @@ public enum RoleName {
     FRONT_OFFICE,
     BACK_OFFICE,
     USER,
-    SENIOR;
+    SENIOR
 }

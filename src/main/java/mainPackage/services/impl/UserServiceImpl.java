@@ -9,7 +9,6 @@ import mainPackage.models.services.UserServiceModel;
 import mainPackage.models.views.UserViewModel;
 import mainPackage.repositories.UserRepository;
 import mainPackage.repositories.UserRoleRepository;
-import mainPackage.services.CloudinaryService;
 import mainPackage.services.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,21 +30,19 @@ public class UserServiceImpl implements UserService {
     private final ModelMapper modelMapper;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final UserServiceDB userServiceDB;
-    private final CloudinaryService cloudinaryService;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository, UserRoleRepository userRoleRepository, ModelMapper modelMapper,
-                           BCryptPasswordEncoder bCryptPasswordEncoder, UserServiceDB userServiceDB, CloudinaryService cloudinaryService) {
+                           BCryptPasswordEncoder bCryptPasswordEncoder, UserServiceDB userServiceDB) {
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
         this.modelMapper = modelMapper;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.userServiceDB = userServiceDB;
-        this.cloudinaryService = cloudinaryService;
     }
 
     @Override
-    public void registerUserAndLogin(UserServiceModel userServiceModel) throws IOException {
+    public void registerUserAndLogin(UserServiceModel userServiceModel) {
         User user = this.modelMapper.map(userServiceModel, User.class);
         user.setPassword(this.bCryptPasswordEncoder.encode(userServiceModel.getPassword()));
         if (userRepository.count() == 0) {

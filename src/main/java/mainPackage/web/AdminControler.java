@@ -2,7 +2,6 @@ package mainPackage.web;
 
 import mainPackage.models.bindings.UserRolesBindingModel;
 import mainPackage.services.UserService;
-import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,11 +18,9 @@ import javax.validation.Valid;
 @RequestMapping("/admin")
 public class AdminControler {
     private final UserService userService;
-    private final ModelMapper modelMapper;
 
-    public AdminControler(UserService userService, ModelMapper modelMapper) {
+    public AdminControler(UserService userService) {
         this.userService = userService;
-        this.modelMapper = modelMapper;
     }
 
     @GetMapping("/set-user-role")
@@ -41,7 +38,7 @@ public class AdminControler {
     public String addUserRoleConfirm(@Valid UserRolesBindingModel userRolesBindingModel, RedirectAttributes redirectAttributes) {
         if (userRolesBindingModel.getRoles().isEmpty() || userRolesBindingModel.getUsername().isEmpty()) {
             redirectAttributes.addFlashAttribute("userRolesBindingModel", userRolesBindingModel);
-            redirectAttributes.addFlashAttribute("incorect", true);
+            redirectAttributes.addFlashAttribute("incorrect", true);
             return "redirect:/admin/set-user-role";
         }
         String username = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();

@@ -18,14 +18,13 @@ public class OrdersInterceptor implements HandlerInterceptor {
     }
 
     @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView){
         int notReadyOrders = orderService.countNotReadyOrders();
         int readyOrders = orderService.countReadyOrders();
         if (modelAndView == null) {
             modelAndView = new ModelAndView();
-        } else {
+        }
             modelAndView.addObject("notReadyOrders", notReadyOrders);
             modelAndView.addObject("readyOrders", readyOrders);
-        }
     }
 }

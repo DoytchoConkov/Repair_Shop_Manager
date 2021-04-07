@@ -112,7 +112,7 @@ public class SparePartsServiceImpl implements SparePartsService {
 
     @Override
     public BigDecimal getTotalSparePartPrice(String[] sparePartsId) {
-        return sparePartsRepository.getTotalPrice(Arrays.stream(sparePartsId).map(s -> Long.valueOf(s)).toArray(Long[]::new));
+        return sparePartsRepository.getTotalPrice(Arrays.stream(sparePartsId).map(Long::valueOf).toArray(Long[]::new));
     }
 
     @Override

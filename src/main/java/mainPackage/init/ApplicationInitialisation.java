@@ -15,7 +15,7 @@ public class ApplicationInitialisation implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         if (userRoleRepository.count() == 0) {
             for (RoleName r : RoleName.values()) {
                 UserRole userRole = new UserRole(r);
