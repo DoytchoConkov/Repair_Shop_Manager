@@ -109,8 +109,7 @@ public class OrderServiceImpl implements OrderService {
         }).collect(Collectors.toList());
 
     }
-
-    //TODO
+    
     @Override
     public void fix(OrderFixServiceModel orderServiceModel) throws IOException {
         OrderEntity order = orderRepository.findById(orderServiceModel.getId())
