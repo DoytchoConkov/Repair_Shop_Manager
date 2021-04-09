@@ -3,6 +3,8 @@ package mainPackage.models.views;
 public class ClientViewModel {
     private Long id;
     private String clientName;
+    private String clientEmail;
+    private String clientNote;
     private String clientPhoneNumber;
 
     public ClientViewModel() {
@@ -22,6 +24,22 @@ public class ClientViewModel {
 
     public void setClientName(String clientName) {
         this.clientName = clientName;
+    }
+
+    public String getClientEmail() {
+        return clientEmail;
+    }
+
+    public void setClientEmail(String clientEmail) {
+        this.clientEmail = clientEmail;
+    }
+
+    public String getClientNote() {
+        return clientNote;
+    }
+
+    public void setClientNote(String clientNote) {
+        this.clientNote = clientNote;
     }
 
     public String getClientPhoneNumber() {

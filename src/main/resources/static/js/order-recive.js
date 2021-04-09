@@ -16,7 +16,7 @@ autocomplete(document.getElementById("clientPhoneNumber"))
 
 function autocomplete(inp) {
     let currentFocus;
-    fetch('http://localhost:8080/client/all')
+    fetch('http://localhost:8080/client/allPhones')
         .then((response) => response.json())
         .then((arr) => {
             inp.addEventListener("input", function (e) {
@@ -38,29 +38,16 @@ function autocomplete(inp) {
                         b.innerHTML += "<input type='hidden' value='" + arr[i].id + "'>";
                         b.addEventListener("click", function (e) {
                             inp.value = this.getElementsByTagName("p")[0].innerText;
-                            fetch('http://localhost:8080/orders/find-clientById?clientId=' + this.getElementsByTagName("input")[5].value)
+                            fetch('http://localhost:8080/client/find-clientById?clientId=' + this.getElementsByTagName("input")[0].value)
                                 .then((response) => response.json())
                                 .then((or) => {
-                                   //  tableBody.empty();
-                                   //  table[0].style.display = "block";
-                                   //  let i = 1;
-                                   //  or.forEach((o) => {
-                                   //      let row = `<tr>
-                                   //   <td>${o.brandName}</td>
-                                   //   <td>${o.model}</td>
-                                   //   <td>${o.serialNumber}</td>
-                                   //   <td>${o.damage}</td>
-                                   //   <td>${o.receiveDate}</td>
-                                   //   <td>${o.leaveDate}</td>
-                                   //   <td>${o.totalRepairPrice}</td>
-                                   // </tr>`;
-                                   //      tableBody.append(row);
-                                   //  })
+                                    $('#clientEmail')[0].value = or.clientEmail;
+                                    $('#clientName')[0].value = or.clientName;
+                                    $('#clientNote')[0].value = or.clientNote;
                                 })
                             closeAllLists();
                         });
                         if(cnt>0&&cnt<=5){
-                            tooMany[0].style.display = "none";
                             a.appendChild(b);
                             document.getElementById("clientPhoneNumber").parentElement.appendChild(a);
                         }

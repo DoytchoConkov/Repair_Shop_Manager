@@ -3,6 +3,7 @@ package mainPackage.services.impl;
 import mainPackage.models.entities.ClientEntity;
 import mainPackage.models.services.ClientServiceModel;
 import mainPackage.models.views.ClientViewModel;
+import mainPackage.models.views.OrderViewModel;
 import mainPackage.repositories.ClientRepository;
 import mainPackage.services.ClientService;
 import org.modelmapper.ModelMapper;
@@ -45,5 +46,15 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public List<ClientViewModel> getAll() {
         return clientRepository.findAll().stream().map(cl->modelMapper.map(cl,ClientViewModel.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ClientViewModel> getAllPhoneNumbers() {
+        return clientRepository.findAllPhoneNumbers().stream().map(cl->modelMapper.map(cl,ClientViewModel.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public ClientViewModel findClientByClientId(Long id) {
+        return modelMapper.map(clientRepository.getClientById(id),ClientViewModel.class);
     }
 }

@@ -1,6 +1,7 @@
 package mainPackage.web;
 
 import mainPackage.models.views.ClientViewModel;
+import mainPackage.models.views.OrderViewModel;
 import mainPackage.services.ClientService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,5 +31,17 @@ public class ClientRestController {
     @PreAuthorize("hasRole('ROLE_FRONT_OFFICE')")
     public List<ClientViewModel> getAll() {
         return clientService.getAll();
+    }
+
+    @GetMapping("/allPhones")
+    @PreAuthorize("hasRole('ROLE_FRONT_OFFICE')")
+    public List<ClientViewModel> getAllPhones() {
+        return clientService.getAllPhoneNumbers();
+    }
+
+    @GetMapping("/find-clientById")
+    @PreAuthorize("hasRole('ROLE_FRONT_OFFICE')")
+    public ClientViewModel getAllByClientId(@RequestParam String clientId) {
+        return clientService.findClientByClientId(Long.valueOf(clientId));
     }
 }
