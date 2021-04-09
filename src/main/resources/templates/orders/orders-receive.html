@@ -60,15 +60,7 @@
             <div class="form-group">
                 <label class="text-white font-weight-bold" for="note">Order Note</label>
                 <input th:field="*{note}" id="note" name="note" type="textarea"
-                       class="form-control" rows="3" placeholder="Note"></input>
-            </div>
-            <div class="form-group ">
-                <label class="text-white font-weight-bold" for="clientName">Full Name</label>
-                <input th:field="*{clientName}" th:errorclass="bg-danger" id="clientName" type="text"
-                       class="form-control"
-                       placeholder="Client Full Name" required minlength="3" maxlength="20">
-                <small th:each="e : ${#fields.errors('clientName')}" th:text="${e}" id="clientNameError"
-                       class="text-light form-text bg-danger rounded"></small>
+                       class="form-control" rows="3" placeholder="Note">
             </div>
             <div class="row">
                 <div class="form-group col-md-6 mb-3">
@@ -86,6 +78,14 @@
                     <small th:each="e : ${#fields.errors('clientEmail')}" th:text="${e}" id="clientEmailError"
                            class="text-light form-text bg-danger rounded"></small>
                 </div>
+            </div>
+            <div class="form-group ">
+                <label class="text-white font-weight-bold" for="clientName">Full Name</label>
+                <input th:field="*{clientName}" th:errorclass="bg-danger" id="clientName" type="text"
+                       class="form-control"
+                       placeholder="Client Full Name" required minlength="3" maxlength="20">
+                <small th:each="e : ${#fields.errors('clientName')}" th:text="${e}" id="clientNameError"
+                       class="text-light form-text bg-danger rounded"></small>
             </div>
             <div class="form-group">
                 <label class="text-white font-weight-bold" for="clientNote">Client Note</label>

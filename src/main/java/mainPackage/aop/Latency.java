@@ -13,13 +13,7 @@ import java.time.format.DateTimeFormatter;
 
 @Aspect
 @Component
-public class SLOFixOrder {
-
-    private final SLOsConfig configs;
-
-    public SLOFixOrder(SLOsConfig configs) {
-        this.configs = configs;
-    }
+public class Latency {
 
     @Around(value = "@annotation(TrackLatency)")
     public Object trackLatency(ProceedingJoinPoint pjp, TrackLatency TrackLatency) throws Throwable {
