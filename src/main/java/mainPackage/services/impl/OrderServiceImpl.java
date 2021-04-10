@@ -84,9 +84,9 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderNotReadyViewModel getById(Long id) {
         OrderEntity order = orderRepository.findById(id).orElseThrow(() -> new OrderIdNotFoundException(String.format("No order with this %d", id)));
-        OrderNotReadyViewModel OrderNotReadyViewModel = modelMapper.map(order, OrderNotReadyViewModel.class);
-        OrderNotReadyViewModel.setBrand(order.getModel().getBrand().getBrandName());
-        return OrderNotReadyViewModel;
+        OrderNotReadyViewModel orderNotReadyViewModel = modelMapper.map(order, OrderNotReadyViewModel.class);
+        orderNotReadyViewModel.setBrand(order.getModel().getBrand().getBrandName());
+        return orderNotReadyViewModel;
     }
 
     @Override

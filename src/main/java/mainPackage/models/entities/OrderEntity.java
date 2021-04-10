@@ -14,7 +14,6 @@ public class OrderEntity extends BaseEntity {
     private String serialNumber;
     private DamageEntity damage;
     private String note;
-    private String clientNote;
     private ClientEntity client;
     private LocalDate receiveDate;
     private String imageUrl;
@@ -36,7 +35,7 @@ public class OrderEntity extends BaseEntity {
         this.serialNumber = serialNumber;
     }
 
-    @Column(name = "notes")
+    @Column(name = "note")
     public String getNote() {
         return note;
     }
@@ -90,14 +89,6 @@ public class OrderEntity extends BaseEntity {
         this.spareParts = spareParts;
     }
 
-    @Column(name = "client_notes")
-    public String getClientNote() {
-        return clientNote;
-    }
-
-    public void setClientNote(String clientNote) {
-        this.clientNote = clientNote;
-    }
     @Column(name = "total_spare_parts_price")
     public BigDecimal getTotalSparePartsPrice() {
         return totalSparePartsPrice;

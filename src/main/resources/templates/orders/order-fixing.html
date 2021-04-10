@@ -29,9 +29,6 @@
                     <label class="text-white float-left" th:text="|Damage: *{damage}|"></label>
                 </div>
                 <div class=" form-group">
-                    <label class="text-white float-left" th:text="*{note} ?: ''"></label>
-                </div>
-                <div class=" form-group">
                     <label class="text-white float-left" th:text="|Client name: *{clientName}|"><br></label>
                 </div>
                 <div class=" form-group">
@@ -54,7 +51,7 @@
 
                 <div class="form-group">
                     <label class="text-white " for="sparePartPrice">Order Note</label>
-                    <input id="note" name="note" type="text" class="form-control" th:placeholder="|*{note}|">
+                    <input id="note" name="note" type="text" class="form-control" th:value="|*{note}|">
                 </div>
 
                 <div class="form-group">

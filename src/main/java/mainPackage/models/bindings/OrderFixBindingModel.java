@@ -17,6 +17,7 @@ public class OrderFixBindingModel {
     @DecimalMin(value = "0", message = "Price must be positive")
     private BigDecimal totalPrice;
     private String note;
+    private String clientNote;
 
     public OrderFixBindingModel() {
     }
@@ -69,4 +70,11 @@ public class OrderFixBindingModel {
         this.note = note;
     }
 
+    public String getClientNote() {
+        return clientNote;
+    }
+
+    public void setClientNote(String clientNote) {
+        this.clientNote = clientNote;
+    }
 }
