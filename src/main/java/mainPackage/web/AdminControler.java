@@ -36,7 +36,7 @@ public class AdminControler {
     @PostMapping("/set-user-role")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String addUserRoleConfirm(@Valid UserRolesBindingModel userRolesBindingModel, RedirectAttributes redirectAttributes) {
-        if (userRolesBindingModel.getRoles().isEmpty() || userRolesBindingModel.getUsername().isEmpty()) {
+        if (userRolesBindingModel.getUsername().isEmpty()) {
             redirectAttributes.addFlashAttribute("userRolesBindingModel", userRolesBindingModel);
             redirectAttributes.addFlashAttribute("incorrect", true);
             return "redirect:/admin/set-user-role";

@@ -69,7 +69,7 @@ public class BackOfficeController {
                 redirectAttributes.addFlashAttribute("totalPriceError", true);
             }
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.orderFixBindingModel", bindingResult);
-            return String.format("redirect:/back-office/fix/{%d}", id);
+            return String.format("redirect:/back-office/fix/%d", id);
         }
         OrderFixServiceModel orderFixServiceModel = modelMapper.map(orderFixBindingModel, OrderFixServiceModel.class);
         orderFixServiceModel.setId(id);

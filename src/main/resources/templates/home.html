@@ -21,9 +21,9 @@
         <h1 class="text-center text-white">Welcome to RepairShopManager !</h1>
     </div>
 </main>
-<h6 th:unless="${haveOnlyUser}" class="text-center text-white bottom-nav"
-    th:text="|Not ready orders: ${notReadyOrders} . Ready orders: ${readyOrders}|"></h6>
-<h6 class="text-center text-white bottom-nav" th:if="${haveOnlyUser}">Contact to Admin or Senior to set you a role!!!</h6>
+<h5 th:unless="${haveOnlyUser}" class="text-center text-white bottom-nav"
+    th:text="|Not ready orders: ${notReadyOrders} . Ready orders: ${readyOrders}|"></h5>
+<h5 class="text-center text-white bottom-nav" th:if="${haveOnlyUser}">Contact to Admin or Senior to set you a role!!!</h5>
 <th:block th:include="~{fragments/footer}"></th:block>
 </body>
 </html>

@@ -32,14 +32,15 @@
                 <div class="form-group">
                     <img th:if="*{imageUrl}" th:src="*{imageUrl}" height="190" id="image" class="thumbnail zoom">
                 </div>
-
                 <div class=" form-group">
-                    <label class="text-white float-left" th:text="*{note} ?: ''"></label>
+                    <label class="text-white float-left" th:text="|Note: *{note}|"><br></label>
                 </div>
                 <div class=" form-group">
                     <label class="text-white float-left" th:text="|Client name: *{clientName}|"><br></label>
                 </div>
-
+                <div class=" form-group">
+                    <label class="text-white float-left" th:text="|Client note: *{clientNote}|"><br></label>
+                </div>
                 <div class="button-holder d-flex">
                     <button type="submit" class="btn btn-info btn-sm">Pay Now</button>
                 </div>

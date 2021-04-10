@@ -31,7 +31,7 @@ public class UserInterceptor implements HandlerInterceptor {
         if (!"anonymousUser".equals(principal)) {
             String username = ((UserDetails) principal).getUsername();
             Set<UserRole> roles = userService.getUserByUserName(username).getRoles();
-            if (roles.size() == 0 || (roles.size() == 1 && roles.contains(RoleName.USER))) {
+            if (roles.size() == 0) {
                 modelAndView.addObject("haveOnlyUser", true);
             }
         }
