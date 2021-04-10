@@ -52,6 +52,5 @@ class UserServiceDBTest {
                 map(GrantedAuthority::getAuthority).
                 collect(Collectors.toList());
         Assertions.assertTrue(authorities.contains("ROLE_ADMIN"));
-        Assertions.assertTrue(authorities.contains("ROLE_USER"));
     }
 }

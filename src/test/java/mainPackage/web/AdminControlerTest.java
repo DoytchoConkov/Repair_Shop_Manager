@@ -67,7 +67,6 @@ class AdminControlerTest {
         mockMvc.perform(MockMvcRequestBuilders.post(ADMIN_CONTROLLER_PREFIX + "/set-user-role")
                 .param("username", "Valio")
                         .param("roles", "ADMIN")
-                        .param("roles", "USER")
                         .param("roles", "SENIOR")
                         .with(csrf())).
                 andExpect(status().is2xxSuccessful());
