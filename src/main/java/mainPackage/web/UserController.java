@@ -18,11 +18,11 @@ import java.io.IOException;
 
 @Controller
 @RequestMapping("/users")
-public class UserControler {
+public class UserController {
     private final UserService userService;
     private final ModelMapper modelMapper;
 
-    public UserControler(UserService userService, ModelMapper modelMapper) {
+    public UserController(UserService userService, ModelMapper modelMapper) {
         this.userService = userService;
         this.modelMapper = modelMapper;
     }

@@ -14,10 +14,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/spare-parts")
-public class SparePartRestControler {
+public class SparePartRestController {
     private final SparePartsService sparePartsService;
 
-    public SparePartRestControler(SparePartsService sparePartsService) {
+    public SparePartRestController(SparePartsService sparePartsService) {
         this.sparePartsService = sparePartsService;
     }
 
