@@ -40,8 +40,9 @@ class AdminControlerTest {
     public void setup() {
         this.init();
     }
+
     @AfterEach
-    public void clear(){
+    public void clear() {
         userRepository.deleteAll();
     }
 
@@ -66,10 +67,10 @@ class AdminControlerTest {
         userRepository.save(user);
         mockMvc.perform(MockMvcRequestBuilders.post(ADMIN_CONTROLLER_PREFIX + "/set-user-role")
                 .param("username", "Valio")
-                        .param("roles", "ADMIN")
-                        .param("roles", "SENIOR")
-                        .with(csrf())).
-                andExpect(status().is2xxSuccessful());
+                .param("roles", "ADMIN")
+                .param("roles", "SENIOR")
+                .with(csrf()))
+                .andExpect(status().is2xxSuccessful());
     }
 
     @Test
@@ -85,8 +86,8 @@ class AdminControlerTest {
                 .param("username", "")
                 .param("roles", "USER")
                 .param("roles", "SENIOR")
-                .with(csrf())).
-                andExpect(status().is3xxRedirection());
+                .with(csrf()))
+                .andExpect(status().is3xxRedirection());
     }
 
     private void init() {

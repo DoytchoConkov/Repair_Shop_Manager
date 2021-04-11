@@ -18,6 +18,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Set;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -98,7 +99,8 @@ class BackOfficeControllerTest {
                 BACKOFFICE_CONTROLLER_PREFIX + "/fix/{id}", orderId)
                 .param("totalPrice", "100")
                 .param("sparePartPrice", "0")
-                .param("sparePartIds", ""))
+                .param("sparePartIds", "")
+                .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/back-office/not-fixed"));
     }
@@ -122,7 +124,8 @@ class BackOfficeControllerTest {
                 .param("model", "Mi 9")
                 .param("sparePartName", "Speaker")
                 .param("pieces", "1")
-                .param("price", "5"))
+                .param("price", "5")
+                .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/home"));
     }

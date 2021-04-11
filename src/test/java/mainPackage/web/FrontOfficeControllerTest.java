@@ -17,6 +17,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Set;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -85,7 +86,8 @@ class FrontOfficeControllerTest {
     @WithMockUser(username = "Plamen", roles = {"FRONT_OFFICE"})
     void payOrderNow() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post(
-                FRONT_OFFICE_CONTROLLER_PREFIX + "/pay-order/{id}", orderId))
+                FRONT_OFFICE_CONTROLLER_PREFIX + "/pay-order/{id}", orderId)
+                .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/home"));
     }
@@ -110,7 +112,8 @@ class FrontOfficeControllerTest {
                 .param("model", "S35")
                 .param("damage", "Disassembled")
                 .param("clientName", "Pesho")
-                .param("clientPhoneNumber", "0888123456"))
+                .param("clientPhoneNumber", "0888123456")
+                .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/home"));
     }
